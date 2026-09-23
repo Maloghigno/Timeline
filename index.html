@@ -1,0 +1,188 @@
+<!-- https://developers.google.com/chart/interactive/docs/gallery/timeline -->
+
+<script src="src/lokijs.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+
+  //https://github.com/techfort/LokiJS/wiki/Query-Examples
+  var db = new loki("characters.db");
+  var users = db.addCollection("people");
+
+  users.insert({category:'Main', subcategory:'Dictator', subcategory:'', name:'Adolf Hitler', birthdate: new Date(1889, 4, 20), adulthood: new Date(1908, 12, 21), death: new Date(1945, 4, 30), adulthood_note:'to Wien'});
+  users.insert({category:'Main', subcategory:'Dictator', subcategory:'', name:'Benito Mussolini', birthdate: new Date(1883, 7, 29), adulthood: new Date(1900, 1, 1), death: new Date(1945, 4, 28), adulthood_note:'joins Socialist party'});
+  users.insert({category:'Military', subcategory:'', name:'Pietro Badoglio', birthdate: new Date(1871, 9, 28), adulthood: 0, death: new Date(1956, 11, 1), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Luigi Cadorna', birthdate: new Date(1850, 9, 4), adulthood: 0, death: new Date(1928, 12, 21), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Camillo Benso, conte di Cavour', birthdate: new Date(1810, 8, 10), adulthood: 0, death: new Date(1861, 6, 6), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Giuseppe Garibaldi', birthdate: new Date(1807, 7, 4), adulthood: 0, death: new Date(1882, 6, 2), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Helmut Johann Ludwig von Moltke', birthdate: new Date(1848, 5, 25), adulthood: 0, death: new Date(1916, 6, 18), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Helmuth Karl Bernhard Graf von Moltke', birthdate: new Date(1800, 10, 26), adulthood: 0, death: new Date(1891, 4, 24), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Alfred Graf von Schlieffen', birthdate: new Date(1833, 2, 28), adulthood: 0, death: new Date(1913, 1, 4), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Erich Ludendorff', birthdate: new Date(1865, 4, 9), adulthood: 0, death: new Date(1937, 12, 20), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Erwin Rommel', birthdate: new Date(1891, 11, 15), adulthood: 0, death: new Date(1944, 10, 14), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Hermann Wilhelm Göring', birthdate: new Date(1883, 12, 1), adulthood: 0, death: new Date(1946, 10, 15), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Erich von Falkenhayn', birthdate: new Date(1861, 9, 11), adulthood: 0, death: new Date(1922, 4, 8), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Carlo Thaon di Revel', birthdate: new Date(1725, 2, 28), adulthood: 0, death: new Date(1807, 12, 14), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Horatio Nelson', birthdate: new Date(1758, 9, 29), adulthood: 0, death: new Date(1805, 10, 21), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Charlie Chaplin', birthdate: new Date(1889, 4, 16), adulthood: 0, death: new Date(1977, 12, 25), adulthood_note:''});
+  users.insert({category:'Scientist', subcategory:'', name:'Albert Einstein', birthdate: new Date(1879, 3, 14), adulthood: 0, death: new Date(1955, 4, 18), adulthood_note:''});
+  users.insert({category:'Scientist', subcategory:'', name:'Enrico Fermi', birthdate: new Date(1901, 9, 29), adulthood: 0, death: new Date(1954, 11, 28), adulthood_note:''});
+  users.insert({category:'Scientist', subcategory:'', name:'Thomas Edison', birthdate: new Date(1847, 2, 11), adulthood: 0, death: new Date(1931, 10, 18), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Winston Churchill', birthdate: new Date(1874, 11, 30), adulthood: 0, death: new Date(1965, 1, 24), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Simón Bolívar', birthdate: new Date(1783, 7, 24), adulthood: 0, death: new Date(1839, 12, 17), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Paul von Hindenburg', birthdate: new Date(1847, 10, 2), adulthood: 0, death: new Date(1934, 8, 2), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Otto von Bismarck', birthdate: new Date(1815, 4, 1), adulthood: 0, death: new Date(1898, 7, 30), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Napoleone Bonaparte', birthdate: new Date(1769, 8, 15), adulthood: 0, death: new Date(1821, 5, 5), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Alessandro I di Russia', birthdate: new Date(1777, 12, 23), adulthood: 0, death: new Date(1825, 12, 1), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Caterina II di Russia', birthdate: new Date(1729, 5, 2), adulthood: 0, death: new Date(1796, 11, 17), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Nicola II Romanov', birthdate: new Date(1868, 5, 18), adulthood: 0, death: new Date(1918, 7, 17), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Francesco Giuseppe I d\'Austria', birthdate: new Date(1830, 8, 18), adulthood: 0, death: new Date(1916, 11, 21), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Pablo Picasso', birthdate: new Date(1881 , 10, 25), adulthood: 0, death: new Date(1973, 4, 8), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Henri Matisse', birthdate: new Date(1869 , 12, 31), adulthood: 0, death: new Date(1954, 11, 3), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Claude Monet', birthdate: new Date(1840 , 11, 14), adulthood: 0, death: new Date(1926, 12, 5), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Vincent van Gogh', birthdate: new Date(1853 , 3, 30), adulthood: 0, death: new Date(1890, 7, 29), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Greta Garbo', birthdate: new Date(1905 , 9, 18), adulthood: 0, death: new Date(1990, 4, 15), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Marlene Dietrich', birthdate: new Date(1901 , 12, 27), adulthood: 0, death: new Date(1992, 5, 6), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Maria Callas', birthdate: new Date(1923 , 12, 2), adulthood: 0, death: new Date(1977, 9, 16), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Mahatma Gandhi', birthdate: new Date(1869 , 10, 2), adulthood: 0, death: new Date(1948, 1, 30), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Vladimir Lenin', birthdate: new Date(1870, 4, 22), adulthood: 0, death: new Date(1924, 1, 21), adulthood_note:''});
+  users.insert({category:'Scientist', subcategory:'', name:'Louis Pasteur', birthdate: new Date(1822 , 12, 27), adulthood: 0, death: new Date(1895, 9, 28), adulthood_note:''});
+  users.insert({category:'Scientist', subcategory:'', name:'Friedrich Nietzsche', birthdate: new Date(1844 , 10, 15), adulthood: 0, death: new Date(1900, 8, 25), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Oscar Wilde', birthdate: new Date(1854, 10, 16), adulthood: 0, death: new Date(1900, 11, 30), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Ludwig van Beethoven', birthdate: new Date(1770, 12, 16), adulthood: 0, death: new Date(1827, 3, 26), adulthood_note:''});
+  users.insert({category:'Scientist', subcategory:'', name:'Charles Darwin', birthdate: new Date(1809, 2, 12), adulthood: 0, death: new Date(1882, 4, 19), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Abraham Lincoln', birthdate: new Date(1809 , 2, 12), adulthood: 0, death: new Date(1865, 4, 15), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Vittorio Emanuele II', birthdate: new Date(1820, 3, 14), adulthood: 0, death: new Date(1878, 1, 9), adulthood_note:''});
+  users.insert({category:'Scientist', subcategory:'', name:'Alessandro Volta', birthdate: new Date(1745, 3, 5), adulthood: 0, death: new Date(1827, 3, 5), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Vittoria del Regno Unito', birthdate: new Date(1819, 5, 24), adulthood: 0, death: new Date(1901, 1, 22), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Isabella II di Spagna', birthdate: new Date(1830, 10, 10), adulthood: 0, death: new Date(1904, 4, 9), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Francisco Franco', birthdate: new Date(1892, 12, 4), adulthood: 0, death: new Date(1975, 11, 20), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Federico García Lorca', birthdate: new Date(1898, 6, 5), adulthood: 0, death: new Date(1936, 8, 19), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Salvador Dalí', birthdate: new Date(1904, 5, 11), adulthood: 0, death: new Date(1989, 1, 23), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Thomas Jefferson', birthdate: new Date(1743, 4, 13), adulthood: 0, death: new Date(1826, 7, 4), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Johann Sebastian Bach', birthdate: new Date(1685, 3, 31), adulthood: 0, death: new Date(1750, 7, 28), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'George Frideric Handel', birthdate: new Date(1685, 2, 23), adulthood: 0, death: new Date(1759, 4, 14), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Federico II di Prussia', birthdate: new Date(1712, 1, 24), adulthood: 0, death: new Date(1786, 8, 17), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Luigi XIV di Francia (Il Re Sole)', birthdate: new Date(1638, 9, 5), adulthood: 0, death: new Date(1715, 9, 1), adulthood_note:''});
+  users.insert({category:'Scientist', subcategory:'', name:'Isaac Newton', birthdate: new Date(1643, 1, 4), adulthood: 0, death: new Date(1727, 3, 31), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Eugenio di Savoia', birthdate: new Date(1663, 10, 18), adulthood: 0, death: new Date(1736, 4, 21), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Federico I di Prussia', birthdate: new Date(1657, 7, 11), adulthood: 0, death: new Date(1713, 2, 25), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'John Churchill, I duca di Marlborough', birthdate: new Date(1650, 6, 24), adulthood: 0, death: new Date(1722, 6, 16), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Pietro I di Russia (Pietro il Grande)', birthdate: new Date(1672, 6, 9), adulthood: 0, death: new Date(1725, 2, 8), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Philippe Pétain', birthdate: new Date(1856, 4, 24), adulthood: 0, death: new Date(1951, 9, 2), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Ferdinand Foch', birthdate: new Date(1851, 10, 2), adulthood: 0, death: new Date(1929, 3, 20), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Douglas Haig', birthdate: new Date(1861, 6, 19), adulthood: 0, death: new Date(1928, 1, 29), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'John J. Pershing', birthdate: new Date(1860, 9, 13), adulthood: 0, death: new Date(1948, 7, 15), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Iosif Stalin', birthdate: new Date(1878, 12, 18), adulthood: 0, death: new Date(1953, 3, 5), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Franklin Delano Roosevelt', birthdate: new Date(1882, 1, 30), adulthood: 0, death: new Date(1945, 4, 12), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Antonio Vivaldi', birthdate: new Date(1678, 3, 4), adulthood: 0, death: new Date(1741, 7, 28), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Wolfgang Amadeus Mozart', birthdate: new Date(1756, 1, 27), adulthood: 0, death: new Date(1791, 12, 5), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Franz Joseph Haydn', birthdate: new Date(1732, 3, 31), adulthood: 0, death: new Date(1809, 5, 31), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Pedro II del Brasile', birthdate: new Date(1825, 12, 2), adulthood: 0, death: new Date(1891, 12, 5), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'José de San Martín', birthdate: new Date(1778, 2, 25), adulthood: 0, death: new Date(1850, 8, 17), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Antonio José de Sucre', birthdate: new Date(1795, 2, 4), adulthood: 0, death: new Date(1830, 6, 4), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Imperatore Qianlong', birthdate: new Date(1711, 9, 25), adulthood: 0, death: new Date(1799, 2, 7), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Itō Hirobumi', birthdate: new Date(1841, 10, 16), adulthood: 0, death: new Date(1909, 10, 26), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Carl von Clausewitz', birthdate: new Date(1780, 7, 1), adulthood: 0, death: new Date(1831, 11, 16), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Gebhard Leberecht von Blücher', birthdate: new Date(1742, 12, 16), adulthood: 0, death: new Date(1819, 9, 12), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Arthur Wellesley, I duca di Wellington', birthdate: new Date(1769, 5, 1), adulthood: 0, death: new Date(1852, 9, 14), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Italo Balbo', birthdate: new Date(1896, 6, 6), adulthood: 0, death: new Date(1940, 6, 28), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Alfred von Tirpitz', birthdate: new Date(1849, 3, 19), adulthood: 0, death: new Date(1930, 3, 6), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Gerhard von Scharnhorst', birthdate: new Date(1755, 11, 12), adulthood: 0, death: new Date(1813, 6, 28), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'August Neidhardt von Gneisenau', birthdate: new Date(1760, 10, 27), adulthood: 0, death: new Date(1831, 8, 23), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Ernesto Che Guevara', birthdate: new Date(1928, 6, 14), adulthood: 0, death: new Date(1967, 10, 9), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Giorgio III del Regno Unito', birthdate: new Date(1738, 6, 4), adulthood: 0, death: new Date(1820, 1, 29), adulthood_note:''});
+  users.insert({category:'Scientist', subcategory:'', name:'James Cook', birthdate: new Date(1728, 11, 7), adulthood: 0, death: new Date(1779, 2, 14), adulthood_note:''});
+  users.insert({category:'Scientist', subcategory:'', name:'Benjamin Franklin', birthdate: new Date(1706, 1, 17), adulthood: 0, death: new Date(1790, 4, 17), adulthood_note:''});
+  users.insert({category:'Scientist', subcategory:'', name:'Joseph Montgolfier', birthdate: new Date(1740, 1, 12), adulthood: 0, death: new Date(1810, 6, 26), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Johann Wolfgang von Goethe', birthdate: new Date(1749, 8, 28), adulthood: 0, death: new Date(1832, 3, 22), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Giacomo Leopardi', birthdate: new Date(1798, 6, 29), adulthood: 0, death: new Date(1837, 6, 14), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Alessandro Manzoni', birthdate: new Date(1785, 3, 7), adulthood: 0, death: new Date(1873, 5, 22), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'J. R. R. Tolkien', birthdate: new Date(1892, 1, 3), adulthood: 0, death: new Date(1973, 9, 2), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Lev Tolstoj', birthdate: new Date(1828, 9, 9), adulthood: 0, death: new Date(1910, 11, 20), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Napoleone III di Francia', birthdate: new Date(1808, 4, 20), adulthood: 0, death: new Date(1873, 1, 9), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Victor Hugo', birthdate: new Date(1802, 2, 26), adulthood: 0, death: new Date(1885, 5, 22), adulthood_note:''});
+  users.insert({category:'Scientist', subcategory:'', name:'Marie Curie', birthdate: new Date(1867, 11, 7), adulthood: 0, death: new Date(1934, 7, 4), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Gustavo Adolfo di Svezia', birthdate: new Date(1594, 1, 1), adulthood: 0, death: new Date(1632, 1, 1), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Maurizio di Nassau, Principe d\'Orange', birthdate: new Date(1567, 1, 1), adulthood: 0, death: new Date(1625, 1, 1), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Raimondo Montecuccoli', birthdate: new Date(1609, 1, 1), adulthood: 0, death: new Date(1680, 1, 1), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Sébastien Le Prestre de Vauban', birthdate: new Date(1633, 1, 1), adulthood: 0, death: new Date(1707, 1, 1), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'James Wolfe', birthdate: new Date(1727, 1, 1), adulthood: 0, death: new Date(1759, 1, 1), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Maresciallo de Saxe (Maurizio di Sassonia)', birthdate: new Date(1696, 1, 1), adulthood: 0, death: new Date(1750, 1, 1), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Lazare Carnot', birthdate: new Date(1753, 1, 1), adulthood: 0, death: new Date(1823, 1, 1), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Antoine-Henri Jomini', birthdate: new Date(1779, 1, 1), adulthood: 0, death: new Date(1869, 1, 1), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Maresciallo Suvorov', birthdate: new Date(1729, 1, 1), adulthood: 0, death: new Date(1800, 1, 1), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'François-Henri de Montmorency', birthdate: new Date(1628, 1, 1), adulthood: 0, death: new Date(1695, 1, 1), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Karl Philipp, principe di Schwarzenberg', birthdate: new Date(1771, 1, 1), adulthood: 0, death: new Date(1820, 1, 1), adulthood_note:''});
+
+  var result = users.chain().simplesort('adulthood').data();
+  const nomiCompleti = result.map(pg => {
+
+    if(pg.adulthood == 0){
+      let fiveteenyears = 15 * 365.25 * 24 * 60 * 60 * 1000; // Calcola i millisecondi per 15 anni (circa) // Nota: 365.25 tiene conto degli anni bisestili
+      pg.adulthood = new Date(pg.birthdate.getTime() + fiveteenyears);
+    }
+
+    var bd = new Date(pg.birthdate.getTime());
+    var dd = new Date(pg.death.getTime());
+    let ttip = 'born ' + bd.toLocaleDateString('it-IT', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    }) + ' dead ' + dd.toLocaleDateString('it-IT', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    });
+
+    return {
+      Position: pg.category,
+      Name: pg.name,
+      tooltip: ttip,
+      Start: pg.adulthood,
+      End: pg.death
+    };
+  });
+
+  //var result = users.find({ subcategory : 'Dictator' });
+  var result = users.chain().simplesort('birthdate').data();
+
+  // dumps array with 1 doc (thor) to console
+  console.log(result);
+
+  google.charts.load("current", {packages:["timeline"]});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+
+    var container = document.getElementById('example3.1');
+    var chart = new google.visualization.Timeline(container);
+    var dataTable = new google.visualization.DataTable();
+    dataTable.addColumn({ type: 'string', id: 'Position' });
+    dataTable.addColumn({ type: 'string', id: 'Name' });
+    dataTable.addColumn({ type: 'string', role: 'tooltip' });
+    dataTable.addColumn({ type: 'date', id: 'Start' });
+    dataTable.addColumn({ type: 'date', id: 'End' });
+
+    for (const pg of nomiCompleti) {
+
+      dataTable.addRows([
+      [ pg.Position, pg.Name, pg.tooltip, pg.Start, pg.End ],
+      ]);
+
+    }
+
+    var options = {
+      timeline: {
+        colorByRowLabel: true,
+        groupByRowLabel: true,
+        rowLabelStyle: {fontName: 'Helvetica', fontSize: 14, color: '#603913' },
+        barLabelStyle: { fontName: 'Helvetica', fontSize: 10 },
+
+       },
+    };
+
+    chart.draw(dataTable, options);
+  }
+</script>
+
+<div id="example3.1" style="height: 850px;"></div>
