@@ -1,6 +1,6 @@
 # Timeline
 
-Una linea del tempo di **254 personaggi storici** (dal 1500 al Novecento) per capire chi fosse vivo nello stesso momento di chi. Spoiler: spesso erano tutti vivi insieme e si conoscevano pure, il che spiega parecchio.
+Una linea del tempo di **254 personaggi storici** (nati tra il 1553 e il 1900 circa) per capire chi fosse vivo nello stesso momento di chi. Spoiler: spesso erano tutti vivi insieme e si conoscevano pure, il che spiega parecchio.
 
 Passa il mouse su una barra e compare la **schedina**: foto (da Wikipedia), nome, date, e una frase scritta a mano, cattiva il giusto.
 
