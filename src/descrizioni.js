@@ -173,5 +173,7 @@ var DESCRIZIONI = {
  "William Shakespeare": "Trentasette commedie, tragedie e drammi, e una carriera spesa a far parlare re, fantasmi e Amleto. Al testamento lasciò alla moglie ‘il secondo miglior letto’: il dramma domestico era già in scena.",
  "Gian Lorenzo Bernini": "Scultore e architetto del Barocco: il colonnato di San Pietro e l’Estasi di Santa Teresa. Marmo che sembra carne, a Roma, con la committenza di più papi.",
  "Diego Velázquez": "Pittore di corte di Filippo IV: dipinse Las Meninas e un ritratto di Innocenzo X che, si dice, il papa giudicò ‘troppo vero’.",
- "Pieter Paul Rubens": "Pittore, diplomatico e imprenditore con bottega: dipingeva nudi robusti per mezza Europa e, nei ritagli, negoziava la pace tra Spagna e Inghilterra."
+ "Pieter Paul Rubens": "Pittore, diplomatico e imprenditore con bottega: dipingeva nudi robusti per mezza Europa e, nei ritagli, negoziava la pace tra Spagna e Inghilterra.",
+ "Henry Purcell": "L’Orpheus Britannicus: compose Dido and Aeneas e morì a 36 anni, lasciando l’Inghilterra senza un grande compositore per quasi due secoli, o così si dice a Londra.",
+ "Francesco Borromini": "Rivale di Bernini e architetto dell’ossessione geometrica: San Carlo alle Quattro Fontane sta in un incrocio e fa sembrare modeste le curve di tutti gli altri."
 };
