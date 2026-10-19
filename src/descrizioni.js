@@ -151,7 +151,6 @@ var DESCRIZIONI = {
  "Alexander von Humboldt": "Esplorò l’America latina con strumenti e curiosità, e inventò quasi da solo l’ecologia, il clima e la geografia delle piante.",
  "David Livingstone": "Missionario ed esploratore dell’Africa: lo ritrovò Stanley con la frase ‘Dr. Livingstone, I presume?’, un classico dell’imbarazzo.",
  "Ernest Shackleton": "Fallì il Polo Sud ma salvò tutti i suoi uomini nel 1916: il miglior fallimento di sempre.",
- "Filippo Brunelleschi": "Costruì la cupola di Santa Maria del Fiore senza armature e inventò la prospettiva: l’uomo che mise il Rinascimento in 3D.",
  "Baruch Spinoza": "Scomunicato dalla comunità ebraica di Amsterdam, rifiutò una cattedra a Heidelberg per fare lenti: filosofo dell’Etica dimostrata in ordine geometrico, e povero per scelta.",
  "John Locke": "Padre del liberalismo: ‘vita, libertà e proprietà’. Jefferson ne prese in prestito idee e, tra le righe, qualche sillaba.",
  "Gottfried Wilhelm Leibniz": "Inventò il calcolo infinitesimale contemporaneamente a Newton: la disputa sulla priorità fu l’unico argomento su cui Inghilterra e Germania non trovarono un compromesso.",
