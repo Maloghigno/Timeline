@@ -4,7 +4,7 @@
 
 [![Atlante dei Personaggi](asset/Atlante_dei_Personaggi.png)](asset/Atlante_dei_Personaggi.png)
 
-*🗺️ L'Atlante dei Personaggi: gli stessi 254 nomi, raggruppati per guerre, corti, rivoluzioni e correnti. Chi sta tra due isole appartiene a entrambe. Il poster è generato con Claude; l'obiettivo è renderlo ancora più bello. Clicca per la versione in alta risoluzione.*
+*🗺️ Il poster dei 254 nomi generato con Claude: l'obiettivo è generarlo ancora più bello.*
 
 👉 **[Prova la timeline online](https://maloghigno.github.io/Timeline/)**
 
@@ -12,11 +12,11 @@
 
 ## 📜 Cos'è
 
-Una **linea del tempo interattiva** con **254 personaggi storici** vissuti tra il 1553 e il 1992: da **Galileo** a **Churchill**, da **Napoleone** a **Picasso**, attraverso l'**Illuminismo**, il **Risorgimento**, la **Grande Guerra** e la **Seconda guerra mondiale**.
+Una **linea del tempo interattiva** con **254 personaggi storici** vissuti tra il 1553 e il 1992: da **Galileo** a **Churchill**, da **Napoleone** a **Picasso**, attraverso l'**Illuminismo**, il **Risorgimento**, le **Guerre mondiali**.
 
-Risponde alla domanda che i libri di storia, divisi in comodi capitoli, evitano con cura: *chi era vivo nello stesso momento di chi?* Spoiler: molti più di quanti pensi, e parecchi si conoscevano pure. Il che spiega diverse guerre.
+Risponde alla domanda che i libri di storia non hanno mai sopportato: *chi era vivo nello stesso momento di chi?* Spoiler: molti più di quanti pensi, e parecchi si conoscevano pure. Il che spiega diverse guerre.
 
-Passa il mouse su una barra e compare la **schedina** 🃏: foto da Wikipedia, nome, date e una frase scritta a mano, cattiva il giusto.
+Passa il mouse su un personaggio e compare la **schedina**: foto da Wikipedia, nome, date e una frase scritta a mano, cattiva il giusto.
 
 > *Arciduca Carlo d'Austria (05/09/1771 – 30/04/1847): l'avversario di Napoleone che teorizzava la guerra mentre Clausewitz la rimuginava.*
 
@@ -24,12 +24,11 @@ Passa il mouse su una barra e compare la **schedina** 🃏: foto da Wikipedia, n
 
 - **Charlie Chaplin** (16/04/1889) e **Adolf Hitler** (20/04/1889) nascono a quattro giorni di distanza. Uno ha fatto ridere il mondo, l'altro no.
 - **Charles Darwin** e **Abraham Lincoln** nascono lo stesso giorno, il 12/02/1809. Uno ha riscritto l'origine dell'uomo, l'altro i suoi diritti.
-- **Galileo** muore nel gennaio 1642 e **Newton** nasce nel gennaio 1643 (per il calendario gregoriano; per quello inglese dell'epoca, a Natale 1642). Il passaggio di testimone più puntuale della scienza.
 - **Mozart** e **Robespierre** sono quasi coetanei (1756 e 1758) e muoiono a tre anni di distanza: il primo a 35 anni, di malattia; il secondo a 36, di ghigliottina.
 
-## 👥 Chi c'è dentro
+## 👥 Chi sono i 254 (per ora)
 
-| Categoria | Chi | Personaggi |
+| Categoria | Chi | n |
 |---|---|---|
 | 👑 Main | re, regine, politici, dittatori | 67 |
 | ⚔️ Military | generali, ammiragli, un paio di pirati | 67 |
@@ -60,7 +59,7 @@ Se una foto non compare, di solito il titolo della voce Wikipedia non coincide c
 
 ## 💬 Contribuire
 
-Manca il tuo personaggio preferito? Hai trovato una data sbagliata? Hai un'idea per rendere il poster più bello? **[Apri una issue](https://github.com/Maloghigno/Timeline/issues)**.
+Manca il tuo personaggio preferito? Hai trovato una data sbagliata? Hai un'idea per rendere tutto più bello o interattivo? **[Apri una issue](https://github.com/Maloghigno/Timeline/issues)**.
 
 Le **frasi sono opinioni**, non fonti. Le date sono state controllate dove c'era un dubbio, ma qualche errore può sempre sfuggire: è storia, non teologia.
 
