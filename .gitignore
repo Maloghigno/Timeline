@@ -1,2 +1,5 @@
 # Visual Studio
 .vs/
+
+# cache delle richieste a Wikipedia (rigenerabile)
+tools/.cache/

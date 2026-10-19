@@ -1,6 +1,28 @@
 <!-- https://developers.google.com/chart/interactive/docs/gallery/timeline -->
+<meta charset="utf-8">
+
+<style>
+  /* Schedina al passaggio del mouse (dati da src/persone.js) */
+  #scheda { position: fixed; z-index: 1000; display: none; width: 330px; box-sizing: border-box;
+            pointer-events: none; background: #fffdf8; color: #2b2118; border: 1px solid #c9b79c;
+            border-radius: 8px; padding: 12px; box-shadow: 0 6px 22px rgba(60,40,10,.28);
+            font: 13px/1.4 Helvetica, Arial, sans-serif; }
+  #scheda .scheda-testa { display: flex; gap: 12px; align-items: flex-start; }
+  #scheda .scheda-foto { flex: 0 0 84px; height: 105px; border-radius: 4px; overflow: hidden;
+            background: #e8dcc8; display: flex; align-items: center; justify-content: center;
+            color: #8a7355; font-size: 26px; font-weight: bold; }
+  #scheda .scheda-foto img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  #scheda .scheda-nome { font-size: 16px; font-weight: bold; color: #603913; margin-bottom: 4px; }
+  #scheda .scheda-date { color: #6b5a44; }
+  #scheda .scheda-ruolo { font-style: italic; margin-top: 4px; }
+  #scheda .scheda-testo { margin-top: 10px; }
+  #scheda .scheda-fonte { margin-top: 8px; font-size: 11px; color: #8a7355; }
+  /* la schedina sostituisce il tooltip nativo di Google Charts */
+  .google-visualization-tooltip { display: none !important; }
+</style>
 
 <script src="src/lokijs.js"></script>
+<script src="src/persone.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script type="text/javascript">
@@ -108,17 +130,17 @@
   users.insert({category:'Main', subcategory:'', name:'Napoleone III di Francia', birthdate: new Date(1808, 3, 20), adulthood: null, death: new Date(1873, 0, 9), adulthood_note:''});
   users.insert({category:'Artist', subcategory:'', name:'Victor Hugo', birthdate: new Date(1802, 1, 26), adulthood: null, death: new Date(1885, 4, 22), adulthood_note:''});
   users.insert({category:'Scientist', subcategory:'', name:'Marie Curie', birthdate: new Date(1867, 10, 7), adulthood: null, death: new Date(1934, 6, 4), adulthood_note:''});
-  users.insert({category:'Military', subcategory:'', name:'Gustavo Adolfo di Svezia', birthdate: new Date(1594, 0, 1), adulthood: null, death: new Date(1632, 0, 1), adulthood_note:''});
-  users.insert({category:'Military', subcategory:'', name:'Maurizio di Nassau, Principe d\'Orange', birthdate: new Date(1567, 0, 1), adulthood: null, death: new Date(1625, 0, 1), adulthood_note:''});
-  users.insert({category:'Military', subcategory:'', name:'Raimondo Montecuccoli', birthdate: new Date(1609, 0, 1), adulthood: null, death: new Date(1680, 0, 1), adulthood_note:''});
-  users.insert({category:'Military', subcategory:'', name:'Sébastien Le Prestre de Vauban', birthdate: new Date(1633, 0, 1), adulthood: null, death: new Date(1707, 0, 1), adulthood_note:''});
-  users.insert({category:'Military', subcategory:'', name:'James Wolfe', birthdate: new Date(1727, 0, 1), adulthood: null, death: new Date(1759, 0, 1), adulthood_note:''});
-  users.insert({category:'Military', subcategory:'', name:'Maresciallo de Saxe (Maurizio di Sassonia)', birthdate: new Date(1696, 0, 1), adulthood: null, death: new Date(1750, 0, 1), adulthood_note:''});
-  users.insert({category:'Military', subcategory:'', name:'Lazare Carnot', birthdate: new Date(1753, 0, 1), adulthood: null, death: new Date(1823, 0, 1), adulthood_note:''});
-  users.insert({category:'Military', subcategory:'', name:'Antoine-Henri Jomini', birthdate: new Date(1779, 0, 1), adulthood: null, death: new Date(1869, 0, 1), adulthood_note:''});
-  users.insert({category:'Military', subcategory:'', name:'Maresciallo Suvorov', birthdate: new Date(1729, 0, 1), adulthood: null, death: new Date(1800, 0, 1), adulthood_note:''});
-  users.insert({category:'Military', subcategory:'', name:'François-Henri de Montmorency', birthdate: new Date(1628, 0, 1), adulthood: null, death: new Date(1695, 0, 1), adulthood_note:''});
-  users.insert({category:'Military', subcategory:'', name:'Karl Philipp, principe di Schwarzenberg', birthdate: new Date(1771, 0, 1), adulthood: null, death: new Date(1820, 0, 1), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Gustavo Adolfo di Svezia', birthdate: new Date(1594, 0, 1), adulthood: null, death: new Date(1632, 0, 1), birth_year_only: true, death_year_only: true, adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Maurizio di Nassau, Principe d\'Orange', birthdate: new Date(1567, 0, 1), adulthood: null, death: new Date(1625, 0, 1), birth_year_only: true, death_year_only: true, adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Raimondo Montecuccoli', birthdate: new Date(1609, 0, 1), adulthood: null, death: new Date(1680, 0, 1), birth_year_only: true, death_year_only: true, adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Sébastien Le Prestre de Vauban', birthdate: new Date(1633, 0, 1), adulthood: null, death: new Date(1707, 0, 1), birth_year_only: true, death_year_only: true, adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'James Wolfe', birthdate: new Date(1727, 0, 1), adulthood: null, death: new Date(1759, 0, 1), birth_year_only: true, death_year_only: true, adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Maresciallo de Saxe (Maurizio di Sassonia)', birthdate: new Date(1696, 0, 1), adulthood: null, death: new Date(1750, 0, 1), birth_year_only: true, death_year_only: true, adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Lazare Carnot', birthdate: new Date(1753, 0, 1), adulthood: null, death: new Date(1823, 0, 1), birth_year_only: true, death_year_only: true, adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Antoine-Henri Jomini', birthdate: new Date(1779, 0, 1), adulthood: null, death: new Date(1869, 0, 1), birth_year_only: true, death_year_only: true, adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Maresciallo Suvorov', birthdate: new Date(1729, 0, 1), adulthood: null, death: new Date(1800, 0, 1), birth_year_only: true, death_year_only: true, adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'François-Henri de Montmorency', birthdate: new Date(1628, 0, 1), adulthood: null, death: new Date(1695, 0, 1), birth_year_only: true, death_year_only: true, adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Karl Philipp, principe di Schwarzenberg', birthdate: new Date(1771, 0, 1), adulthood: null, death: new Date(1820, 0, 1), birth_year_only: true, death_year_only: true, adulthood_note:''});
   users.insert({category:'Main', subcategory:'', name:'Vittorio Emanuele III', birthdate: new Date(1869, 10, 11), adulthood: null, death: new Date(1947, 11, 28), adulthood_note:''});
   users.insert({category:'Main', subcategory:'', name:'Guglielmo II di Germania', birthdate: new Date(1859, 0, 27), adulthood: null, death: new Date(1941, 5, 4), adulthood_note:''});
   users.insert({category:'Main', subcategory:'', name:'Charles de Gaulle', birthdate: new Date(1890, 10, 22), adulthood: null, death: new Date(1970, 10, 9), adulthood_note:''});
@@ -159,13 +181,23 @@
   users.insert({category:'Military', subcategory:'', name:'Luigi II di Borbone-Condé (il Gran Condé)', birthdate: new Date(1621, 8, 8), adulthood: null, death: new Date(1686, 11, 11), adulthood_note:''});
   users.insert({category:'Scientist', subcategory:'', name:'Luigi Galvani', birthdate: new Date(1737, 8, 9), adulthood: null, death: new Date(1798, 11, 4), adulthood_note:''});
   users.insert({category:'Artist', subcategory:'', name:'Francisco Goya', birthdate: new Date(1746, 2, 30), adulthood: null, death: new Date(1828, 3, 16), adulthood_note:''});
-  users.insert({category:'Military', subcategory:'', name:'Henry Morgan', birthdate: new Date(1635, 0, 1), adulthood: null, death: new Date(1688, 7, 25), adulthood_note:''});  // nascita ca. 1635 (giorno ignoto, 1 gen = placeholder); morte 25/08/1688 data giuliana
-  users.insert({category:'Military', subcategory:'', name:'Edward Teach (Barbanera)', birthdate: new Date(1680, 0, 1), adulthood: null, death: new Date(1718, 10, 22), adulthood_note:''});  // nascita ca. 1680 (anno incerto, 1 gen = placeholder); morte 22/11/1718 data giuliana
-  users.insert({category:'Military', subcategory:'', name:'Ching Shih', birthdate: new Date(1775, 0, 1), adulthood: null, death: new Date(1844, 0, 1), adulthood_note:''});  // solo anni (1775-1844), giorno/mese = placeholder
+  users.insert({category:'Military', subcategory:'', name:'Henry Morgan', birthdate: new Date(1635, 0, 1), adulthood: null, death: new Date(1688, 7, 25), birth_year_only: true, adulthood_note:''});  // nascita ca. 1635 (giorno ignoto, 1 gen = placeholder); morte 25/08/1688 data giuliana
+  users.insert({category:'Military', subcategory:'', name:'Edward Teach (Barbanera)', birthdate: new Date(1680, 0, 1), adulthood: null, death: new Date(1718, 10, 22), birth_year_only: true, adulthood_note:''});  // nascita ca. 1680 (anno incerto, 1 gen = placeholder); morte 22/11/1718 data giuliana
+  users.insert({category:'Military', subcategory:'', name:'Ching Shih', birthdate: new Date(1775, 0, 1), adulthood: null, death: new Date(1844, 0, 1), birth_year_only: true, death_year_only: true, adulthood_note:''});  // solo anni (1775-1844), giorno/mese = placeholder
   users.insert({category:'Scientist', subcategory:'', name:'Alexander von Humboldt', birthdate: new Date(1769, 8, 14), adulthood: null, death: new Date(1859, 4, 6), adulthood_note:''});
   users.insert({category:'Scientist', subcategory:'', name:'David Livingstone', birthdate: new Date(1813, 2, 19), adulthood: null, death: new Date(1873, 4, 1), adulthood_note:''});
   users.insert({category:'Scientist', subcategory:'', name:'Ernest Shackleton', birthdate: new Date(1874, 1, 15), adulthood: null, death: new Date(1922, 0, 5), adulthood_note:''});
-  users.insert({category:'Artist', subcategory:'', name:'Filippo Brunelleschi', birthdate: new Date(1377, 0, 1), adulthood: null, death: new Date(1446, 3, 15), adulthood_note:''});  // nascita 1377 (giorno ignoto, 1 gen = placeholder); morte 15/04/1446 data giuliana
+  users.insert({category:'Artist', subcategory:'', name:'Filippo Brunelleschi', birthdate: new Date(1377, 0, 1), adulthood: null, death: new Date(1446, 3, 15), birth_year_only: true, adulthood_note:''});  // nascita 1377 (giorno ignoto, 1 gen = placeholder); morte 15/04/1446 data giuliana
+
+  // ---- Formattazione date ----
+  function fmtNumerica(d, soloAnno){
+    return soloAnno ? String(d.getFullYear())
+                    : d.toLocaleDateString('it-IT', {year: 'numeric', month: '2-digit', day: '2-digit'});
+  }
+  function fmtLunga(d, soloAnno){
+    return soloAnno ? String(d.getFullYear())
+                    : d.toLocaleDateString('it-IT', {day: 'numeric', month: 'long', year: 'numeric'});
+  }
 
   // Ordine di inserimento nel grafico: prima chi ha un'adulthood documentata (per data), poi gli altri
   // nell'ordine in cui sono stati inseriti (Array.sort è stabile). Equivale al comportamento precedente.
@@ -183,22 +215,19 @@
 
     var bd = new Date(pg.birthdate.getTime());
     var dd = new Date(pg.death.getTime());
-    let ttip = 'born ' + bd.toLocaleDateString('it-IT', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit'
-    }) + ' dead ' + dd.toLocaleDateString('it-IT', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit'
-    });
+    // birth_year_only / death_year_only: la data nel file e' un segnaposto, si mostra solo l'anno
+    let ttip = 'born ' + fmtNumerica(bd, pg.birth_year_only) + ' dead ' + fmtNumerica(dd, pg.death_year_only);
 
     return {
       Position: pg.category,
       Name: pg.name,
       tooltip: ttip,
       Start: pg.adulthood,
-      End: pg.death
+      End: pg.death,
+      Born: bd,
+      Died: dd,
+      BornYearOnly: !!pg.birth_year_only,
+      DiedYearOnly: !!pg.death_year_only
     };
   });
 
@@ -208,12 +237,84 @@
   // dumps array with 1 doc (thor) to console
   console.log(result);
 
+  // ---- Schedina al mouseover: foto, nome, date, descrizione (da PERSONE in src/persone.js) ----
+  var schedaEl = null, mouseX = 0, mouseY = 0;
+
+  function el(tag, cls, testo){
+    var e = document.createElement(tag);
+    if(cls) e.className = cls;
+    if(testo !== undefined) e.textContent = testo;   // textContent: i testi vengono da Wikipedia, mai innerHTML
+    return e;
+  }
+  function iniziali(nome){
+    var w = nome.replace(/\(.*?\)/g, '').split(/\s+/).filter(function(x){ return /^[A-Z\u00C0-\u00DD]/.test(x); });
+    return (w.slice(0, 2).map(function(x){ return x.charAt(0); }).join('') || nome.charAt(0)).toUpperCase();
+  }
+  function riempiScheda(pg){
+    var p = (typeof PERSONE !== 'undefined' && PERSONE[pg.Name]) || null;
+    schedaEl.textContent = '';
+
+    var foto = el('div', 'scheda-foto');
+    if(p && p.thumb){
+      var img = new Image();
+      img.alt = pg.Name;
+      img.onload = function(){ if(schedaEl.style.display === 'block') posizionaScheda(); };
+      img.onerror = function(){ foto.textContent = iniziali(pg.Name); };
+      img.src = p.thumb;
+      foto.appendChild(img);
+    } else {
+      foto.textContent = iniziali(pg.Name);
+    }
+
+    var info = el('div');
+    info.appendChild(el('div', 'scheda-nome', pg.Name));
+    info.appendChild(el('div', 'scheda-date', fmtLunga(pg.Born, pg.BornYearOnly) + ' \u2013 ' + fmtLunga(pg.Died, pg.DiedYearOnly)));
+    if(p && p.description) info.appendChild(el('div', 'scheda-ruolo', p.description.charAt(0).toUpperCase() + p.description.slice(1)));
+
+    var testa = el('div', 'scheda-testa');
+    testa.appendChild(foto);
+    testa.appendChild(info);
+    schedaEl.appendChild(testa);
+
+    if(p && p.extract) schedaEl.appendChild(el('div', 'scheda-testo', p.extract));
+    schedaEl.appendChild(el('div', 'scheda-fonte', p ? 'Fonte: Wikipedia (' + p.lang + ') \u2013 ' + p.title : 'Scheda Wikipedia non disponibile'));
+  }
+  function posizionaScheda(){
+    var w = schedaEl.offsetWidth, h = schedaEl.offsetHeight, m = 16;
+    var x = mouseX + m, y = mouseY + m;
+    if(x + w > window.innerWidth - 8) x = mouseX - w - m;
+    if(y + h > window.innerHeight - 8) y = window.innerHeight - h - 8;
+    schedaEl.style.left = Math.max(8, x) + 'px';
+    schedaEl.style.top = Math.max(8, y) + 'px';
+  }
+  function iniziaSchede(chart){
+    schedaEl = el('div');
+    schedaEl.id = 'scheda';
+    document.body.appendChild(schedaEl);
+    document.addEventListener('mousemove', function(e){
+      mouseX = e.clientX; mouseY = e.clientY;
+      if(schedaEl.style.display === 'block') posizionaScheda();
+    });
+    // la riga della DataTable coincide con l'indice in nomiCompleti (stesso ordine)
+    google.visualization.events.addListener(chart, 'onmouseover', function(e){
+      var pg = nomiCompleti[e.row];
+      if(!pg) return;
+      riempiScheda(pg);
+      schedaEl.style.display = 'block';
+      posizionaScheda();
+    });
+    google.visualization.events.addListener(chart, 'onmouseout', function(){
+      schedaEl.style.display = 'none';
+    });
+  }
+
   google.charts.load("current", {packages:["timeline"]});
   google.charts.setOnLoadCallback(drawChart);
   function drawChart() {
 
     var container = document.getElementById('example3.1');
     var chart = new google.visualization.Timeline(container);
+    iniziaSchede(chart);
     var dataTable = new google.visualization.DataTable();
     dataTable.addColumn({ type: 'string', id: 'Position' });
     dataTable.addColumn({ type: 'string', id: 'Name' });
