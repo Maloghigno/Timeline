@@ -9,6 +9,7 @@ Uso (dalla radice del repo, serve solo Python 3.8+, nessun pacchetto da installa
     python tools/build_persone.py            # elabora solo chi manca (riprende da dove era rimasto)
     python tools/build_persone.py --all      # rifa' tutti
     python tools/build_persone.py --only "Erwin Rommel" --only "Hirohito"
+    python tools/build_persone.py --cafile cert.pem   # se compare un errore di certificato SSL
 
 Come sceglie la pagina giusta (per non attaccare la foto di un omonimo):
   1. prova il titolo uguale al nome (o quello in WIKI_TITLES);
@@ -26,6 +27,7 @@ Scrive:
 import argparse
 import json
 import re
+import ssl
 import sys
 import time
 import urllib.error
@@ -93,12 +95,35 @@ def parse_persons():
     return persons
 
 
+SSL_HELP = """
+ERRORE DI CERTIFICATO SSL: %s
+URL: %s
+
+Wikipedia e' raggiungibile, ma Python non si fida del certificato che riceve. Cause tipiche:
+  1. data/ora del PC sbagliate (controlla anche il fuso orario);
+  2. una rete aziendale che ispeziona il traffico HTTPS con un proprio certificato, scaduto
+     o sconosciuto a Python;
+  3. archivio dei certificati di Windows non aggiornato.
+
+Cosa provare, in ordine:
+  a) lancia lo script da un'altra rete (hotspot del telefono): se funziona e' il caso 2;
+  b) pip install certifi
+     python tools/build_persone.py --cafile "<percorso>"
+     dove <percorso> si ottiene con:  python -c "import certifi; print(certifi.where())"
+  c) se la rete aziendale ha un suo certificato radice, esportalo in formato PEM e passalo
+     con --cafile (chiedi all'IT quale e' il file giusto).
+Non disattivare la verifica dei certificati.
+"""
+
+
 # --------------------------------------------------------------------------- rete + cache
 class Wiki:
-    def __init__(self, base, use_cache=True):
+    def __init__(self, base, use_cache=True, cafile=None):
         self.base = base
         self.cache = {}
         self.use_cache = use_cache
+        # con cafile si fida di quel file (oltre ai certificati di sistema); altrimenti default di Python
+        self.ctx = ssl.create_default_context(cafile=cafile) if cafile else None
         if use_cache and CACHE.exists():
             try:
                 self.cache = json.loads(CACHE.read_text(encoding="utf-8"))
@@ -118,7 +143,7 @@ class Wiki:
             try:
                 time.sleep(PAUSE)
                 self.requests += 1
-                with urllib.request.urlopen(req, timeout=25) as r:
+                with urllib.request.urlopen(req, timeout=25, context=self.ctx) as r:
                     return json.loads(r.read().decode("utf-8"))
             except urllib.error.HTTPError as e:
                 if e.code == 404:
@@ -130,6 +155,9 @@ class Wiki:
                     continue
                 raise
             except (urllib.error.URLError, TimeoutError, ConnectionError) as e:
+                if isinstance(getattr(e, "reason", None), ssl.SSLError):
+                    self.save()  # niente da buttare via: la cache resta valida
+                    raise SystemExit(SSL_HELP % (e.reason, url))  # inutile riprovare: l'errore non passa da solo
                 last = str(e)
                 time.sleep(2 * (attempt + 1))
         raise RuntimeError("richiesta fallita dopo 5 tentativi (%s): %s" % (last, url))
@@ -289,6 +317,7 @@ def main():
     ap = argparse.ArgumentParser(description="Genera src/persone.js da Wikipedia.")
     ap.add_argument("--all", action="store_true", help="rifa' tutti, anche quelli gia' presenti")
     ap.add_argument("--only", action="append", default=[], metavar="NOME", help="solo questo nome (ripetibile)")
+    ap.add_argument("--cafile", metavar="FILE.pem", help="file PEM dei certificati di cui fidarsi (vedi il messaggio d'errore SSL)")
     ap.add_argument("--refresh", action="store_true", help="ignora la cache delle richieste")
     ap.add_argument("--base", default="https://{lang}.wikipedia.org", help=argparse.SUPPRESS)  # per i test
     args = ap.parse_args()
@@ -314,7 +343,7 @@ def main():
     data = {n: v for n, v in data.items() if n in names}
 
     print("Personaggi: %d - da elaborare: %d" % (len(persons), len(todo)))
-    wiki = Wiki(args.base, use_cache=not args.refresh)
+    wiki = Wiki(args.base, use_cache=not args.refresh, cafile=args.cafile)
     failures, notes = [], {}
     try:
         for i, p in enumerate(todo, 1):
