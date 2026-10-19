@@ -13,7 +13,7 @@ var DESCRIZIONI = {
  "Erwin Rommel": "La Volpe del Deserto: Hitler lo adorava finché non vinceva più. Ottimo con i carri armati, meno col carburante, e in fondo con il Führer.",
  "Hermann Wilhelm Göring": "Asso della Grande Guerra, poi comandante della Luftwaffe e collezionista d’arte: promise che nessuna bomba sarebbe caduta su Berlino. Spoiler.",
  "Erich von Falkenhayn": "Voleva ‘far sanguinare la Francia’ a Verdun: ci riuscì perfettamente, ma il paziente era anche la Germania.",
- "Carlo Thaon di Revel": "Voce da verificare: il Thaon di Revel più noto è l’ammiraglio Paolo (1859–1948). Questo Carlo, 1725–1807, non sono riuscito a riscontrarlo.",
+ "Carlo Thaon di Revel": "Nizza 1725, Cagliari 1807: generale e statista del Regno di Sardegna, in un’epoca in cui i confini sabaudi si spostavano più in fretta delle sue promozioni.",
  "Horatio Nelson": "Perse un braccio e un occhio, ma non il senso della scena: a Trafalgar issò il celebre segnale e si fece notare da un cecchino francese.",
  "Charlie Chaplin": "Il vagabondo che fece ridere il mondo e preoccupò l’FBI: nel 1940 prese in giro Hitler prima che fosse di moda.",
  "Albert Einstein": "Rivoluzionò la fisica con un impiego all’ufficio brevetti e, a quanto pare, senza calzini. Il Nobel lo prese per l’effetto fotoelettrico, non per la relatività.",
@@ -163,5 +163,6 @@ var DESCRIZIONI = {
  "Carlo XII di Svezia": "Il re guerriero: vinse a Narva, perse a Poltava e morì in trincea a Fredriksten a 36 anni. Pietro il Grande lo ringraziò con la Grande Guerra del Nord.",
  "Montesquieu": "Teorizzò la separazione dei poteri: tre mani invece di una sola, per evitare che il tiranno ci metta la firma.",
  "Michelangelo Merisi da Caravaggio": "Pittore del chiaroscuro e delle risse: condannato a morte per omicidio, fuggì tra Napoli, Malta e la Sicilia. Morì a 38 anni, anche lui in fuga.",
- "Gustave Flaubert": "Passò cinque anni su Madame Bovary per trovare ‘le mot juste’; il processo per immoralità fu l’unica pubblicità di cui avesse bisogno."
+ "Gustave Flaubert": "Passò cinque anni su Madame Bovary per trovare ‘le mot juste’; il processo per immoralità fu l’unica pubblicità di cui avesse bisogno.",
+ "Paolo Thaon di Revel": "Il ‘Duca del Mare’: capo della Marina nella Grande Guerra, preferì i MAS in Adriatico ai duelli di corazzate. Il titolo non era una metafora."
 };
