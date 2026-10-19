@@ -164,5 +164,14 @@ var DESCRIZIONI = {
  "Montesquieu": "Teorizzò la separazione dei poteri: tre mani invece di una sola, per evitare che il tiranno ci metta la firma.",
  "Michelangelo Merisi da Caravaggio": "Pittore del chiaroscuro e delle risse: condannato a morte per omicidio, fuggì tra Napoli, Malta e la Sicilia. Morì a 38 anni, anche lui in fuga.",
  "Gustave Flaubert": "Passò cinque anni su Madame Bovary per trovare ‘le mot juste’; il processo per immoralità fu l’unica pubblicità di cui avesse bisogno.",
- "Paolo Thaon di Revel": "Il ‘Duca del Mare’: capo della Marina nella Grande Guerra, preferì i MAS in Adriatico ai duelli di corazzate. Il titolo non era una metafora."
+ "Paolo Thaon di Revel": "Il ‘Duca del Mare’: capo della Marina nella Grande Guerra, preferì i MAS in Adriatico ai duelli di corazzate. Il titolo non era una metafora.",
+ "Galileo Galilei": "Puntò il telescopio al cielo e l’Inquisizione contro di sé: abiurò nel 1633 e passò gli ultimi anni agli arresti domiciliari. L’‘Eppur si muove’ è probabilmente apocrifo, la condanna no.",
+ "Giovanni Keplero": "Scoprì che i pianeti si muovono in ellissi, non in cerchi perfetti. Nel frattempo difese la madre da un processo per stregoneria: il lavoro d’ufficio più estenuante della storia dell’astronomia.",
+ "Cartesio": "‘Cogito, ergo sum’: dubitò di tutto tranne che di sé. La regina Cristina di Svezia lo volle a lezione alle cinque del mattino, e il freddo svedese lo fece morire di polmonite dopo pochi mesi.",
+ "Christiaan Huygens": "Inventò l’orologio a pendolo, scoprì Titano e capì gli anelli di Saturno: il tempo e lo spazio, in un colpo solo, e un telescopio fatto in casa.",
+ "Robert Boyle": "Il ‘padre della chimica’ che mise i gas sotto pressione e il dogma degli alchimisti sotto esame: la legge di Boyle è ancora a scuola.",
+ "William Shakespeare": "Trentasette commedie, tragedie e drammi, e una carriera spesa a far parlare re, fantasmi e Amleto. Al testamento lasciò alla moglie ‘il secondo miglior letto’: il dramma domestico era già in scena.",
+ "Gian Lorenzo Bernini": "Scultore e architetto del Barocco: il colonnato di San Pietro e l’Estasi di Santa Teresa. Marmo che sembra carne, a Roma, con la committenza di più papi.",
+ "Diego Velázquez": "Pittore di corte di Filippo IV: dipinse Las Meninas e un ritratto di Innocenzo X che, si dice, il papa giudicò ‘troppo vero’.",
+ "Pieter Paul Rubens": "Pittore, diplomatico e imprenditore con bottega: dipingeva nudi robusti per mezza Europa e, nei ritagli, negoziava la pace tra Spagna e Inghilterra."
 };
