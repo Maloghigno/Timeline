@@ -23,6 +23,7 @@
 
 <script src="src/lokijs.js"></script>
 <script src="src/persone.js"></script>
+<script src="src/descrizioni.js" charset="utf-8"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script type="text/javascript">
@@ -250,21 +251,53 @@
     var w = nome.replace(/\(.*?\)/g, '').split(/\s+/).filter(function(x){ return /^[A-Z\u00C0-\u00DD]/.test(x); });
     return (w.slice(0, 2).map(function(x){ return x.charAt(0); }).join('') || nome.charAt(0)).toUpperCase();
   }
+  // Foto da Wikipedia, caricata dal browser (niente Python). Accettata solo se la pagina cita un anno di nascita/morte del file.
+  var cacheFoto = {};
+  var WIKI_TITOLI = {   // titoli it.wikipedia diversi dal nome in tabella (se sbagliati: restano le iniziali)
+    'Cardinale Richelieu': 'Armand-Jean du Plessis de Richelieu',
+    'Imperatore Qianlong': 'Qianlong',
+    'Maresciallo Turenne': "Henri de La Tour d'Auvergne, visconte di Turenne",
+    'Maresciallo Suvorov': "Aleksandr Vasil'evi\u010d Suvorov",
+    'Maresciallo de Saxe (Maurizio di Sassonia)': 'Maurizio di Sassonia',
+    'Pietro I di Russia (Pietro il Grande)': 'Pietro I di Russia',
+    'Edward Teach (Barbanera)': 'Barbanera',
+    'François-Henri de Montmorency': 'François-Henri de Montmorency-Luxembourg',
+    'Karl Philipp, principe di Schwarzenberg': 'Karl Philipp zu Schwarzenberg',
+    'Helmut Johann Ludwig von Moltke': 'Helmuth Johannes Ludwig von Moltke',
+    'Helmuth Karl Bernhard Graf von Moltke': 'Helmuth von Moltke'
+  };
+
+  function metti(foto, url, nome){
+    var img = new Image();
+    img.alt = nome;
+    img.onload = function(){ foto.textContent = ''; foto.appendChild(img); if(schedaEl.style.display === 'block') posizionaScheda(); };
+    img.src = url;   // se fallisce restano le iniziali
+  }
+  function cercaFoto(pg, cb){
+    if(pg.Name in cacheFoto){ if(cacheFoto[pg.Name]) cb(cacheFoto[pg.Name]); return; }
+    cacheFoto[pg.Name] = null;
+    var titolo = (typeof WIKI_TITOLI !== 'undefined' && WIKI_TITOLI[pg.Name]) || pg.Name.replace(/\s*\(.*?\)/g, '');
+    fetch('https://it.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(titolo.replace(/ /g, '_')))
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(j){
+        if(!j || j.type !== 'standard' || !j.thumbnail) return;
+        var testo = (j.description || '') + ' ' + (j.extract || '');
+        var ok = testo.indexOf(String(pg.Born.getFullYear())) >= 0 || testo.indexOf(String(pg.Died.getFullYear())) >= 0;
+        if(!ok) return;
+        cacheFoto[pg.Name] = j.thumbnail.source;
+        cb(j.thumbnail.source);
+      })
+      .catch(function(){});
+  }
   function riempiScheda(pg){
     var p = (typeof PERSONE !== 'undefined' && PERSONE[pg.Name]) || null;
     schedaEl.textContent = '';
+    schedaEl.dataset.nome = pg.Name;
 
     var foto = el('div', 'scheda-foto');
-    if(p && p.thumb){
-      var img = new Image();
-      img.alt = pg.Name;
-      img.onload = function(){ if(schedaEl.style.display === 'block') posizionaScheda(); };
-      img.onerror = function(){ foto.textContent = iniziali(pg.Name); };
-      img.src = p.thumb;
-      foto.appendChild(img);
-    } else {
-      foto.textContent = iniziali(pg.Name);
-    }
+    foto.textContent = iniziali(pg.Name);
+    if(p && p.thumb) metti(foto, p.thumb, pg.Name);
+    else cercaFoto(pg, function(url){ if(schedaEl.dataset.nome === pg.Name) metti(foto, url, pg.Name); });
 
     var info = el('div');
     info.appendChild(el('div', 'scheda-nome', pg.Name));
@@ -276,8 +309,9 @@
     testa.appendChild(info);
     schedaEl.appendChild(testa);
 
-    if(p && p.extract) schedaEl.appendChild(el('div', 'scheda-testo', p.extract));
-    schedaEl.appendChild(el('div', 'scheda-fonte', p ? 'Fonte: Wikipedia (' + p.lang + ') \u2013 ' + p.title : 'Scheda Wikipedia non disponibile'));
+    var frase = (typeof DESCRIZIONI !== 'undefined' && DESCRIZIONI[pg.Name]) || (p && p.extract) || '';
+    if(frase) schedaEl.appendChild(el('div', 'scheda-testo', frase));
+    schedaEl.appendChild(el('div', 'scheda-fonte', 'Foto: Wikipedia (se disponibile)'));
   }
   function posizionaScheda(){
     var w = schedaEl.offsetWidth, h = schedaEl.offsetHeight, m = 16;
