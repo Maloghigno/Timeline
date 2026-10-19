@@ -243,5 +243,15 @@ var DESCRIZIONI = {
  "Gustav Klimt": "Il Bacio e tanto oro: fondò la Secessione viennese e fece della foglia d’oro uno stile.",
  "Arthur Conan Doyle": "Medico che creò Sherlock Holmes, lo uccise per liberarsene e fu costretto a resuscitarlo. Poi credette alle fate di Cottingley.",
  "Leopold Joseph von Daun": "Il feldmaresciallo austriaco che batté Federico il Grande a Kolín: Maria Teresa celebrò la vittoria istituendo un ordine militare.",
- "Ernst Gideon von Laudon": "Rifiutato da Federico II, passò agli Asburgo e lo sconfisse a Kunersdorf: il colloquio di lavoro più costoso della storia prussiana."
+ "Ernst Gideon von Laudon": "Rifiutato da Federico II, passò agli Asburgo e lo sconfisse a Kunersdorf: il colloquio di lavoro più costoso della storia prussiana.",
+ "Luigi XV di Francia": "Il Beneamato, poi molto meno: perse il Canada e buona parte dell’India. ‘Dopo di me il diluvio’ gli è attribuito (forse è di Pompadour): il diluvio toccò al nipote.",
+ "Madame de Pompadour": "Borghese diventata favorita di Luigi XV e ministra della cultura di fatto: protesse Voltaire e l’Encyclopédie, e diede il nome a un’acconciatura.",
+ "Eulero": "Il matematico più prolifico della storia: perse quasi del tutto la vista e continuò a produrre. e^(iπ) + 1 = 0 porta la sua firma.",
+ "Linneo": "Diede a ogni pianta e animale un nome latino di due parole, e anche a sé stesso: ‘Homo sapiens’ è una sua etichetta.",
+ "Immanuel Kant": "Non si allontanò quasi mai da Königsberg, ma mise ordine nel pensiero occidentale; si dice che i vicini regolassero l’orologio sulla sua passeggiata.",
+ "Adam Smith": "Padre dell’economia moderna: la ‘mano invisibile’ compare nella Ricchezza delle nazioni una volta sola, ma ha fatto carriera.",
+ "David Hume": "Scettico scozzese che dubitò perfino della causalità e svegliò Kant dal ‘sonno dogmatico’, parole di Kant.",
+ "Denis Diderot": "Vent’anni di Encyclopédie tra censure e sequestri; vendette la biblioteca a Caterina II, che gliela lasciò in usufrutto e lo nominò bibliotecario.",
+ "Canaletto": "Dipinse Venezia con precisione quasi fotografica, aiutandosi con la camera ottica: gli inglesi del Grand Tour lo portavano a casa come souvenir.",
+ "Giambattista Tiepolo": "L’ultimo grande frescante veneziano: soffitti pieni di cielo da Würzburg a Madrid, dove morì al servizio di Carlo III."
 };
