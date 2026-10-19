@@ -180,5 +180,15 @@ var DESCRIZIONI = {
  "Michiel de Ruyter": "L’ammiraglio olandese che nel 1667 risalì il Medway e si portò a casa la nave ammiraglia inglese: gli inglesi lo ricordano ancora, a denti stretti.",
  "Ruprecht del Reno": "Cavaliere indomito: la carica era la sua strategia e il campo di Marston Moor la dimostrazione dei limiti. Tra una carica e l’altra introdusse in Inghilterra la mezzatinta.",
  "Kara Mustafa Pascià": "Il Gran Visir che nel 1683 assediò Vienna, lasciò aperta la strada ai soccorsi e fu strangolato a Belgrado per ordine del sultano. Anche la logistica è una responsabilità personale.",
- "Luigi Guglielmo di Baden": "Il «Türkenlouis»: respinse gli ottomani a Slankamen e i francesi sul Reno, e a Rastatt cominciò un palazzo ispirato a Versailles."
+ "Luigi Guglielmo di Baden": "Il «Türkenlouis»: respinse gli ottomani a Slankamen e i francesi sul Reno, e a Rastatt cominciò un palazzo ispirato a Versailles.",
+ "Carlo I d’Inghilterra": "Credeva nel diritto divino dei re; il Parlamento credeva nel diritto di accorciarli. Nel 1649 il Parlamento ebbe l’ultima parola, con un’ascia.",
+ "Luigi XIII di Francia": "Il re dei Tre Moschettieri (nei romanzi) e di Richelieu (nella realtà): regnò di nome, mentre il cardinale governava di fatto.",
+ "Cristina di Svezia": "Regina a sei anni, abdicò a ventisette per convertirsi al cattolicesimo e andò a vivere a Roma: una delle poche sovrane del Seicento a lasciare il trono di propria volontà.",
+ "Shah Jahan": "Imperatore Moghul e committente del Taj Mahal per la moglie Mumtaz; finì i suoi giorni prigioniero del figlio e, si dice, a guardare il mausoleo dalla finestra.",
+ "Guy Fawkes": "Incaricato di custodire la polvere sotto il Parlamento nel 1605: la Congiura fallì e il suo falò si accende ancora ogni 5 novembre.",
+ "Thomas Hobbes": "Teorizzò lo Stato assoluto nel Leviatano partendo da un’ipotesi poco lusinghiera: senza regole la vita è «solitaria, povera, sgradevole, brutale e breve».",
+ "William Harvey": "Dimostrò che il sangue circola e il cuore fa da pompa, dopo oltre mille anni di Galeno. Un caso raro di errore sopravvissuto così a lungo.",
+ "Samuel de Champlain": "Fondò Québec nel 1608 e si guadagnò il titolo di padre della Nuova Francia, sopportando un inverno che gli europei di allora non conoscevano.",
+ "Miyamoto Musashi": "Spadaccino leggendario: dichiarò di aver vinto sessanta duelli e scrisse Il libro dei cinque anelli, che i manager di oggi citano nei corsi di strategia.",
+ "Anthony van Dyck": "Allievo di Rubens e pittore di corte di Carlo I: ritrasse gli Stuart con tanta eleganza da far dimenticare il boia."
 };
