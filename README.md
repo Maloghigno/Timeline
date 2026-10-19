@@ -1,3 +1,5 @@
+![Atlante dei Personaggi](asset/Atlante_dei_Personaggi.png)
+
 # Timeline
 
 Una linea del tempo di **254 personaggi storici** (nati tra il 1553 e il 1900 circa) per capire chi fosse vivo nello stesso momento di chi. Spoiler: spesso erano tutti vivi insieme e si conoscevano pure, il che spiega parecchio.
