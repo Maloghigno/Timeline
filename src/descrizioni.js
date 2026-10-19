@@ -174,5 +174,11 @@ var DESCRIZIONI = {
  "Diego Velázquez": "Pittore di corte di Filippo IV: dipinse Las Meninas e un ritratto di Innocenzo X che, si dice, il papa giudicò ‘troppo vero’.",
  "Pieter Paul Rubens": "Pittore, diplomatico e imprenditore con bottega: dipingeva nudi robusti per mezza Europa e, nei ritagli, negoziava la pace tra Spagna e Inghilterra.",
  "Henry Purcell": "L’Orpheus Britannicus: compose Dido and Aeneas e morì a 36 anni, lasciando l’Inghilterra senza un grande compositore per quasi due secoli, o così si dice a Londra.",
- "Francesco Borromini": "Rivale di Bernini e architetto dell’ossessione geometrica: San Carlo alle Quattro Fontane sta in un incrocio e fa sembrare modeste le curve di tutti gli altri."
+ "Francesco Borromini": "Rivale di Bernini e architetto dell’ossessione geometrica: San Carlo alle Quattro Fontane sta in un incrocio e fa sembrare modeste le curve di tutti gli altri.",
+ "Albrecht von Wallenstein": "Si finanziò l’esercito da solo, vinse per l’imperatore e fu assassinato a Eger da ufficiali dello stesso imperatore: la riconoscenza asburgica era a rate.",
+ "Oliver Cromwell": "Gentiluomo di campagna che organizzò il New Model Army, vinse la guerra civile e fece tagliare la testa al re. Poi rifiutò la corona, ma tenne il potere: dettagli.",
+ "Michiel de Ruyter": "L’ammiraglio olandese che nel 1667 risalì il Medway e si portò a casa la nave ammiraglia inglese: gli inglesi lo ricordano ancora, a denti stretti.",
+ "Ruprecht del Reno": "Cavaliere indomito: la carica era la sua strategia e il campo di Marston Moor la dimostrazione dei limiti. Tra una carica e l’altra introdusse in Inghilterra la mezzatinta.",
+ "Kara Mustafa Pascià": "Il Gran Visir che nel 1683 assediò Vienna, lasciò aperta la strada ai soccorsi e fu strangolato a Belgrado per ordine del sultano. Anche la logistica è una responsabilità personale.",
+ "Luigi Guglielmo di Baden": "Il «Türkenlouis»: respinse gli ottomani a Slankamen e i francesi sul Reno, e a Rastatt cominciò un palazzo ispirato a Versailles."
 };
