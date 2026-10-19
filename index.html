@@ -2,7 +2,7 @@
 <meta charset="utf-8">
 
 <style>
-  /* Schedina al passaggio del mouse (dati da src/persone.js) */
+  /* Schedina al passaggio del mouse (frasi da src/descrizioni.js, foto da Wikipedia) */
   #scheda { position: fixed; z-index: 1000; display: none; width: 330px; box-sizing: border-box;
             pointer-events: none; background: #fffdf8; color: #2b2118; border: 1px solid #c9b79c;
             border-radius: 8px; padding: 12px; box-shadow: 0 6px 22px rgba(60,40,10,.28);
@@ -14,7 +14,6 @@
   #scheda .scheda-foto img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
   #scheda .scheda-nome { font-size: 16px; font-weight: bold; color: #603913; margin-bottom: 4px; }
   #scheda .scheda-date { color: #6b5a44; }
-  #scheda .scheda-ruolo { font-style: italic; margin-top: 4px; }
   #scheda .scheda-testo { margin-top: 10px; }
   #scheda .scheda-fonte { margin-top: 8px; font-size: 11px; color: #8a7355; }
   /* la schedina sostituisce il tooltip nativo di Google Charts */
@@ -22,7 +21,6 @@
 </style>
 
 <script src="src/lokijs.js"></script>
-<script src="src/persone.js"></script>
 <script src="src/descrizioni.js" charset="utf-8"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
@@ -340,7 +338,7 @@
   // dumps array with 1 doc (thor) to console
   console.log(result);
 
-  // ---- Schedina al mouseover: foto, nome, date, descrizione (da PERSONE in src/persone.js) ----
+  // ---- Schedina al mouseover: foto (Wikipedia), nome, date, frase (DESCRIZIONI in src/descrizioni.js) ----
   var schedaEl = null, mouseX = 0, mouseY = 0;
 
   function el(tag, cls, testo){
@@ -353,7 +351,7 @@
     var w = nome.replace(/\(.*?\)/g, '').split(/\s+/).filter(function(x){ return /^[A-Z\u00C0-\u00DD]/.test(x); });
     return (w.slice(0, 2).map(function(x){ return x.charAt(0); }).join('') || nome.charAt(0)).toUpperCase();
   }
-  // Foto da Wikipedia, caricata dal browser (niente Python). Accettata solo se la pagina cita un anno di nascita/morte del file.
+  // Foto da Wikipedia, caricata dal browser. Accettata solo se la pagina cita un anno di nascita/morte del file.
   var cacheFoto = {};
   var WIKI_TITOLI = {   // titoli it.wikipedia diversi dal nome in tabella (se sbagliati: restano le iniziali)
     'Guglielmo III d\u2019Orange': "Guglielmo III d'Inghilterra",
@@ -407,26 +405,23 @@
       .catch(function(){});
   }
   function riempiScheda(pg){
-    var p = (typeof PERSONE !== 'undefined' && PERSONE[pg.Name]) || null;
     schedaEl.textContent = '';
     schedaEl.dataset.nome = pg.Name;
 
     var foto = el('div', 'scheda-foto');
     foto.textContent = iniziali(pg.Name);
-    if(p && p.thumb) metti(foto, p.thumb, pg.Name);
-    else cercaFoto(pg, function(url){ if(schedaEl.dataset.nome === pg.Name) metti(foto, url, pg.Name); });
+    cercaFoto(pg, function(url){ if(schedaEl.dataset.nome === pg.Name) metti(foto, url, pg.Name); });
 
     var info = el('div');
     info.appendChild(el('div', 'scheda-nome', pg.Name));
     info.appendChild(el('div', 'scheda-date', fmtLunga(pg.Born, pg.BornYearOnly) + ' \u2013 ' + fmtLunga(pg.Died, pg.DiedYearOnly)));
-    if(p && p.description) info.appendChild(el('div', 'scheda-ruolo', p.description.charAt(0).toUpperCase() + p.description.slice(1)));
 
     var testa = el('div', 'scheda-testa');
     testa.appendChild(foto);
     testa.appendChild(info);
     schedaEl.appendChild(testa);
 
-    var frase = (typeof DESCRIZIONI !== 'undefined' && DESCRIZIONI[pg.Name]) || (p && p.extract) || '';
+    var frase = (typeof DESCRIZIONI !== 'undefined' && DESCRIZIONI[pg.Name]) || '';
     if(frase) schedaEl.appendChild(el('div', 'scheda-testo', frase));
     schedaEl.appendChild(el('div', 'scheda-fonte', 'Foto: Wikipedia (se disponibile)'));
   }

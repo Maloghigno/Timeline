@@ -26,7 +26,6 @@ Quattro categorie, più o meno equilibrate:
 
 - **`index.html`**: tutto il codice e l'elenco dei personaggi (`users.insert(...)`), con [LokiJS](https://github.com/techfort/LokiJS) come mini-database e Google Charts Timeline per il disegno.
 - **`src/descrizioni.js`**: le frasi delle schedine, una per personaggio.
-- **`src/persone.js`**: segnaposto vuoto; le foto vengono caricate dal browser direttamente da Wikipedia.
 
 ## Aggiungere un personaggio
 

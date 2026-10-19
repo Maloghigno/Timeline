@@ -1,8 +1,2 @@
 # Visual Studio
 .vs/
-
-# cache delle richieste a Wikipedia (rigenerabile)
-
-# bytecode Python
-__pycache__/
-*.pyc
