@@ -151,5 +151,17 @@ var DESCRIZIONI = {
  "Alexander von Humboldt": "Esplorò l’America latina con strumenti e curiosità, e inventò quasi da solo l’ecologia, il clima e la geografia delle piante.",
  "David Livingstone": "Missionario ed esploratore dell’Africa: lo ritrovò Stanley con la frase ‘Dr. Livingstone, I presume?’, un classico dell’imbarazzo.",
  "Ernest Shackleton": "Fallì il Polo Sud ma salvò tutti i suoi uomini nel 1916: il miglior fallimento di sempre.",
- "Filippo Brunelleschi": "Costruì la cupola di Santa Maria del Fiore senza armature e inventò la prospettiva: l’uomo che mise il Rinascimento in 3D."
+ "Filippo Brunelleschi": "Costruì la cupola di Santa Maria del Fiore senza armature e inventò la prospettiva: l’uomo che mise il Rinascimento in 3D.",
+ "Baruch Spinoza": "Scomunicato dalla comunità ebraica di Amsterdam, rifiutò una cattedra a Heidelberg per fare lenti: filosofo dell’Etica dimostrata in ordine geometrico, e povero per scelta.",
+ "John Locke": "Padre del liberalismo: ‘vita, libertà e proprietà’. Jefferson ne prese in prestito idee e, tra le righe, qualche sillaba.",
+ "Gottfried Wilhelm Leibniz": "Inventò il calcolo infinitesimale contemporaneamente a Newton: la disputa sulla priorità fu l’unico argomento su cui Inghilterra e Germania non trovarono un compromesso.",
+ "Blaise Pascal": "Costruì una calcolatrice a diciannove anni, poi si dedicò alla fede e alle probabilità: la scommessa su Dio la mise a verbale.",
+ "Voltaire": "Passò la vita a litigare con il re, la Chiesa e l’Inquisizione; ‘Écrasez l’infâme’ non era un programma, ma un hobby.",
+ "Molière": "Commediografo di Luigi XIV: sul palco morì davvero, durante la quarta replica del Malato immaginario. Chi dice che il teatro non sia credibile?",
+ "Jean-Baptiste Colbert": "Ministro delle finanze del Re Sole: tassò, costruì flotte e manifatture, e dimostrò che il bilancio statale si può rovinare con le guerre altrui.",
+ "Guglielmo III d’Orange": "Statolder d’Olanda e re d’Inghilterra, scacciò il suocero Giacomo II nella Gloriosa Rivoluzione. In famiglia le cene non erano facili.",
+ "Carlo XII di Svezia": "Il re guerriero: vinse a Narva, perse a Poltava e morì in trincea a Fredriksten a 36 anni. Pietro il Grande lo ringraziò con la Grande Guerra del Nord.",
+ "Montesquieu": "Teorizzò la separazione dei poteri: tre mani invece di una sola, per evitare che il tiranno ci metta la firma.",
+ "Michelangelo Merisi da Caravaggio": "Pittore del chiaroscuro e delle risse: condannato a morte per omicidio, fuggì tra Napoli, Malta e la Sicilia. Morì a 38 anni, anche lui in fuga.",
+ "Gustave Flaubert": "Passò cinque anni su Madame Bovary per trovare ‘le mot juste’; il processo per immoralità fu l’unica pubblicità di cui avesse bisogno."
 };

@@ -189,6 +189,18 @@
   users.insert({category:'Scientist', subcategory:'', name:'David Livingstone', birthdate: new Date(1813, 2, 19), adulthood: null, death: new Date(1873, 4, 1), adulthood_note:''});
   users.insert({category:'Scientist', subcategory:'', name:'Ernest Shackleton', birthdate: new Date(1874, 1, 15), adulthood: null, death: new Date(1922, 0, 5), adulthood_note:''});
   users.insert({category:'Artist', subcategory:'', name:'Filippo Brunelleschi', birthdate: new Date(1377, 0, 1), adulthood: null, death: new Date(1446, 3, 15), birth_year_only: true, adulthood_note:''});  // nascita 1377 (giorno ignoto, 1 gen = placeholder); morte 15/04/1446 data giuliana
+  users.insert({category:'Scientist', subcategory:'', name:'Baruch Spinoza', birthdate: new Date(1632, 10, 24), adulthood: null, death: new Date(1677, 1, 21), adulthood_note:''});
+  users.insert({category:'Scientist', subcategory:'', name:'John Locke', birthdate: new Date(1632, 7, 29), adulthood: null, death: new Date(1704, 9, 28), adulthood_note:''});
+  users.insert({category:'Scientist', subcategory:'', name:'Gottfried Wilhelm Leibniz', birthdate: new Date(1646, 6, 1), adulthood: null, death: new Date(1716, 10, 14), adulthood_note:''});
+  users.insert({category:'Scientist', subcategory:'', name:'Blaise Pascal', birthdate: new Date(1623, 5, 19), adulthood: null, death: new Date(1662, 7, 19), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Voltaire', birthdate: new Date(1694, 10, 21), adulthood: null, death: new Date(1778, 4, 30), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Molière', birthdate: new Date(1622, 0, 1), adulthood: null, death: new Date(1673, 1, 17), birth_year_only: true, adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Jean-Baptiste Colbert', birthdate: new Date(1619, 7, 29), adulthood: null, death: new Date(1683, 8, 6), adulthood_note:''});
+  users.insert({category:'Main', subcategory:'', name:'Guglielmo III d’Orange', birthdate: new Date(1650, 10, 4), adulthood: null, death: new Date(1702, 2, 8), adulthood_note:''});
+  users.insert({category:'Military', subcategory:'', name:'Carlo XII di Svezia', birthdate: new Date(1682, 5, 17), adulthood: null, death: new Date(1718, 10, 30), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Montesquieu', birthdate: new Date(1689, 0, 18), adulthood: null, death: new Date(1755, 1, 10), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Michelangelo Merisi da Caravaggio', birthdate: new Date(1571, 8, 29), adulthood: null, death: new Date(1610, 6, 18), adulthood_note:''});
+  users.insert({category:'Artist', subcategory:'', name:'Gustave Flaubert', birthdate: new Date(1821, 11, 12), adulthood: null, death: new Date(1880, 4, 8), adulthood_note:''});
 
   // ---- Formattazione date ----
   function fmtNumerica(d, soloAnno){
@@ -254,6 +266,7 @@
   // Foto da Wikipedia, caricata dal browser (niente Python). Accettata solo se la pagina cita un anno di nascita/morte del file.
   var cacheFoto = {};
   var WIKI_TITOLI = {   // titoli it.wikipedia diversi dal nome in tabella (se sbagliati: restano le iniziali)
+    'Guglielmo III d\u2019Orange': "Guglielmo III d'Inghilterra",
     'Cardinale Richelieu': 'Armand-Jean du Plessis de Richelieu',
     'Imperatore Qianlong': 'Qianlong',
     'Maresciallo Turenne': "Henri de La Tour d'Auvergne, visconte di Turenne",
