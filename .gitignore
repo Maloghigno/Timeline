@@ -2,7 +2,6 @@
 .vs/
 
 # cache delle richieste a Wikipedia (rigenerabile)
-tools/.cache/
 
 # bytecode Python
 __pycache__/
