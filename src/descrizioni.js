@@ -253,5 +253,7 @@ var DESCRIZIONI = {
  "David Hume": "Scettico scozzese che dubitò perfino della causalità e svegliò Kant dal ‘sonno dogmatico’, parole di Kant.",
  "Denis Diderot": "Vent’anni di Encyclopédie tra censure e sequestri; vendette la biblioteca a Caterina II, che gliela lasciò in usufrutto e lo nominò bibliotecario.",
  "Canaletto": "Dipinse Venezia con precisione quasi fotografica, aiutandosi con la camera ottica: gli inglesi del Grand Tour lo portavano a casa come souvenir.",
- "Giambattista Tiepolo": "L’ultimo grande frescante veneziano: soffitti pieni di cielo da Würzburg a Madrid, dove morì al servizio di Carlo III."
+ "Giambattista Tiepolo": "L’ultimo grande frescante veneziano: soffitti pieni di cielo da Würzburg a Madrid, dove morì al servizio di Carlo III.",
+ "George Boole": "Autodidatta e figlio di un ciabattino, inventò l’algebra che ragiona con vero e falso: decenni dopo i computer la usarono per tutto, bit compresi.",
+ "Frédéric Chopin": "Lasciò la Polonia a vent’anni e non vi tornò più: conquistò Parigi con il solo pianoforte, e morì a 39 anni tra salotti e tubercolosi."
 };

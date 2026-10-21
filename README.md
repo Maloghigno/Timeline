@@ -1,6 +1,6 @@
 # Timeline dei personaggi storici
 
-**Interactive history timeline & infographic poster** · 254 historical figures, 1553–1992 · kings, generals, scientists and artists: who lived at the same time as whom.
+**Interactive history timeline & infographic poster** · 256 historical figures, 1553–1992 · kings, generals, scientists and artists: who lived at the same time as whom.
 
 [![Atlante dei Personaggi](asset/Atlante_dei_Personaggi.png)](asset/Atlante_dei_Personaggi.png)
 
@@ -12,7 +12,7 @@
 
 ## 📜 Cos'è
 
-Una **linea del tempo interattiva** con **254 personaggi storici** vissuti tra il 1553 e il 1992: da **Galileo** a **Churchill**, da **Napoleone** a **Picasso**, attraverso l'**Illuminismo**, il **Risorgimento**, le **Guerre mondiali**.
+Una **linea del tempo interattiva** con **256 personaggi storici** vissuti tra il 1553 e il 1992: da **Galileo** a **Churchill**, da **Napoleone** a **Picasso**, attraverso l'**Illuminismo**, il **Risorgimento**, le **Guerre mondiali**.
 
 Risponde alla domanda che i libri di storia non hanno mai sopportato: *chi era vivo nello stesso momento di chi?* Spoiler: molti più di quanti pensi, e parecchi si conoscevano pure. Il che spiega diverse guerre.
 
@@ -26,14 +26,14 @@ Passa il mouse su un personaggio e compare la **schedina**: foto da Wikipedia, n
 - **Charles Darwin** e **Abraham Lincoln** nascono lo stesso giorno, il 12/02/1809. Uno ha riscritto l'origine dell'uomo, l'altro i suoi diritti.
 - **Mozart** e **Robespierre** sono quasi coetanei (1756 e 1758) e muoiono a tre anni di distanza: il primo a 35 anni, di malattia; il secondo a 36, di ghigliottina.
 
-## 👥 Chi sono i 254 (per ora)
+## 👥 Chi sono i 256 (per ora)
 
 | Categoria | Chi | n |
 |---|---|---|
 | 👑 Main | re, regine, politici, dittatori | 67 |
 | ⚔️ Military | generali, ammiragli, un paio di pirati | 67 |
-| 🔭 Scientist | scienziati, filosofi, esploratori | 61 |
-| 🎨 Artist | pittori, musicisti, scrittori, attori | 59 |
+| 🔭 Scientist | scienziati, filosofi, esploratori | 62 |
+| 🎨 Artist | pittori, musicisti, scrittori, attori | 60 |
 
 ## 🚀 Come si usa
 
