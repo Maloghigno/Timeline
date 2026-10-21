@@ -4,7 +4,7 @@
 
 [![Atlante dei Personaggi](asset/Atlante_dei_Personaggi.png)](asset/Atlante_dei_Personaggi.png)
 
-*🗺️ Il poster dei 254 nomi generato con Claude: l'obiettivo è generarlo ancora più bello.*
+*🗺️ Il poster dei 256 nomi generato con Claude: l'obiettivo è generarlo ancora più bello.*
 
 👉 **[Prova la timeline online](https://maloghigno.github.io/Timeline/)**
 
