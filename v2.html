@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Timeline v2 · Atlante dei Personaggi</title>
+<style>
+  :root { --carta:#faf6ee; --inchiostro:#3b2a1a; --tenue:#8a7355; --linea:#e3d9c6; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body { background: var(--carta); color: var(--inchiostro); font: 13px/1.4 Helvetica, Arial, sans-serif;
+         display: flex; flex-direction: column; }
+  header { padding: 10px 18px 6px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; }
+  h1 { font: 700 21px Georgia, 'Times New Roman', serif; margin: 0; color: #603913; letter-spacing: .2px; }
+  header .sub { color: var(--tenue); font-style: italic; font-family: Georgia, serif; }
+  header .classica { margin-left: auto; color: #603913; }
+  #stat { width: 100%; color: var(--tenue); font-size: 12px; }
+  .controlli { padding: 4px 18px 8px; display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: center;
+               border-bottom: 1px solid var(--linea); }
+  .gruppo-c { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+  .gruppo-c > b { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--tenue); font-weight: 600; margin-right: 2px; }
+  .chip { cursor: pointer; user-select: none; border: 1.5px solid var(--c, #999); color: var(--c, #555); background: transparent;
+          border-radius: 999px; padding: 2px 10px 2px 8px; font-size: 12px; display: inline-flex; align-items: center; gap: 6px; }
+  .chip i { width: 9px; height: 9px; border-radius: 50%; background: var(--c, #999); display: inline-block; }
+  .chip.on { background: var(--c, #999); color: #fff; }
+  .chip.on i { background: #fff; }
+  .chip.cat.on { color: #fff; }
+  input[type=search] { border: 1px solid #cdbf9f; background: #fffdf8; border-radius: 999px; padding: 3px 12px; width: 190px; font: inherit; }
+  input[type=range] { vertical-align: middle; width: 110px; }
+  #scroller { flex: 1; overflow: auto; position: relative; background: var(--carta); }
+  #inner { position: relative; }
+  #asse { position: sticky; top: 0; z-index: 5; display: block; background: var(--carta); border-bottom: 1px solid var(--linea); }
+  #tela { display: block; }
+  /* barre e sfumature */
+  .p rect.b { transition: opacity .12s; }
+  .dim { opacity: .16; }
+  .off { opacity: .06; pointer-events: none; }
+  .banda { transition: opacity .12s; }
+  .banda.dim { opacity: .04; }
+  text { font-family: Helvetica, Arial, sans-serif; }
+  text.etichetta { font-size: 11px; font-weight: 600; pointer-events: none; }
+  text.fuori { fill: #3b2a1a; paint-order: stroke; stroke: #faf6ee; stroke-width: 3px; stroke-linejoin: round; font-weight: 500; }
+  text.dentro { fill: #fff; }
+  text.titolo-g { font: 700 10.5px Georgia, 'Times New Roman', serif; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
+  .filo-nome { font: 700 10px Helvetica, Arial, sans-serif; letter-spacing: .08em; text-transform: uppercase; paint-order: stroke; stroke: #faf6ee; stroke-width: 3px; }
+  /* schedina */
+  #scheda { position: fixed; z-index: 1000; display: none; width: 320px; pointer-events: none; background: #fffdf8; color: #2b2118;
+            border: 1px solid #c9b79c; border-radius: 8px; padding: 11px 13px; box-shadow: 0 6px 22px rgba(60,40,10,.28); }
+  #scheda .n { font-size: 15px; font-weight: bold; color: #603913; }
+  #scheda .d { color: #6b5a44; margin: 2px 0 6px; }
+  #scheda .g { display: flex; flex-wrap: wrap; gap: 3px 10px; font-size: 12px; margin-bottom: 6px; }
+  #scheda .g span::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--c); margin-right: 5px; }
+  #scheda .t { font-size: 12.5px; }
+  #scheda .f { font-size: 11px; color: var(--tenue); margin-top: 6px; }
+  #calcolo { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--tenue); font-style: italic; }
+  footer { padding: 4px 18px 6px; color: var(--tenue); font-size: 11px; border-top: 1px solid var(--linea); }
+</style>
+</head>
+<body>
+<header>
+  <h1>Atlante dei Personaggi · v2</h1>
+  <span class="sub">chi era vivo con chi: gruppi, eventi e fili tra i secoli</span>
+  <a class="classica" href="index.html">← timeline classica</a>
+  <div id="stat"></div>
+</header>
+<div class="controlli">
+  <div class="gruppo-c" id="c-cat"><b>Categorie</b></div>
+  <div class="gruppo-c" id="c-fili"><b>Fili</b></div>
+  <div class="gruppo-c" id="c-altro"><b>Sfondo</b></div>
+  <div class="gruppo-c"><b>Zoom</b><input id="zoom" type="range" min="3" max="12" step="0.5" value="6"></div>
+  <div class="gruppo-c"><input id="cerca" type="search" placeholder="cerca un nome…" autocomplete="off"></div>
+</div>
+<div id="scroller">
+  <div id="inner">
+    <svg id="asse" height="66"></svg>
+    <svg id="tela"></svg>
+  </div>
+  <div id="calcolo">calcolo le righe…</div>
+</div>
+<footer>Ogni barra va dall'età adulta alla morte (come nella timeline classica). Il colore indica la categoria; la striscia in basso, il secondo gruppo.
+  I gruppi sono le aree colorate; le bande verticali sono eventi; le linee tra le barre sono fili. Raggruppamenti a giudizio dell'autore, non verificati su fonti.</footer>
+<div id="scheda"></div>
+
+<script src="src/personaggi.js" charset="utf-8"></script>
+<script src="src/descrizioni.js" charset="utf-8"></script>
+<script src="src/gruppi.js" charset="utf-8"></script>
+<script src="src/v2-layout.js"></script>
+<script>
+(function () {
+  'use strict';
+  var NS = 'http://www.w3.org/2000/svg';
+  var MARGINE = 40;
+  var CAT = {
+    Main:      { colore: '#9a3b2e' },
+    Military:  { colore: '#3b5f82' },
+    Scientist: { colore: '#3f7d5a' },
+    Artist:    { colore: '#b8801f' }
+  };
+  var gruppoPerId = {}; GRUPPI.forEach(function (g) { gruppoPerId[g.id] = g; });
+  GRUPPI_SECONDARI.forEach(function (g) { gruppoPerId[g.id] = g; });
+  var indicePerNome = {}; PERSONAGGI.forEach(function (p, i) { indicePerNome[p.name] = i; });
+
+  // stato
+  var stato = { scala: 6, catNascoste: {}, fili: { PIRATI: true }, secondari: {}, eventi: true, cerca: '', hoverP: null, hoverG: null };
+  var L = null;                 // ultimo layout
+  var els = { p: [], g: {} };   // elementi per evidenziare
+
+  // ---- utilita' ----
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function senzaAccenti(s) { return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); }
+  function scuro(hex, f) {
+    var n = parseInt(hex.slice(1), 16);
+    var r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+    return 'rgb(' + Math.round(r * f) + ',' + Math.round(g * f) + ',' + Math.round(b * f) + ')';
+  }
+  function fmtData(d, soloAnno) {
+    return soloAnno ? String(d.getFullYear())
+                    : d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+  function gruppiDi(pg) {
+    var ids = (ASSEGNAZIONI[pg.name] || []).slice();
+    GRUPPI_SECONDARI.forEach(function (g) { if (g.membri.indexOf(pg.name) >= 0) ids.push(g.id); });
+    return ids;
+  }
+  var filiDi = {};
+  FILI.forEach(function (f) { f.membri.forEach(function (n) { (filiDi[n] = filiDi[n] || []).push(f); }); });
+
+  // ---- controlli ----
+  function chip(testo, colore, attivo, onclick, extra) {
+    var c = document.createElement('span');
+    c.className = 'chip' + (extra ? ' ' + extra : '') + (attivo ? ' on' : '');
+    c.style.setProperty('--c', colore);
+    c.innerHTML = '<i></i>' + esc(testo);
+    c.addEventListener('click', function () { onclick(c); });
+    return c;
+  }
+  var cCat = document.getElementById('c-cat');
+  Object.keys(CAT).forEach(function (k) {
+    cCat.appendChild(chip(k, CAT[k].colore, true, function (c) {
+      stato.catNascoste[k] = !stato.catNascoste[k]; c.classList.toggle('on', !stato.catNascoste[k]); applica();
+    }, 'cat'));
+  });
+  var cFili = document.getElementById('c-fili');
+  FILI.forEach(function (f) {
+    cFili.appendChild(chip(f.nome, f.colore, !!stato.fili[f.id], function (c) {
+      stato.fili[f.id] = !stato.fili[f.id]; c.classList.toggle('on', !!stato.fili[f.id]); disegnaFili();
+    }));
+  });
+  GRUPPI_SECONDARI.forEach(function (g) {
+    cFili.appendChild(chip(g.nome + ' (gruppo secondario)', g.colore, false, function (c) {
+      stato.secondari[g.id] = !stato.secondari[g.id]; c.classList.toggle('on', !!stato.secondari[g.id]); disegnaFili(); applica();
+    }));
+  });
+  var cAltro = document.getElementById('c-altro');
+  cAltro.appendChild(chip('Eventi', '#7a6a58', true, function (c) {
+    stato.eventi = !stato.eventi; c.classList.toggle('on', stato.eventi);
+    document.getElementById('g-eventi').style.display = stato.eventi ? '' : 'none';
+    document.getElementById('a-eventi').style.display = stato.eventi ? '' : 'none';
+  }));
+  cAltro.appendChild(chip('Gruppi', '#7a6a58', true, function (c) {
+    var on = c.classList.toggle('on');
+    document.getElementById('g-gruppi').style.display = on ? '' : 'none';
+  }));
+  document.getElementById('zoom').addEventListener('input', function (e) {
+    clearTimeout(this._t);
+    var v = parseFloat(e.target.value);
+    this._t = setTimeout(function () { ridisegna(v); }, 120);
+  });
+  document.getElementById('cerca').addEventListener('input', function (e) { stato.cerca = senzaAccenti(e.target.value.trim()); applica(); });
+
+  // ---- disegno ----
+  function el(nome, attr, parent) {
+    var e = document.createElementNS(NS, nome);
+    for (var k in attr) e.setAttribute(k, attr[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+
+  function ridisegna(scala) {
+    var scroller = document.getElementById('scroller');
+    var anno0 = L ? L.T0 + (scroller.scrollLeft + scroller.clientWidth / 2 - MARGINE) / L.scala : null;
+    document.getElementById('calcolo').style.display = 'flex';
+    setTimeout(function () {
+      if (scala) stato.scala = scala;
+      var vicini = {};
+      GRUPPI_SECONDARI.concat(FILI).forEach(function (g) {
+        g.membri.forEach(function (n) { vicini[n] = (vicini[n] || []).concat(g.membri.filter(function (m) { return m !== n; })); });
+      });
+      var t = Date.now();
+      L = V2Layout.calcola(PERSONAGGI, GRUPPI, ASSEGNAZIONI, { scala: stato.scala, vicini: vicini });
+      var ms = Date.now() - t;
+      costruisci();
+      document.getElementById('stat').textContent = PERSONAGGI.length + ' personaggi · ' + L.righe + ' righe (il minimo possibile, senza gruppi, sarebbe ' +
+        L.minimo + ') · ' + GRUPPI.length + ' gruppi · righe calcolate in ' + ms + ' ms';
+      if (anno0 != null) scroller.scrollLeft = MARGINE + (anno0 - L.T0) * L.scala - scroller.clientWidth / 2;
+      document.getElementById('calcolo').style.display = 'none';
+    }, 20);
+  }
+
+  function costruisci() {
+    var W = L.larghezza + 2 * MARGINE, H = L.altezza + 24, ROW = L.riga;
+    var X = function (anno) { return MARGINE + (anno - L.T0) * L.scala; };
+    document.getElementById('inner').style.width = W + 'px';
+    var tela = document.getElementById('tela'), asse = document.getElementById('asse');
+    tela.setAttribute('width', W); tela.setAttribute('height', H);
+    asse.setAttribute('width', W);
+    tela.innerHTML = ''; asse.innerHTML = '';
+    els = { p: [], g: {} };
+
+    // asse: tacche ogni 25 anni
+    var gAsse = el('g', {}, asse);
+    var gGriglia = el('g', { id: 'g-griglia' }, tela);
+    for (var y = L.T0; y <= L.T1; y += 25) {
+      var sec = (y % 100 === 0);
+      el('line', { x1: X(y), x2: X(y), y1: sec ? 14 : 22, y2: 66, stroke: '#cdbf9f', 'stroke-width': sec ? 1.2 : .7 }, gAsse);
+      var t = el('text', { x: X(y) + 4, y: sec ? 24 : 28, 'font-size': sec ? 13 : 10.5, 'font-weight': sec ? 700 : 400, fill: sec ? '#603913' : '#8a7355' }, gAsse);
+      t.textContent = y;
+      el('line', { x1: X(y), x2: X(y), y1: 0, y2: H, stroke: sec ? '#d9cdb3' : '#ece4d3', 'stroke-width': sec ? 1 : .6 }, gGriglia);
+    }
+    // eventi: banda di sfondo + etichetta nell'asse
+    var gEv = el('g', { id: 'g-eventi' }, tela), aEv = el('g', { id: 'a-eventi' }, asse);
+    EVENTI.forEach(function (e, i) {
+      var x0 = X(V2Layout.anno(new Date(e.da[0], e.da[1] - 1, e.da[2]))), x1 = X(V2Layout.anno(new Date(e.a[0], e.a[1] - 1, e.a[2])));
+      el('rect', { x: x0, y: 0, width: x1 - x0, height: H, fill: e.colore, opacity: .10 }, gEv);
+      el('line', { x1: x0, x2: x0, y1: 0, y2: H, stroke: e.colore, 'stroke-opacity': .3, 'stroke-width': 1 }, gEv);
+      el('line', { x1: x1, x2: x1, y1: 0, y2: H, stroke: e.colore, 'stroke-opacity': .3, 'stroke-width': 1 }, gEv);
+      var ly = 40 + (i % 2) * 13;
+      var tw = e.nome.length * 5.6 + 10;
+      el('rect', { x: x0, y: ly - 10, width: Math.max(tw, x1 - x0), height: 12, rx: 3, fill: e.colore, opacity: .9 }, aEv);
+      var tx = el('text', { x: x0 + 5, y: ly, 'font-size': 9.5, 'font-weight': 700, fill: '#fff' }, aEv); tx.textContent = e.nome;
+    });
+    if (!stato.eventi) { gEv.style.display = 'none'; aEv.style.display = 'none'; }
+
+    // gruppi: area a scalini, arrotondata, con il titolo
+    var gGr = el('g', { id: 'g-gruppi' }, tela);
+    L.blocchi.forEach(function (b) {
+      var gg = el('g', { 'data-g': b.id }, gGr);
+      var banda = el('g', { class: 'banda', opacity: .17 }, gg);
+      var c = b.celle, pts = [], n = c.length, ins = 3.5;
+      for (var j = 0; j < n; j++) {
+        pts.push([X2(c[j].x1) - ins, c[j].y + (j === 0 ? ins : 0)]);
+        pts.push([X2(c[j].x1) - ins, c[j].y + ROW - (j === n - 1 ? ins : 0)]);
+      }
+      for (j = n - 1; j >= 0; j--) {
+        pts.push([X2(c[j].x0) + ins, c[j].y + ROW - (j === n - 1 ? ins : 0)]);
+        pts.push([X2(c[j].x0) + ins, c[j].y + (j === 0 ? ins : 0)]);
+      }
+      el('path', { d: 'M' + pts.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join('L') + 'Z',
+                   fill: b.colore, stroke: b.colore, 'stroke-width': ins * 2, 'stroke-linejoin': 'round' }, banda);
+      var tt = el('text', { x: X2(c[0].x0) + 9, y: c[0].y + 14, class: 'titolo-g', fill: scuro(b.colore, .62), 'data-g': b.id }, gg);
+      tt.textContent = b.nome;
+      els.g[b.id] = banda;
+    });
+    function X2(px) { return MARGINE + px; }
+
+    // barre
+    var gP = el('g', { id: 'g-barre' }, tela), gF = el('g', { id: 'g-fili' }, tela), gT = el('g', { id: 'g-testi' }, tela);
+    L.persone.forEach(function (p, i) {
+      var cat = CAT[p.cat] || { colore: '#777' };
+      var x0 = X2(p.x0), w = p.x1 - p.x0, y = p.y + 3;
+      var gb = el('g', { class: 'p', 'data-i': i }, gP);
+      el('rect', { class: 'b', x: x0, y: y, width: w, height: 15, rx: 3.5, fill: cat.colore }, gb);
+      if (p.secondo) {
+        var sc = gruppoPerId[p.secondo].colore;
+        el('rect', { x: x0 + 2, y: y + 11.5, width: Math.max(2, w - 4), height: 2.6, rx: 1.3, fill: sc, stroke: '#fff', 'stroke-width': .6, 'stroke-opacity': .7 }, gb);
+      }
+      var tx = el('text', { class: 'etichetta ' + (p.fuori ? 'fuori' : 'dentro'), x: p.fuori ? x0 + w + 5 : x0 + 5, y: y + 10.5, 'data-i': i }, gT);
+      tx.textContent = p.nome;
+      els.p[i] = [gb, tx];
+    });
+    els.gSecondari = el('g', { id: 'g-sec' }, tela);
+    disegnaFili();
+    applica();
+  }
+
+  // curva a S che scorre in avanti nel tempo; verticale se le due barre si sovrappongono
+  function tratto(A, B) {
+    var ay = A.y + 3 + 7.5, by = B.y + 3 + 7.5;
+    if (B.a >= A.d - 0.01) {
+      var sx = MARGINE + A.x1, ex = MARGINE + B.x0, dx = Math.max(26, Math.min(300, (ex - sx) * 0.55));
+      return { d: 'M' + sx + ',' + ay + ' C' + (sx + dx) + ',' + ay + ' ' + (ex - dx) + ',' + by + ' ' + ex + ',' + by,
+               n: [[sx, ay], [ex, by]] };
+    }
+    var xo = MARGINE + (Math.max(A.x0, B.x0) + Math.min(A.x1, B.x1)) / 2;
+    var giu = by > ay, sy = giu ? ay + 7.5 : ay - 7.5, ey = giu ? by - 7.5 : by + 7.5, dy = (ey - sy) / 2;
+    var off = 9; // leggera curva laterale
+    return { d: 'M' + xo + ',' + sy + ' C' + (xo + off) + ',' + (sy + dy) + ' ' + (xo - off) + ',' + (ey - dy) + ' ' + xo + ',' + ey,
+             n: [[xo, sy], [xo, ey]] };
+  }
+
+  function disegnaFili() {
+    var gF = document.getElementById('g-fili');
+    gF.innerHTML = '';
+    var gS = els.gSecondari; gS.innerHTML = '';
+    function disegna(def, parent, tratteggio) {
+      var pers = def.membri.map(function (n) { return L.persone[indicePerNome[n]]; })
+        .sort(function (a, b) { return a.nasc - b.nasc; });
+      var g = el('g', { 'data-f': def.id }, parent);
+      var pa = [], nodi = [];
+      for (var i = 0; i + 1 < pers.length; i++) { var t = tratto(pers[i], pers[i + 1]); pa.push(t.d); nodi = nodi.concat(t.n); }
+      pa.forEach(function (d) { el('path', { d: d, fill: 'none', stroke: '#faf6ee', 'stroke-width': 6.5, 'stroke-opacity': .9, 'stroke-linecap': 'round' }, g); });
+      pa.forEach(function (d) {
+        el('path', { d: d, fill: 'none', stroke: def.colore, 'stroke-width': tratteggio ? 2 : 2.6, 'stroke-linecap': 'round',
+                     'stroke-dasharray': tratteggio ? '1.5 5.5' : 'none' }, g);
+      });
+      nodi.forEach(function (n) { el('circle', { cx: n[0], cy: n[1], r: 3.7, fill: '#faf6ee', stroke: def.colore, 'stroke-width': 2.2 }, g); });
+      var primo = nodi[0];
+      if (primo) { var tx = el('text', { x: primo[0] - 2, y: primo[1] - 9, class: 'filo-nome', fill: scuro(def.colore, .85) }, g); tx.textContent = def.nome; }
+    }
+    FILI.forEach(function (f) { if (stato.fili[f.id]) disegna(f, gF, false); });
+    GRUPPI_SECONDARI.forEach(function (g) { if (stato.secondari[g.id]) disegna(g, gS, true); });
+  }
+
+  // ---- evidenziazione ----
+  function personeDelGruppo(id) {
+    var out = {};
+    L.persone.forEach(function (p, i) { if (p.gruppi.indexOf(id) >= 0) out[i] = true; });
+    GRUPPI_SECONDARI.forEach(function (g) { if (g.id === id) g.membri.forEach(function (n) { out[indicePerNome[n]] = true; }); });
+    return out;
+  }
+  function applica() {
+    if (!L) return;
+    var evid = null, gruppiEvid = null;
+    if (stato.hoverP != null) {
+      var pr = L.persone[stato.hoverP]; evid = {}; gruppiEvid = {};
+      pr.gruppi.forEach(function (g) { gruppiEvid[g] = true; var m = personeDelGruppo(g); for (var k in m) evid[k] = true; });
+      evid[stato.hoverP] = true;
+      (filiDi[pr.nome] || []).forEach(function (f) { if (stato.fili[f.id]) f.membri.forEach(function (n) { evid[indicePerNome[n]] = true; }); });
+    } else if (stato.hoverG != null) {
+      evid = personeDelGruppo(stato.hoverG); gruppiEvid = {}; gruppiEvid[stato.hoverG] = true;
+    } else if (stato.cerca) {
+      evid = {}; L.persone.forEach(function (p, i) { if (senzaAccenti(p.nome).indexOf(stato.cerca) >= 0) evid[i] = true; });
+    }
+    L.persone.forEach(function (p, i) {
+      var nascosta = stato.catNascoste[p.cat];
+      els.p[i].forEach(function (e) {
+        e.classList.toggle('off', !!nascosta);
+        e.classList.toggle('dim', !nascosta && !!evid && !evid[i]);
+      });
+      var rect = els.p[i][0].querySelector('rect.b');
+      var secAttivo = GRUPPI_SECONDARI.some(function (g) { return stato.secondari[g.id] && g.membri.indexOf(p.nome) >= 0; });
+      if (secAttivo) { rect.setAttribute('stroke', '#e07b00'); rect.setAttribute('stroke-width', 2); rect.setAttribute('stroke-dasharray', '3 2'); }
+      else { rect.removeAttribute('stroke'); rect.removeAttribute('stroke-width'); rect.removeAttribute('stroke-dasharray'); }
+    });
+    for (var id in els.g) els.g[id].classList.toggle('dim', !!gruppiEvid && !gruppiEvid[id]);
+  }
+
+  // ---- schedina ----
+  var scheda = document.getElementById('scheda');
+  function mostraScheda(i, ev) {
+    var pg = PERSONAGGI[i], p = L.persone[i];
+    var html = '<div class="n">' + esc(pg.name) + '</div><div class="d">' +
+      fmtData(pg.birthdate, pg.birth_year_only) + ' – ' + fmtData(pg.death, pg.death_year_only) + ' · ' + esc(pg.category) + '</div>';
+    var gr = gruppiDi(pg);
+    if (gr.length) html += '<div class="g">' + gr.map(function (id) {
+      var g = gruppoPerId[id]; return '<span style="--c:' + g.colore + '">' + esc(g.nome) + '</span>'; }).join('') + '</div>';
+    var d = DESCRIZIONI[pg.name];
+    if (d) html += '<div class="t">' + esc(d) + '</div>';
+    var fl = (filiDi[pg.name] || []).map(function (f) { return f.nome; });
+    if (fl.length) html += '<div class="f">Fili: ' + esc(fl.join(', ')) + '</div>';
+    scheda.innerHTML = html; scheda.style.display = 'block';
+    muoviScheda(ev);
+  }
+  function muoviScheda(ev) {
+    var w = scheda.offsetWidth, h = scheda.offsetHeight;
+    var x = ev.clientX + 16, y = ev.clientY + 14;
+    if (x + w > window.innerWidth - 8) x = ev.clientX - w - 16;
+    if (y + h > window.innerHeight - 8) y = window.innerHeight - h - 8;
+    scheda.style.left = Math.max(8, x) + 'px'; scheda.style.top = Math.max(8, y) + 'px';
+  }
+  var tela = document.getElementById('tela');
+  tela.addEventListener('mouseover', function (ev) {
+    var gp = ev.target.closest('[data-i]'), gg = ev.target.closest('[data-g]');
+    if (gp) { stato.hoverP = +gp.getAttribute('data-i'); stato.hoverG = null; applica(); mostraScheda(stato.hoverP, ev); }
+    else if (gg && ev.target.classList.contains('titolo-g')) { stato.hoverG = gg.getAttribute('data-g'); stato.hoverP = null; applica(); }
+  });
+  tela.addEventListener('mousemove', function (ev) { if (scheda.style.display === 'block') muoviScheda(ev); });
+  tela.addEventListener('mouseout', function (ev) {
+    if (ev.relatedTarget && ev.relatedTarget.closest && ev.relatedTarget.closest('[data-i]') && ev.relatedTarget.closest('[data-i]') === ev.target.closest('[data-i]')) return;
+    stato.hoverP = null; stato.hoverG = null; scheda.style.display = 'none'; applica();
+  });
+
+  ridisegna(6);
+  window.__v2 = { get layout() { return L; }, stato: stato };
+})();
+</script>
+</body>
+</html>

@@ -284,3 +284,16 @@ Giacomo Puccini, Pablo Picasso ⇄, Charlie Chaplin ⇄, J. R. R. Tolkien ⇄, F
 
 </details>
 
+
+
+---
+
+## Stato dell'implementazione (04/11/2026)
+
+Realizzata in `v2.html`, accanto alla classica. Decisioni prese:
+
+- Coesione: metrica **«vivi»**, soglia 75% (la metrica «adulti» resta solo indicativa: 5 gruppi scendono sotto il 75%).
+- **Secolo d'oro olandese** confermato come gruppo secondario (6 membri, non occupa righe, legame tratteggiato).
+- Disegno in **SVG puro**, senza D3. Le barre vanno dall'età adulta alla morte, come nella classica.
+- Righe: **94** contro un minimo teorico di 61 senza gruppi; layout deterministico (annealing con seme fisso), 0 sovrapposizioni, ~200 ms.
+- Limiti noti: i personaggi in due gruppi possono stare lontani dalla seconda area (mitigato da striscia colorata e evidenziazione al passaggio del mouse); niente foto nelle schedine; le assegnazioni ai gruppi sono giudizi dell'autore, non verificati.

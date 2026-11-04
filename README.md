@@ -6,7 +6,7 @@
 
 *🗺️ Il poster dei 256 nomi generato con Claude: l'obiettivo è generarlo ancora più bello.*
 
-👉 **[Prova la timeline online](https://maloghigno.github.io/Timeline/)**
+👉 **[Prova la timeline online](https://maloghigno.github.io/Timeline/)** · 🧪 **[Versione 2 (gruppi, eventi, fili)](https://maloghigno.github.io/Timeline/v2.html)**
 
 ---
 
@@ -45,15 +45,18 @@ Passa il mouse su un personaggio e compare la **schedina**: foto da Wikipedia, n
 
 HTML e JavaScript puri, senza framework.
 
-- **`index.html`**: il codice e l'elenco dei personaggi (`users.insert(...)`), con [LokiJS](https://github.com/techfort/LokiJS) come mini-database e [Google Charts Timeline](https://developers.google.com/chart/interactive/docs/gallery/timeline) per il disegno.
+- **`index.html`**: la timeline classica, con [LokiJS](https://github.com/techfort/LokiJS) come mini-database e [Google Charts Timeline](https://developers.google.com/chart/interactive/docs/gallery/timeline) per il disegno.
+- **`src/personaggi.js`**: l'elenco dei 256 personaggi, condiviso da entrambe le versioni.
 - **`src/descrizioni.js`**: le frasi delle schedine, una per personaggio.
+- **`v2.html`**: la versione 2, in SVG puro: categorie mischiate, 23 gruppi come aree colorate dietro le barre, bande per gli eventi (es. le guerre mondiali), "fili" che uniscono personaggi lontani (pirati, Asburgo, donne, Galileo→Oppenheimer) e il gruppo secondario del Secolo d'oro olandese. Le righe sono calcolate prima di disegnare (`src/v2-layout.js`, deterministico) e i gruppi stanno in `src/gruppi.js`. Requisiti e scelte in [`V2_REQUISITI.md`](V2_REQUISITI.md).
 - **`asset/`**: il poster.
 
 ## ➕ Aggiungere un personaggio
 
-1. Una riga `users.insert({...})` in `index.html`. ⚠️ **In JavaScript i mesi partono da 0**: gennaio è `0`, dicembre è `11`. È già successo, non succederà più (forse).
-2. Se la data esatta non si conosce, `birth_year_only: true` e/o `death_year_only: true`.
-3. Una frase in `src/descrizioni.js`, con lo stesso identico nome.
+1. Una riga nell'elenco di `src/personaggi.js`. ⚠️ **In JavaScript i mesi partono da 0**: gennaio è `0`, dicembre è `11`. È già successo, non succederà più (forse).
+2. Per la v2, il nome va anche in `ASSEGNAZIONI` di `src/gruppi.js` (massimo 2 gruppi).
+3. Se la data esatta non si conosce, `birth_year_only: true` e/o `death_year_only: true`.
+4. Una frase in `src/descrizioni.js`, con lo stesso identico nome.
 
 Se una foto non compare, di solito il titolo della voce Wikipedia non coincide con il nome: basta aggiungerlo a `WIKI_TITOLI` in `index.html`. Altrimenti restano le iniziali, che fanno comunque la loro figura.
 
