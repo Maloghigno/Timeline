@@ -30,10 +30,10 @@ Passa il mouse su un personaggio e compare la **schedina**: foto da Wikipedia, n
 
 | Categoria | Chi | n |
 |---|---|---|
-| 👑 Main | re, regine, politici, dittatori | 67 |
-| ⚔️ Military | generali, ammiragli, un paio di pirati | 67 |
+| 👑 Main | re, regine, politici, dittatori | 68 |
+| ⚔️ Military | generali, ammiragli, un paio di pirati | 64 |
 | 🔭 Scientist | scienziati, filosofi, esploratori | 62 |
-| 🎨 Artist | pittori, musicisti, scrittori, attori | 60 |
+| 🎨 Artist | pittori, musicisti, scrittori, attori | 62 |
 
 ## 🚀 Come si usa
 
