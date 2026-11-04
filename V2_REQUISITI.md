@@ -297,3 +297,13 @@ Realizzata in `v2.html`, accanto alla classica. Decisioni prese:
 - Disegno in **SVG puro**, senza D3. Le barre vanno dall'età adulta alla morte, come nella classica.
 - Righe: **94** contro un minimo teorico di 61 senza gruppi; layout deterministico (annealing con seme fisso), 0 sovrapposizioni, ~200 ms.
 - Limiti noti: i personaggi in due gruppi possono stare lontani dalla seconda area (mitigato da striscia colorata e evidenziazione al passaggio del mouse); niente foto nelle schedine; le assegnazioni ai gruppi sono giudizi dell'autore, non verificati.
+
+### Revisione dei gruppi (04/11/2026, criterio: riscontro sui manuali)
+
+- **Era vittoriana** sostituisce «Corone dell'Ottocento» (Vittoria, Dickens, Flaubert, Dostoevskij, Verne e i sovrani/statisti del periodo; fuori Alessandro I, Metternich, Hugo, Guglielmo II).
+- **Romanticismo** sostituisce «Musica e romanzo dell'Ottocento» (Wagner, Čajkovskij, Chopin, Liszt, Hugo, Verdi, Leopardi, Manzoni).
+- **Barocco** assorbe «Tardo Barocco musicale» (Purcell, Handel, Vivaldi): coesione «vivi» scesa sotto il 75%, eccezione voluta dall'autore.
+- **Il comunismo** (Lenin, Trotskij, Stalin, Mao, Che) sostituisce «Rivoluzioni del Novecento»; nuovo gruppo **Decolonizzazione** (Gandhi, Mao, Che), piccolo ma coeso.
+- Confermati senza modifiche: Palcoscenico, schermo e poesia; Scienza dell'Ottocento.
+- Ancora da rivedere (stiracchiati): Illuminismo, Nuova fisica, Impressionismo e arte moderna, Successione spagnola + Grande Guerra del Nord, Stuart, Corte del Re Sole.
+- Palette ridisegnata (toni caldi «carta antica») per gruppi, categorie, fili ed eventi. Righe: 100.
