@@ -4,7 +4,7 @@
 
 ## Obiettivo
 
-Una **seconda versione della timeline, più ricca e "infografica"**: le barre non sono impilate a caso ma vicine a chi è legato a loro nella storia, e ogni personaggio resta riconoscibile per la sua **categoria principale** (Main, Military, Scientist, Artist). La v2 vive **accanto alla timeline classica**, in una pagina HTML separata (`v2.html`): `index.html` non cambia.
+Una **seconda versione della timeline, più ricca e "infografica"**: le barre non sono impilate a caso ma vicine a chi è legato a loro nella storia, e ogni personaggio resta riconoscibile per la sua **categoria principale** (Main, Military, Scientist, Artist). La v2 vive **accanto alla timeline classica**, in una pagina HTML separata (`v2/index.html`): la classica sta in `classica/index.html`.
 
 ## Requisiti
 
@@ -131,7 +131,7 @@ Campi nuovi per personaggio, in un file separato (`src/gruppi.js`, sul modello d
 | Costo | Basso | Medio: pagina nuova |
 | Rischio | Google non espone la scala del tempo (si legge dalle etichette dell'asse, fragile); comportamento incerto con barre sovrapposte nella stessa riga | Più codice da mantenere |
 
-**Consiglio: B (D3.js)**, perché con le bande di evento e le curve dei fili serve conoscere con precisione la scala del tempo. La v2 sta in `v2.html`, sempre HTML e JavaScript puri e senza build; la timeline classica resta intatta.
+**Consiglio: B (D3.js)**, perché con le bande di evento e le curve dei fili serve conoscere con precisione la scala del tempo. La v2 sta in `v2/index.html`, sempre HTML e JavaScript puri e senza build; la timeline classica resta intatta.
 
 ## Decisioni aperte
 
@@ -290,7 +290,7 @@ Giacomo Puccini, Pablo Picasso ⇄, Charlie Chaplin ⇄, J. R. R. Tolkien ⇄, F
 
 ## Stato dell'implementazione (04/11/2026)
 
-Realizzata in `v2.html`, accanto alla classica. Decisioni prese:
+Realizzata in `v2/index.html`, accanto alla classica. Decisioni prese:
 
 - Coesione: metrica **«vivi»**, soglia 75% (la metrica «adulti» resta solo indicativa: 5 gruppi scendono sotto il 75%).
 - **Secolo d'oro olandese** confermato come gruppo secondario (6 membri, non occupa righe, legame tratteggiato).

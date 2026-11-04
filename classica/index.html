@@ -1,0 +1,242 @@
+<!-- https://developers.google.com/chart/interactive/docs/gallery/timeline -->
+<meta charset="utf-8">
+
+<style>
+  /* Schedina al passaggio del mouse (frasi da src/descrizioni.js, foto da Wikipedia) */
+  #scheda { position: fixed; z-index: 1000; display: none; width: 330px; box-sizing: border-box;
+            pointer-events: none; background: #fffdf8; color: #2b2118; border: 1px solid #c9b79c;
+            border-radius: 8px; padding: 12px; box-shadow: 0 6px 22px rgba(60,40,10,.28);
+            font: 13px/1.4 Helvetica, Arial, sans-serif; }
+  #scheda .scheda-testa { display: flex; gap: 12px; align-items: flex-start; }
+  #scheda .scheda-foto { flex: 0 0 84px; height: 105px; border-radius: 4px; overflow: hidden;
+            background: #e8dcc8; display: flex; align-items: center; justify-content: center;
+            color: #8a7355; font-size: 26px; font-weight: bold; }
+  #scheda .scheda-foto img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  #scheda .scheda-nome { font-size: 16px; font-weight: bold; color: #603913; margin-bottom: 4px; }
+  #scheda .scheda-date { color: #6b5a44; }
+  #scheda .scheda-testo { margin-top: 10px; }
+  #scheda .scheda-fonte { margin-top: 8px; font-size: 11px; color: #8a7355; }
+  /* la schedina sostituisce il tooltip nativo di Google Charts */
+  .google-visualization-tooltip { display: none !important; }
+</style>
+
+<script src="../src/lokijs.js"></script>
+<script src="../src/personaggi.js" charset="utf-8"></script>
+<script src="../src/descrizioni.js" charset="utf-8"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+
+  //https://github.com/techfort/LokiJS/wiki/Query-Examples
+  // Default per l'inizio dell'età adulta quando `adulthood` è null (convenzione, non un dato storico)
+  const ADULTHOOD_DEFAULT_YEARS = 15;
+  const MS_PER_YEAR = 365.25 * 24 * 60 * 60 * 1000; // 365.25 tiene conto degli anni bisestili
+
+  var db = new loki("characters.db");
+  var users = db.addCollection("people");
+  // Date(anno, mese, giorno): il mese JS è 0-based (0 = gennaio, 11 = dicembre)
+
+  PERSONAGGI.forEach(function(p){ users.insert(p); });
+
+  // ---- Formattazione date ----
+  function fmtNumerica(d, soloAnno){
+    return soloAnno ? String(d.getFullYear())
+                    : d.toLocaleDateString('it-IT', {year: 'numeric', month: '2-digit', day: '2-digit'});
+  }
+  function fmtLunga(d, soloAnno){
+    return soloAnno ? String(d.getFullYear())
+                    : d.toLocaleDateString('it-IT', {day: 'numeric', month: 'long', year: 'numeric'});
+  }
+
+  // Ordine di inserimento nel grafico: prima chi ha un'adulthood documentata (per data), poi gli altri
+  // nell'ordine in cui sono stati inseriti (Array.sort è stabile). Equivale al comportamento precedente.
+  var result = users.chain().sort(function(a, b){
+    var ta = a.adulthood === null ? Infinity : a.adulthood.getTime();
+    var tb = b.adulthood === null ? Infinity : b.adulthood.getTime();
+    return ta === tb ? 0 : (ta < tb ? -1 : 1);
+  }).data();
+  const nomiCompleti = result.map(pg => {
+
+    // adulthood null = data non documentata: uso il default ADULTHOOD_DEFAULT_YEARS dalla nascita
+    if(pg.adulthood === null){
+      pg.adulthood = new Date(pg.birthdate.getTime() + ADULTHOOD_DEFAULT_YEARS * MS_PER_YEAR);
+    }
+
+    var bd = new Date(pg.birthdate.getTime());
+    var dd = new Date(pg.death.getTime());
+    // birth_year_only / death_year_only: la data nel file e' un segnaposto, si mostra solo l'anno
+    let ttip = 'born ' + fmtNumerica(bd, pg.birth_year_only) + ' dead ' + fmtNumerica(dd, pg.death_year_only);
+
+    return {
+      Position: pg.category,
+      Name: pg.name,
+      tooltip: ttip,
+      Start: pg.adulthood,
+      End: pg.death,
+      Born: bd,
+      Died: dd,
+      BornYearOnly: !!pg.birth_year_only,
+      DiedYearOnly: !!pg.death_year_only
+    };
+  });
+
+  //var result = users.find({ subcategory : 'Dictator' });
+  var result = users.chain().simplesort('birthdate').data();
+
+  // dumps array with 1 doc (thor) to console
+  console.log(result);
+
+  // ---- Schedina al mouseover: foto (Wikipedia), nome, date, frase (DESCRIZIONI in src/descrizioni.js) ----
+  var schedaEl = null, mouseX = 0, mouseY = 0;
+
+  function el(tag, cls, testo){
+    var e = document.createElement(tag);
+    if(cls) e.className = cls;
+    if(testo !== undefined) e.textContent = testo;   // textContent: i testi vengono da Wikipedia, mai innerHTML
+    return e;
+  }
+  function iniziali(nome){
+    var w = nome.replace(/\(.*?\)/g, '').split(/\s+/).filter(function(x){ return /^[A-Z\u00C0-\u00DD]/.test(x); });
+    return (w.slice(0, 2).map(function(x){ return x.charAt(0); }).join('') || nome.charAt(0)).toUpperCase();
+  }
+  // Foto da Wikipedia, caricata dal browser. Accettata solo se la pagina cita un anno di nascita/morte del file.
+  var cacheFoto = {};
+  var WIKI_TITOLI = {   // titoli it.wikipedia diversi dal nome in tabella (se sbagliati: restano le iniziali)
+    'Guglielmo III d\u2019Orange': "Guglielmo III d'Inghilterra",
+    'Carlo Thaon di Revel': "Carlo Thaon di Sant'Andrea",
+    'Cartesio': 'Ren\u00e9 Descartes',
+    'Frédéric Chopin': 'Fryderyk Chopin',
+    'Ruprecht del Reno': 'Ruperto del Palatinato',
+    'Luigi Guglielmo di Baden': 'Ludovico Guglielmo di Baden-Baden',
+    'Carlo I d\u2019Inghilterra': "Carlo I d'Inghilterra",
+    'Anthony van Dyck': 'Antoon van Dyck',
+    "Giacomo I d\u2019Inghilterra": "Giacomo I d'Inghilterra",
+    "Ferdinando II d\u2019Asburgo": "Ferdinando II d'Asburgo",
+    "Maria de\u2019 Medici": "Maria de' Medici",
+    "Carlo VI d\u2019Asburgo": "Carlo VI d'Asburgo",
+    "Ren\u00e9-Antoine de R\u00e9aumur": "Ren\u00e9-Antoine Ferchault de R\u00e9aumur",
+    "Dmitrij Mendeleev": "Dmitrij Ivanovi\u010d Mendeleev",
+    "F\u00ebdor Dostoevskij": "F\u00ebdor Michajlovi\u010d Dostoevskij",
+    "P\u00ebtr Il\u2019i\u010d \u010cajkovskij": "P\u00ebtr Il'i\u010d \u010cajkovskij",
+    'Cardinale Richelieu': 'Armand-Jean du Plessis de Richelieu',
+    'Imperatore Qianlong': 'Qianlong',
+    'Maresciallo Turenne': "Henri de La Tour d'Auvergne, visconte di Turenne",
+    'Maresciallo Suvorov': "Aleksandr Vasil'evi\u010d Suvorov",
+    'Maresciallo de Saxe (Maurizio di Sassonia)': 'Maurizio di Sassonia',
+    'Pietro I di Russia (Pietro il Grande)': 'Pietro I di Russia',
+    'Edward Teach (Barbanera)': 'Barbanera',
+    'François-Henri de Montmorency': 'François-Henri de Montmorency-Luxembourg',
+    'Karl Philipp, principe di Schwarzenberg': 'Karl Philipp zu Schwarzenberg',
+    'Helmut Johann Ludwig von Moltke': 'Helmuth Johannes Ludwig von Moltke',
+    'Helmuth Karl Bernhard Graf von Moltke': 'Helmuth von Moltke'
+  };
+
+  function metti(foto, url, nome){
+    var img = new Image();
+    img.alt = nome;
+    img.onload = function(){ foto.textContent = ''; foto.appendChild(img); if(schedaEl.style.display === 'block') posizionaScheda(); };
+    img.src = url;   // se fallisce restano le iniziali
+  }
+  function cercaFoto(pg, cb){
+    if(pg.Name in cacheFoto){ if(cacheFoto[pg.Name]) cb(cacheFoto[pg.Name]); return; }
+    cacheFoto[pg.Name] = null;
+    var titolo = (typeof WIKI_TITOLI !== 'undefined' && WIKI_TITOLI[pg.Name]) || pg.Name.replace(/\s*\(.*?\)/g, '');
+    fetch('https://it.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(titolo.replace(/ /g, '_')))
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(j){
+        if(!j || j.type !== 'standard' || !j.thumbnail) return;
+        var testo = (j.description || '') + ' ' + (j.extract || '');
+        var ok = testo.indexOf(String(pg.Born.getFullYear())) >= 0 || testo.indexOf(String(pg.Died.getFullYear())) >= 0;
+        if(!ok) return;
+        cacheFoto[pg.Name] = j.thumbnail.source;
+        cb(j.thumbnail.source);
+      })
+      .catch(function(){});
+  }
+  function riempiScheda(pg){
+    schedaEl.textContent = '';
+    schedaEl.dataset.nome = pg.Name;
+
+    var foto = el('div', 'scheda-foto');
+    foto.textContent = iniziali(pg.Name);
+    cercaFoto(pg, function(url){ if(schedaEl.dataset.nome === pg.Name) metti(foto, url, pg.Name); });
+
+    var info = el('div');
+    info.appendChild(el('div', 'scheda-nome', pg.Name));
+    info.appendChild(el('div', 'scheda-date', fmtLunga(pg.Born, pg.BornYearOnly) + ' \u2013 ' + fmtLunga(pg.Died, pg.DiedYearOnly)));
+
+    var testa = el('div', 'scheda-testa');
+    testa.appendChild(foto);
+    testa.appendChild(info);
+    schedaEl.appendChild(testa);
+
+    var frase = (typeof DESCRIZIONI !== 'undefined' && DESCRIZIONI[pg.Name]) || '';
+    if(frase) schedaEl.appendChild(el('div', 'scheda-testo', frase));
+    schedaEl.appendChild(el('div', 'scheda-fonte', 'Foto: Wikipedia (se disponibile)'));
+  }
+  function posizionaScheda(){
+    var w = schedaEl.offsetWidth, h = schedaEl.offsetHeight, m = 16;
+    var x = mouseX + m, y = mouseY + m;
+    if(x + w > window.innerWidth - 8) x = mouseX - w - m;
+    if(y + h > window.innerHeight - 8) y = window.innerHeight - h - 8;
+    schedaEl.style.left = Math.max(8, x) + 'px';
+    schedaEl.style.top = Math.max(8, y) + 'px';
+  }
+  function iniziaSchede(chart){
+    schedaEl = el('div');
+    schedaEl.id = 'scheda';
+    document.body.appendChild(schedaEl);
+    document.addEventListener('mousemove', function(e){
+      mouseX = e.clientX; mouseY = e.clientY;
+      if(schedaEl.style.display === 'block') posizionaScheda();
+    });
+    // la riga della DataTable coincide con l'indice in nomiCompleti (stesso ordine)
+    google.visualization.events.addListener(chart, 'onmouseover', function(e){
+      var pg = nomiCompleti[e.row];
+      if(!pg) return;
+      riempiScheda(pg);
+      schedaEl.style.display = 'block';
+      posizionaScheda();
+    });
+    google.visualization.events.addListener(chart, 'onmouseout', function(){
+      schedaEl.style.display = 'none';
+    });
+  }
+
+  google.charts.load("current", {packages:["timeline"]});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+
+    var container = document.getElementById('example3.1');
+    var chart = new google.visualization.Timeline(container);
+    iniziaSchede(chart);
+    var dataTable = new google.visualization.DataTable();
+    dataTable.addColumn({ type: 'string', id: 'Position' });
+    dataTable.addColumn({ type: 'string', id: 'Name' });
+    dataTable.addColumn({ type: 'string', role: 'tooltip' });
+    dataTable.addColumn({ type: 'date', id: 'Start' });
+    dataTable.addColumn({ type: 'date', id: 'End' });
+
+    for (const pg of nomiCompleti) {
+
+      dataTable.addRows([
+      [ pg.Position, pg.Name, pg.tooltip, pg.Start, pg.End ],
+      ]);
+
+    }
+
+    var options = {
+      timeline: {
+        colorByRowLabel: true,
+        groupByRowLabel: true,
+        rowLabelStyle: {fontName: 'Helvetica', fontSize: 14, color: '#603913' },
+        barLabelStyle: { fontName: 'Helvetica', fontSize: 10 },
+
+       },
+    };
+
+    chart.draw(dataTable, options);
+  }
+</script>
+
+<div id="example3.1" style="height: 850px;"></div>

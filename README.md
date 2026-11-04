@@ -6,7 +6,7 @@
 
 *🗺️ Il poster dei 256 nomi generato con Claude: l'obiettivo è generarlo ancora più bello.*
 
-👉 **[Prova la timeline online](https://maloghigno.github.io/Timeline/)** · 🧪 **[Versione 2 (gruppi, eventi, fili)](https://maloghigno.github.io/Timeline/v2.html)**
+👉 **[Prova la timeline online](https://maloghigno.github.io/Timeline/classica/)** · 🧪 **[Versione 2 (gruppi, eventi, fili)](https://maloghigno.github.io/Timeline/v2/)**
 
 ---
 
@@ -37,18 +37,19 @@ Passa il mouse su un personaggio e compare la **schedina**: foto da Wikipedia, n
 
 ## 🚀 Come si usa
 
-**Online:** [maloghigno.github.io/Timeline](https://maloghigno.github.io/Timeline/).
+**Online:** [maloghigno.github.io/Timeline](https://maloghigno.github.io/Timeline/) (pagina di ingresso con le due versioni).
 
-**In locale:** niente build, niente `npm install`, niente drammi. Scarica il repo e apri `index.html` nel browser. Serve la connessione, perché il grafico usa Google Charts e le foto arrivano da Wikipedia.
+**In locale:** niente build, niente `npm install`, niente drammi. Scarica il repo e apri `index.html` (o direttamente `classica/index.html` e `v2/index.html`) nel browser. Serve la connessione, perché il grafico usa Google Charts e le foto arrivano da Wikipedia.
 
 ## 🛠️ Come è fatto
 
 HTML e JavaScript puri, senza framework.
 
-- **`index.html`**: la timeline classica, con [LokiJS](https://github.com/techfort/LokiJS) come mini-database e [Google Charts Timeline](https://developers.google.com/chart/interactive/docs/gallery/timeline) per il disegno.
+- **`index.html`**: la pagina di ingresso, che porta alle due versioni.
+- **`classica/index.html`**: la timeline classica, con [LokiJS](https://github.com/techfort/LokiJS) come mini-database e [Google Charts Timeline](https://developers.google.com/chart/interactive/docs/gallery/timeline) per il disegno.
 - **`src/personaggi.js`**: l'elenco dei 256 personaggi, condiviso da entrambe le versioni.
 - **`src/descrizioni.js`**: le frasi delle schedine, una per personaggio.
-- **`v2.html`**: la versione 2, in SVG puro: categorie mischiate, 23 gruppi come aree colorate dietro le barre, bande per gli eventi (es. le guerre mondiali), "fili" che uniscono personaggi lontani (pirati, Asburgo, donne, Galileo→Oppenheimer) e il gruppo secondario del Secolo d'oro olandese. Le righe sono calcolate prima di disegnare (`src/v2-layout.js`, deterministico) e i gruppi stanno in `src/gruppi.js`. Requisiti e scelte in [`V2_REQUISITI.md`](V2_REQUISITI.md).
+- **`v2/index.html`**: la versione 2, in SVG puro: categorie mischiate, 23 gruppi come aree colorate dietro le barre, bande per gli eventi (es. le guerre mondiali), "fili" che uniscono personaggi lontani (pirati, Asburgo, donne, Galileo→Oppenheimer) e il gruppo secondario del Secolo d'oro olandese. Le righe sono calcolate prima di disegnare (`src/v2-layout.js`, deterministico) e i gruppi stanno in `src/gruppi.js`. Requisiti e scelte in [`V2_REQUISITI.md`](V2_REQUISITI.md).
 - **`asset/`**: il poster.
 
 ## ➕ Aggiungere un personaggio
@@ -58,7 +59,7 @@ HTML e JavaScript puri, senza framework.
 3. Se la data esatta non si conosce, `birth_year_only: true` e/o `death_year_only: true`.
 4. Una frase in `src/descrizioni.js`, con lo stesso identico nome.
 
-Se una foto non compare, di solito il titolo della voce Wikipedia non coincide con il nome: basta aggiungerlo a `WIKI_TITOLI` in `index.html`. Altrimenti restano le iniziali, che fanno comunque la loro figura.
+Se una foto non compare, di solito il titolo della voce Wikipedia non coincide con il nome: basta aggiungerlo a `WIKI_TITOLI` in `classica/index.html`. Altrimenti restano le iniziali, che fanno comunque la loro figura.
 
 ## 💬 Contribuire
 
