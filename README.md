@@ -2,9 +2,9 @@
 
 **Interactive history timeline & infographic poster** · 256 historical figures, 1553–1992 · kings, generals, scientists and artists: who lived at the same time as whom.
 
-[![Atlante dei Personaggi](asset/Atlante_dei_Personaggi.png)](asset/Atlante_dei_Personaggi.png)
+[![Timeline dei personaggi storici, versione 2](asset/Timeline_v2.png)](asset/Timeline_v2.png)
 
-*🗺️ Il poster dei 256 nomi generato con Claude: l'obiettivo è generarlo ancora più bello.*
+*🗺️ La versione 2 a pagina intera: 256 personaggi, 23 gruppi, zero scrolling. Generata con Claude: l'obiettivo è renderla ancora più bella.*
 
 👉 **[Prova la timeline online](https://maloghigno.github.io/Timeline/classica/)** · 🧪 **[Versione 2 (gruppi, eventi, fili)](https://maloghigno.github.io/Timeline/v2/)**
 
