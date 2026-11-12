@@ -6,7 +6,7 @@
 
 *🗺️ La versione 2 a pagina intera: 256 personaggi, 23 gruppi, zero scrolling. Generata con Claude: l'obiettivo è renderla ancora più bella.*
 
-👉 **[Prova la timeline online](https://maloghigno.github.io/Timeline/classica/)** · 🧪 **[Versione 2 (gruppi, eventi, fili)](https://maloghigno.github.io/Timeline/v2/)**
+👉 **[Prova la timeline online](https://maloghigno.github.io/Timeline/classica/)** · 🧪 **[Versione 2 (gruppi, eventi, fili)](https://maloghigno.github.io/Timeline/v2/)** · 🚧 **[Versione 3, in lavorazione (parte vuota: i personaggi li inserisci tu)](https://maloghigno.github.io/Timeline/v3/)**
 
 ---
 
@@ -50,6 +50,7 @@ HTML e JavaScript puri, senza framework.
 - **`src/personaggi.js`**: l'elenco dei 256 personaggi, condiviso da entrambe le versioni.
 - **`src/descrizioni.js`**: le frasi delle schedine, una per personaggio.
 - **`v2/index.html`**: la versione 2, in SVG puro: categorie mischiate, 23 gruppi come aree colorate dietro le barre, bande per gli eventi (es. le guerre mondiali), "fili" che uniscono personaggi lontani (pirati, Asburgo, donne, Galileo→Oppenheimer) e il gruppo secondario del Secolo d'oro olandese. Le righe sono calcolate prima di disegnare (`src/v2-layout.js`, deterministico) e i gruppi stanno in `src/gruppi.js`. Requisiti e scelte in [`V2_REQUISITI.md`](V2_REQUISITI.md).
+- **`v3/index.html`** 🚧 *(in lavorazione)*: la v2 che parte vuota, per costruire la propria linea del tempo (per esempio quella di un libro fantasy, con anni inventati): personaggi, gruppi, categorie, fili ed eventi si inseriscono da un pannello e si salvano in JSON. Autonoma, con il proprio `layout.js`; formato dei dati in [`v3/README.md`](v3/README.md).
 - **`asset/`**: il poster.
 
 ## ➕ Aggiungere un personaggio

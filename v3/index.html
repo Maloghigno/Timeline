@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Timeline v3 · la tua linea del tempo</title>
+<style>
+  :root { --carta:#faf6ee; --inchiostro:#3b2a1a; --tenue:#8a7355; --linea:#e3d9c6; --accento:#603913; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body { background: var(--carta); color: var(--inchiostro); font: 13px/1.4 Helvetica, Arial, sans-serif; display: flex; flex-direction: column; }
+  header { padding: 10px 18px 6px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; }
+  #titolo { font: 700 21px Georgia, 'Times New Roman', serif; color: var(--accento); border: 0; border-bottom: 1px dashed transparent; background: transparent; padding: 0 2px; min-width: 120px; width: 320px; max-width: 60vw; }
+  #titolo:hover, #titolo:focus { border-bottom-color: #cdbf9f; outline: none; }
+  header .sub { color: var(--tenue); font-style: italic; font-family: Georgia, serif; }
+  header .spazio { margin-left: auto; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  header a { color: var(--accento); }
+  #stat { width: 100%; color: var(--tenue); font-size: 12px; }
+  button, .btn { font: inherit; cursor: pointer; border: 1px solid #c9b79c; background: #fffdf8; color: var(--accento); border-radius: 6px; padding: 3px 11px; }
+  button:hover { border-color: var(--accento); }
+  button.primario { background: var(--accento); color: #fff; border-color: var(--accento); }
+  button.pericolo { color: #a02b2b; border-color: #d9a5a5; }
+  button.pericolo.sicuro { background: #a02b2b; color: #fff; border-color: #a02b2b; }
+  .controlli { padding: 4px 18px 8px; display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: center; border-bottom: 1px solid var(--linea); }
+  .gruppo-c { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+  .gruppo-c > b { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--tenue); font-weight: 600; margin-right: 2px; }
+  .chip { cursor: pointer; user-select: none; border: 1.5px solid var(--c, #999); color: var(--c, #555); background: transparent;
+          border-radius: 999px; padding: 2px 10px 2px 8px; font-size: 12px; display: inline-flex; align-items: center; gap: 6px; }
+  .chip i { width: 9px; height: 9px; border-radius: 50%; background: var(--c, #999); display: inline-block; }
+  .chip.on { background: var(--c, #999); color: #fff; }
+  .chip.on i { background: #fff; }
+  input[type=search], input[type=text], input[type=number], select, textarea { font: inherit; border: 1px solid #cdbf9f; background: #fffdf8; border-radius: 6px; padding: 4px 8px; color: var(--inchiostro); }
+  input[type=search] { border-radius: 999px; padding: 3px 12px; width: 170px; }
+  input[type=range] { vertical-align: middle; width: 110px; }
+  #principale { flex: 1; display: flex; min-height: 0; }
+  #scroller { flex: 1; overflow: auto; position: relative; background: var(--carta); min-width: 0; }
+  #inner { position: relative; }
+  #asse { position: sticky; top: 0; z-index: 5; display: block; background: var(--carta); border-bottom: 1px solid var(--linea); }
+  #tela { display: block; }
+  .p rect.b, .p polygon { transition: opacity .12s; }
+  .p { cursor: pointer; }
+  .dim { opacity: .16; }
+  .off { opacity: .06; pointer-events: none; }
+  .banda { transition: opacity .12s; }
+  .banda.dim { opacity: .04; }
+  text { font-family: Helvetica, Arial, sans-serif; }
+  text.etichetta { font-size: 11px; font-weight: 600; pointer-events: none; }
+  text.fuori { fill: #3b2a1a; paint-order: stroke; stroke: #faf6ee; stroke-width: 3px; stroke-linejoin: round; font-weight: 500; }
+  text.dentro { fill: #fff; }
+  text.titolo-g { font: 700 10.5px Georgia, 'Times New Roman', serif; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
+  .filo-nome { font: 700 10px Helvetica, Arial, sans-serif; letter-spacing: .08em; text-transform: uppercase; paint-order: stroke; stroke: #faf6ee; stroke-width: 3px; }
+  #scheda { position: fixed; z-index: 1000; display: none; width: 300px; pointer-events: none; background: #fffdf8; color: #2b2118;
+            border: 1px solid #c9b79c; border-radius: 8px; padding: 11px 13px; box-shadow: 0 6px 22px rgba(60,40,10,.28); }
+  #scheda .n { font-size: 15px; font-weight: bold; color: var(--accento); }
+  #scheda .d { color: #6b5a44; margin: 2px 0 6px; }
+  #scheda .g { display: flex; flex-wrap: wrap; gap: 3px 10px; font-size: 12px; margin-bottom: 6px; }
+  #scheda .g span::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--c); margin-right: 5px; }
+  #scheda .t { font-size: 12.5px; white-space: pre-wrap; }
+  #scheda .f { font-size: 11px; color: var(--tenue); margin-top: 6px; }
+  #vuoto { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; color: var(--tenue); padding: 20px; }
+  #vuoto h2 { font: 700 20px Georgia, serif; color: var(--accento); margin: 0; }
+  #vuoto p { max-width: 420px; margin: 0; }
+  /* pannello dati */
+  #pannello { width: 360px; flex: none; border-left: 1px solid var(--linea); background: #fffdf8; display: flex; flex-direction: column; min-height: 0; }
+  #pannello.chiuso { display: none; }
+  .tabs { display: flex; border-bottom: 1px solid var(--linea); }
+  .tabs button { flex: 1; border: 0; border-radius: 0; border-bottom: 2px solid transparent; background: transparent; padding: 8px 2px; font-size: 12px; color: var(--tenue); }
+  .tabs button.on { color: var(--accento); border-bottom-color: var(--accento); font-weight: 700; }
+  #corpo { flex: 1; overflow: auto; padding: 10px 12px 16px; }
+  .barra-lista { display: flex; gap: 6px; margin-bottom: 8px; }
+  .barra-lista input { flex: 1; min-width: 0; }
+  .riga { display: flex; align-items: center; gap: 8px; padding: 5px 6px; border-radius: 6px; cursor: pointer; border: 1px solid transparent; }
+  .riga:hover { background: #f4ecdc; border-color: var(--linea); }
+  .riga i { width: 11px; height: 11px; border-radius: 3px; background: var(--c); flex: none; }
+  .riga .nm { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .riga .dt { color: var(--tenue); font-size: 11.5px; flex: none; }
+  .vuota { color: var(--tenue); font-style: italic; padding: 10px 4px; }
+  .campo { margin-bottom: 9px; }
+  .campo > label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--tenue); margin-bottom: 2px; }
+  .campo input[type=text], .campo input[type=number], .campo select, .campo textarea { width: 100%; }
+  .campo textarea { min-height: 76px; resize: vertical; }
+  .campo input[type=color] { width: 52px; height: 28px; padding: 0; border: 1px solid #cdbf9f; border-radius: 6px; background: #fffdf8; }
+  .due { display: flex; gap: 8px; } .due > div { flex: 1; min-width: 0; }
+  .azioni { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+  .azioni .dx { margin-left: auto; }
+  .err { color: #a02b2b; font-size: 12px; min-height: 16px; margin-top: 6px; }
+  .nota { color: var(--tenue); font-size: 11.5px; margin-top: 3px; }
+  .membri { max-height: 220px; overflow: auto; border: 1px solid #cdbf9f; border-radius: 6px; background: #fffdf8; padding: 4px 6px; margin-top: 4px; }
+  .membri label { display: flex; gap: 6px; align-items: center; padding: 1px 0; font-size: 12.5px; text-transform: none; letter-spacing: 0; color: var(--inchiostro); margin: 0; }
+  footer { padding: 4px 18px 6px; color: var(--tenue); font-size: 11px; border-top: 1px solid var(--linea); }
+  @media (max-width: 800px) { #pannello { position: fixed; right: 0; top: 0; bottom: 0; z-index: 900; box-shadow: -6px 0 22px rgba(60,40,10,.25); } }
+</style>
+</head>
+<body>
+<header>
+  <input id="titolo" type="text" maxlength="80" aria-label="Titolo del progetto" placeholder="Titolo del progetto">
+  <span class="sub">la tua linea del tempo, con anni tuoi</span>
+  <div class="spazio">
+    <label title="Testo aggiunto agli anni sull'asse, per esempio «E.S.» o «dopo il Sigillo»">suffisso anni <input id="suffisso" type="text" maxlength="14" size="6" placeholder="es. E.S."></label>
+    <button id="b-nuovo">Nuovo</button>
+    <button id="b-esempio">Esempio</button>
+    <button id="b-importa">Importa JSON</button>
+    <button id="b-esporta" class="primario">Esporta JSON</button>
+    <input id="file" type="file" accept=".json,application/json" hidden>
+    <a href="../">← altre versioni</a>
+  </div>
+  <div id="stat"></div>
+</header>
+<div class="controlli">
+  <div class="gruppo-c" id="c-cat"></div>
+  <div class="gruppo-c" id="c-fili"></div>
+  <div class="gruppo-c" id="c-altro"><b>Sfondo</b></div>
+  <div class="gruppo-c"><b>Zoom</b><input id="zoom" type="range" min="0.5" max="4" step="0.1" value="1"></div>
+  <div class="gruppo-c"><input id="cerca" type="search" placeholder="cerca un nome…" autocomplete="off"></div>
+  <div class="gruppo-c" style="margin-left:auto"><button id="b-pannello">Dati ▸</button></div>
+</div>
+<div id="principale">
+  <div id="scroller">
+    <div id="inner">
+      <svg id="asse" height="66"></svg>
+      <svg id="tela"></svg>
+    </div>
+    <div id="vuoto">
+      <h2>Una pagina bianca, come all'inizio di ogni libro</h2>
+      <p>Aggiungi il primo personaggio dal pannello «Dati», oppure guarda come funziona con un piccolo regno inventato.</p>
+      <div><button class="primario" id="v-aggiungi">Aggiungi un personaggio</button> <button id="v-esempio">Carica l'esempio</button></div>
+    </div>
+  </div>
+  <aside id="pannello">
+    <div class="tabs" id="tabs"></div>
+    <div id="corpo"></div>
+  </aside>
+</div>
+<footer>Ogni barra va dalla nascita alla morte; senza anno di morte è ancora in vita (barra con la freccia). Il colore indica la categoria, le aree colorate i gruppi (massimo 2 per personaggio),
+  le bande verticali gli eventi, le linee tra le barre i fili. I dati stanno solo in questo browser: esportali in JSON per salvarli o spostarli.</footer>
+<div id="scheda"></div>
+
+<script src="layout.js"></script>
+<script>
+(function () {
+  'use strict';
+  var NS = 'http://www.w3.org/2000/svg';
+  var MARGINE = 40;
+  var CHIAVE = 'timeline-v3';
+  var PALETTE = ['#c8643c', '#4d8aa6', '#5b9a74', '#d4a03a', '#8e5fa8', '#6b84c0', '#b4565c', '#e08fa3', '#d4473d', '#3f61a8',
+                 '#8aab4a', '#2f9a72', '#b86aa0', '#6e55a8', '#4fb0b0', '#eba93a', '#3a82c4', '#9b4a34', '#c23a4a', '#e07a3a'];
+  var PAL_CAT = ['#8e3b46', '#2f4f78', '#2f6f5e', '#b9781f', '#6e4a8e', '#3f6f8f', '#8a5a2f', '#5a6f3a'];
+  var GRIGIO = '#777777';
+
+  // ---- dati ----
+  function vuoti() { return { versione: 3, titolo: '', suffisso: '', categorie: [], gruppi: [], fili: [], eventi: [], personaggi: [] }; }
+  var D = vuoti();
+  var ui = { tab: 'personaggi', modifica: null, filtro: '', catNascoste: {}, filiOff: {}, eventi: true, gruppi: true, cerca: '', hoverP: null, hoverG: null, zoom: 1, salvato: true, sicuro: null };
+  var L = null, els = { p: [], g: {} }, idx = {};
+
+  function uid(pref) { return pref + Math.random().toString(36).slice(2, 9); }
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+  function senzaAccenti(s) { return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); }
+  function colore(c, def) { return /^#[0-9a-f]{6}$/i.test(c || '') ? c : (def || GRIGIO); }
+  function scuro(hex, f) {
+    var n = parseInt(hex.slice(1), 16), r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+    return 'rgb(' + Math.round(r * f) + ',' + Math.round(g * f) + ',' + Math.round(b * f) + ')';
+  }
+  function fmtAnno(y, conSuffisso) {
+    var t = (y < 0 ? '−' + (-y) : String(y));
+    return conSuffisso && D.suffisso ? t + ' ' + D.suffisso : t;
+  }
+  function perId(lista, id) { for (var i = 0; i < lista.length; i++) if (lista[i].id === id) return lista[i]; return null; }
+  function prossimoColore(pal, usati) {
+    var u = usati.map(function (x) { return x.colore.toLowerCase(); });
+    for (var i = 0; i < pal.length; i++) if (u.indexOf(pal[i]) < 0) return pal[i];
+    return pal[usati.length % pal.length];
+  }
+  function intero(s) { s = String(s == null ? '' : s).trim().replace('−', '-'); return /^-?\d{1,7}$/.test(s) ? parseInt(s, 10) : null; }
+
+  // ---- salvataggio nel browser, import/export ----
+  function salva() {
+    ui.salvato = false;
+    try { localStorage.setItem(CHIAVE, JSON.stringify(D)); ui.salvato = true; } catch (e) { /* storage non disponibile */ }
+  }
+  function pulisci(o) {
+    if (!o || typeof o !== 'object' || Array.isArray(o)) throw new Error('Il file non è una timeline v3 (manca l\'oggetto principale).');
+    var arr = function (k) { if (o[k] == null) return []; if (!Array.isArray(o[k])) throw new Error('«' + k + '» deve essere un elenco.'); return o[k]; };
+    var testo = function (s, max) { return String(s == null ? '' : s).slice(0, max); };
+    var out = vuoti(), visti = {};
+    out.titolo = testo(o.titolo, 80); out.suffisso = testo(o.suffisso, 14);
+    var nuovoId = function (pref, id) { id = testo(id, 40); if (!id || visti[id]) id = uid(pref); visti[id] = 1; return id; };
+    arr('categorie').forEach(function (c) { out.categorie.push({ id: nuovoId('c', c && c.id), nome: testo(c && c.nome, 60) || 'Categoria', colore: colore(c && c.colore, PAL_CAT[0]) }); });
+    arr('gruppi').forEach(function (g) { out.gruppi.push({ id: nuovoId('g', g && g.id), nome: testo(g && g.nome, 60) || 'Gruppo', colore: colore(g && g.colore, PALETTE[0]) }); });
+    arr('personaggi').forEach(function (p, i) {
+      p = p || {};
+      var nome = testo(p.nome, 80).trim();
+      if (!nome) throw new Error('Il personaggio n. ' + (i + 1) + ' non ha il nome.');
+      var n = Number.isInteger(p.nascita) ? p.nascita : null, m = p.morte == null || p.morte === '' ? null : p.morte;
+      if (n == null) throw new Error('«' + nome + '»: la nascita deve essere un anno intero.');
+      if (m != null && !Number.isInteger(m)) throw new Error('«' + nome + '»: la morte deve essere un anno intero oppure vuota.');
+      if (m != null && m < n) throw new Error('«' + nome + '»: muore (' + m + ') prima di nascere (' + n + ').');
+      var gr = []; (Array.isArray(p.gruppi) ? p.gruppi : []).forEach(function (id) { if (perId(out.gruppi, id) && gr.indexOf(id) < 0) gr.push(id); });
+      out.personaggi.push({ id: nuovoId('p', p.id), nome: nome, nascita: n, morte: m, categoria: perId(out.categorie, p.categoria) ? p.categoria : null,
+                            gruppi: gr.slice(0, 2), descrizione: testo(p.descrizione, 800) });
+    });
+    arr('fili').forEach(function (f) {
+      var mem = []; (Array.isArray(f && f.membri) ? f.membri : []).forEach(function (id) { if (perId(out.personaggi, id) && mem.indexOf(id) < 0) mem.push(id); });
+      out.fili.push({ id: nuovoId('f', f && f.id), nome: testo(f && f.nome, 60) || 'Filo', colore: colore(f && f.colore, PALETTE[1]), membri: mem });
+    });
+    arr('eventi').forEach(function (e) {
+      e = e || {};
+      if (!Number.isInteger(e.da) || !Number.isInteger(e.a) || e.a < e.da) throw new Error('L\'evento «' + testo(e.nome, 60) + '» ha anni non validi.');
+      out.eventi.push({ id: nuovoId('e', e.id), nome: testo(e.nome, 60) || 'Evento', da: e.da, a: e.a, colore: colore(e.colore, PALETTE[2]) });
+    });
+    return out;
+  }
+  function carica(o) { D = o; ui.modifica = null; ui.catNascoste = {}; ui.filiOff = {}; salva(); tutto(); }
+  function esporta() {
+    var nome = (D.titolo || 'timeline').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'timeline';
+    var blob = new Blob([JSON.stringify(D, null, 2)], { type: 'application/json' });
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nome + '.json';
+    document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  }
+  function haDati() { return D.personaggi.length || D.gruppi.length || D.categorie.length || D.fili.length || D.eventi.length || D.titolo; }
+  function conferma(msg) { return !haDati() || window.confirm(msg); }
+
+  function esempio() {
+    var o = {
+      titolo: 'Il Regno di Valdoria', suffisso: 'E.S.',
+      categorie: [{ id: 'c1', nome: 'Sovrani', colore: '#8e3b46' }, { id: 'c2', nome: 'Maghi', colore: '#6e4a8e' }, { id: 'c3', nome: 'Guerrieri', colore: '#2f4f78' }, { id: 'c4', nome: 'Cronisti', colore: '#b9781f' }],
+      gruppi: [{ id: 'g1', nome: 'Casa dei Corvi', colore: '#b4565c' }, { id: 'g2', nome: 'Conclave d\'Argento', colore: '#4fb0b0' }, { id: 'g3', nome: 'Esuli del Nord', colore: '#3f61a8' }],
+      personaggi: [
+        ['p1', 'Aldric il Fondatore', 1090, 1161, 'c1', ['g1'], 'Fondò il regno con una spada, tre bugie e un matrimonio utile.'],
+        ['p2', 'Maelis dei Corvi', 1121, 1190, 'c1', ['g1'], 'Regina che regnò quarant\'anni e non perse mai una discussione.'],
+        ['p3', 'Torvald Occhio-di-Falco', 1139, 1199, 'c3', ['g1', 'g3'], 'Capitano della guardia, poi esule: due carriere, un solo carattere.'],
+        ['p4', 'Ysolde la Cronista', 1150, 1231, 'c4', ['g2'], 'Scrisse la storia del regno, correggendola quando serviva.'],
+        ['p5', 'Merrin Sette-Voci', 1112, 1204, 'c2', ['g2'], 'Mago capo del Conclave; parlava con sette voci e ascoltava con nessuna.'],
+        ['p6', 'Orwen delle Nebbie', 1160, 1243, 'c2', ['g2'], 'Allieva di Merrin, la prima a contraddirlo e a sopravvivergli.'],
+        ['p7', 'Kaelis l\'Eterno', 1004, null, 'c2', ['g2'], 'Elfo: ha visto nascere tutti e non ha ancora smesso di commentare.'],
+        ['p8', 'Brann Pietrascura', 1148, 1210, 'c3', ['g3'], 'Capoclan delle montagne del nord.'],
+        ['p9', 'Hild Ghiaccio', 1165, 1220, 'c3', ['g3'], 'Guerriera degli Esuli, famosa per non aver mai freddo.'],
+        ['p10', 'Roderic il Giovane', 1170, 1226, 'c1', ['g1'], 'Re durante la Guerra dei Tre Inverni, quando vinse perdendo quasi tutto.'],
+        ['p11', 'Sibyl Tre-Corone', 1185, 1260, 'c1', ['g1'], 'Riunì le tre corone e le fece pesare a tutti.'],
+        ['p12', 'Edric Piumagrigia', 1128, 1189, 'c4', ['g1'], 'Cronista di corte, testimone di troppe cene.'],
+        ['p13', 'Lorn il Mendicante', 1155, 1198, 'c4', [], 'Non appartiene a nessuno, e infatti sa tutto.'],
+        ['p14', 'Vesna Lamaguerra', 1177, 1238, 'c3', ['g3', 'g1'], 'Esule che tornò alla corte dei Corvi, ma solo per vincere.'],
+        ['p15', 'Dorian Cenere', 1190, 1251, 'c2', ['g2'], 'Ultimo allievo del Conclave; bruciò la biblioteca per sbaglio.'],
+        ['p16', 'Thessaly', 1200, 1262, 'c4', ['g2'], 'Cronista del Conclave, scrisse la fine della storia.']
+      ].map(function (r) { return { id: r[0], nome: r[1], nascita: r[2], morte: r[3], categoria: r[4], gruppi: r[5], descrizione: r[6] }; }),
+      fili: [{ id: 'f1', nome: 'La stirpe dei Corvi', colore: '#b4565c', membri: ['p1', 'p2', 'p10', 'p11'] },
+             { id: 'f2', nome: 'Maestro e allievo', colore: '#2f9a72', membri: ['p5', 'p6', 'p15'] }],
+      eventi: [{ id: 'e1', nome: 'Guerra dei Tre Inverni', da: 1187, a: 1194, colore: '#6b4a3a' }]
+    };
+    carica(pulisci(o));
+  }
+
+  // ---- controlli in alto ----
+  function chip(testo, col, attivo, onclick) {
+    var c = document.createElement('span');
+    c.className = 'chip' + (attivo ? ' on' : '');
+    c.style.setProperty('--c', col);
+    c.innerHTML = '<i></i>' + esc(testo);
+    c.addEventListener('click', function () { onclick(c); });
+    return c;
+  }
+  function costruisciControlli() {
+    var cCat = document.getElementById('c-cat'), cFili = document.getElementById('c-fili');
+    cCat.innerHTML = ''; cFili.innerHTML = '';
+    if (D.categorie.length) cCat.innerHTML = '<b>Categorie</b>';
+    D.categorie.forEach(function (c) {
+      cCat.appendChild(chip(c.nome, c.colore, !ui.catNascoste[c.id], function (el) {
+        ui.catNascoste[c.id] = !ui.catNascoste[c.id]; el.classList.toggle('on', !ui.catNascoste[c.id]); applica();
+      }));
+    });
+    if (D.fili.length) cFili.innerHTML = '<b>Fili</b>';
+    D.fili.forEach(function (f) {
+      cFili.appendChild(chip(f.nome, f.colore, !ui.filiOff[f.id], function (el) {
+        ui.filiOff[f.id] = !ui.filiOff[f.id]; el.classList.toggle('on', !ui.filiOff[f.id]); disegnaFili();
+      }));
+    });
+  }
+  var cAltro = document.getElementById('c-altro');
+  cAltro.appendChild(chip('Eventi', '#7a6a58', true, function (c) {
+    ui.eventi = !ui.eventi; c.classList.toggle('on', ui.eventi);
+    var a = document.getElementById('g-eventi'), b = document.getElementById('a-eventi');
+    if (a) a.style.display = ui.eventi ? '' : 'none'; if (b) b.style.display = ui.eventi ? '' : 'none';
+  }));
+  cAltro.appendChild(chip('Gruppi', '#7a6a58', true, function (c) {
+    ui.gruppi = c.classList.toggle('on'); var g = document.getElementById('g-gruppi'); if (g) g.style.display = ui.gruppi ? '' : 'none';
+  }));
+  document.getElementById('zoom').addEventListener('input', function (e) {
+    clearTimeout(this._t); var v = parseFloat(e.target.value);
+    this._t = setTimeout(function () { ui.zoom = v; ridisegna(true); }, 120);
+  });
+  document.getElementById('cerca').addEventListener('input', function (e) { ui.cerca = senzaAccenti(e.target.value.trim()); applica(); });
+  document.getElementById('titolo').addEventListener('input', function (e) { D.titolo = e.target.value; document.title = (D.titolo || 'Timeline v3') + ' · Timeline v3'; salva(); aggiornaStat(); });
+  document.getElementById('suffisso').addEventListener('input', function (e) { D.suffisso = e.target.value; salva(); ridisegna(); });
+  document.getElementById('b-pannello').addEventListener('click', function () { var p = document.getElementById('pannello'); p.classList.toggle('chiuso'); this.textContent = p.classList.contains('chiuso') ? '◂ Dati' : 'Dati ▸'; ridisegna(); });
+  document.getElementById('b-nuovo').addEventListener('click', function () { if (conferma('Svuotare tutto e ricominciare? Se non hai esportato il JSON, i dati attuali si perdono.')) carica(vuoti()); });
+  document.getElementById('b-esempio').addEventListener('click', function () { if (conferma('Sostituire i dati attuali con l\'esempio? Se non hai esportato il JSON, si perdono.')) esempio(); });
+  document.getElementById('v-esempio').addEventListener('click', esempio);
+  document.getElementById('v-aggiungi').addEventListener('click', function () { ui.tab = 'personaggi'; ui.modifica = { tipo: 'personaggi', id: null }; apriPannello(); pannello(); });
+  document.getElementById('b-esporta').addEventListener('click', esporta);
+  document.getElementById('b-importa').addEventListener('click', function () { document.getElementById('file').click(); });
+  document.getElementById('file').addEventListener('change', function (e) {
+    var f = e.target.files[0]; e.target.value = ''; if (!f) return;
+    var r = new FileReader();
+    r.onload = function () {
+      var o;
+      try { o = pulisci(JSON.parse(r.result)); } catch (err) { window.alert('Importazione non riuscita: ' + err.message); return; }
+      if (conferma('Sostituire i dati attuali con «' + (o.titolo || f.name) + '»? Se non hai esportato il JSON, i dati attuali si perdono.')) carica(o);
+    };
+    r.readAsText(f);
+  });
+  function apriPannello() { var p = document.getElementById('pannello'); if (p.classList.contains('chiuso')) { p.classList.remove('chiuso'); document.getElementById('b-pannello').textContent = 'Dati ▸'; } }
+
+  // ---- disegno ----
+  function el(nome, attr, parent) {
+    var e = document.createElementNS(NS, nome);
+    for (var k in attr) e.setAttribute(k, attr[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  var timer = null;
+  function ridisegna(mantieni) { clearTimeout(timer); timer = setTimeout(function () { calcolaEDisegna(mantieni); }, 30); }
+
+  function aggiornaStat(ms) {
+    var s = D.personaggi.length + ' personaggi · ' + D.gruppi.length + ' gruppi · ' + D.fili.length + ' fili · ' + D.eventi.length + ' eventi';
+    if (L && L.righe) s += ' · ' + L.righe + ' righe (minimo possibile senza gruppi: ' + L.minimo + ')' + (ms != null ? ' · calcolate in ' + ms + ' ms' : '');
+    s += ui.salvato ? ' · salvato nel browser' : ' · ATTENZIONE: il browser non permette di salvare, esporta il JSON';
+    document.getElementById('stat').textContent = s;
+  }
+
+  function calcolaEDisegna(mantieni) {
+    var scroller = document.getElementById('scroller');
+    var sx = scroller.scrollLeft, sy = scroller.scrollTop;
+    var vuoto = !D.personaggi.length;
+    document.getElementById('vuoto').style.display = vuoto ? 'flex' : 'none';
+    document.getElementById('inner').style.display = vuoto ? 'none' : '';
+    idx = {}; D.personaggi.forEach(function (p, i) { idx[p.id] = i; });
+    if (vuoto) { L = null; els = { p: [], g: {} }; aggiornaStat(); return; }
+    var vicini = {};
+    D.fili.forEach(function (f) { f.membri.forEach(function (id) { vicini[id] = (vicini[id] || []).concat(f.membri.filter(function (m) { return m !== id; })); }); });
+    var estremi = []; D.eventi.forEach(function (e) { estremi.push(e.da, e.a); });
+    var persone = D.personaggi.map(function (p) { return { id: p.id, nome: p.nome, cat: p.categoria, nascita: p.nascita, morte: p.morte, gruppi: p.gruppi }; });
+    var larghezza = Math.max(900, scroller.clientWidth - 2 * MARGINE - 60) * ui.zoom;
+    var t = Date.now();
+    L = V3Layout.calcola(persone, D.gruppi, { larghezza: larghezza, estremi: estremi, vicini: vicini });
+    var ms = Date.now() - t;
+    costruisci();
+    aggiornaStat(ms);
+    scroller.scrollLeft = sx; scroller.scrollTop = sy;
+  }
+
+  function costruisci() {
+    var W = L.larghezza + 2 * MARGINE + 40, H = L.altezza + 24, ROW = L.riga;
+    var X = function (anno) { return MARGINE + (anno - L.T0) * L.scala; };
+    var X2 = function (px) { return MARGINE + px; };
+    document.getElementById('inner').style.width = W + 'px';
+    var tela = document.getElementById('tela'), asse = document.getElementById('asse');
+    tela.setAttribute('width', W); tela.setAttribute('height', H);
+    asse.setAttribute('width', W);
+    tela.innerHTML = ''; asse.innerHTML = '';
+    els = { p: [], g: {} };
+    var catCol = function (id) { var c = perId(D.categorie, id); return c ? c.colore : GRIGIO; };
+
+    // asse
+    var gAsse = el('g', {}, asse), gGriglia = el('g', { id: 'g-griglia' }, tela);
+    var y0 = Math.ceil(L.T0 / L.passo) * L.passo;
+    for (var y = y0; y <= L.T1; y += L.passo) {
+      var sec = (((Math.round(y / L.passo) % 4) + 4) % 4 === 0);
+      el('line', { x1: X(y), x2: X(y), y1: sec ? 14 : 22, y2: 66, stroke: '#cdbf9f', 'stroke-width': sec ? 1.2 : .7 }, gAsse);
+      var tx = el('text', { x: X(y) + 4, y: sec ? 24 : 28, 'font-size': sec ? 13 : 10.5, 'font-weight': sec ? 700 : 400, fill: sec ? '#603913' : '#8a7355' }, gAsse);
+      tx.textContent = fmtAnno(y, sec);
+      el('line', { x1: X(y), x2: X(y), y1: 0, y2: H, stroke: sec ? '#d9cdb3' : '#ece4d3', 'stroke-width': sec ? 1 : .6 }, gGriglia);
+    }
+    // eventi
+    var gEv = el('g', { id: 'g-eventi' }, tela), aEv = el('g', { id: 'a-eventi' }, asse);
+    D.eventi.forEach(function (e, i) {
+      var x0 = X(e.da), x1 = X(e.a + 1 > e.da ? e.a : e.da);
+      if (x1 - x0 < 3) x1 = x0 + 3;
+      el('rect', { x: x0, y: 0, width: x1 - x0, height: H, fill: e.colore, opacity: .10 }, gEv);
+      el('line', { x1: x0, x2: x0, y1: 0, y2: H, stroke: e.colore, 'stroke-opacity': .3 }, gEv);
+      el('line', { x1: x1, x2: x1, y1: 0, y2: H, stroke: e.colore, 'stroke-opacity': .3 }, gEv);
+      var ly = 40 + (i % 2) * 13, tw = e.nome.length * 5.6 + 10;
+      el('rect', { x: x0, y: ly - 10, width: Math.max(tw, x1 - x0), height: 12, rx: 3, fill: e.colore, opacity: .9 }, aEv);
+      var t = el('text', { x: x0 + 5, y: ly, 'font-size': 9.5, 'font-weight': 700, fill: '#fff' }, aEv); t.textContent = e.nome;
+    });
+    if (!ui.eventi) { gEv.style.display = 'none'; aEv.style.display = 'none'; }
+
+    // gruppi
+    var gGr = el('g', { id: 'g-gruppi' }, tela);
+    L.blocchi.forEach(function (b) {
+      var gg = el('g', { 'data-g': b.id }, gGr), banda = el('g', { class: 'banda', opacity: .17 }, gg);
+      var c = b.celle, pts = [], n = c.length, ins = 3.5, j;
+      for (j = 0; j < n; j++) {
+        pts.push([X2(c[j].x1) - ins, c[j].y + (j === 0 ? ins : 0)]);
+        pts.push([X2(c[j].x1) - ins, c[j].y + ROW - (j === n - 1 ? ins : 0)]);
+      }
+      for (j = n - 1; j >= 0; j--) {
+        pts.push([X2(c[j].x0) + ins, c[j].y + ROW - (j === n - 1 ? ins : 0)]);
+        pts.push([X2(c[j].x0) + ins, c[j].y + (j === 0 ? ins : 0)]);
+      }
+      el('path', { d: 'M' + pts.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join('L') + 'Z',
+                   fill: b.colore, stroke: b.colore, 'stroke-width': ins * 2, 'stroke-linejoin': 'round' }, banda);
+      var tt = el('text', { x: X2(c[0].x0) + 9, y: c[0].y + 14, class: 'titolo-g', fill: scuro(b.colore, .62), 'data-g': b.id }, gg);
+      tt.textContent = b.nome;
+      els.g[b.id] = banda;
+    });
+    if (!ui.gruppi) gGr.style.display = 'none';
+
+    // barre
+    var gP = el('g', { id: 'g-barre' }, tela); el('g', { id: 'g-fili' }, tela); var gT = el('g', { id: 'g-testi' }, tela);
+    L.persone.forEach(function (p, i) {
+      var col = catCol(p.cat), x0 = X2(p.x0), w = p.x1 - p.x0, y = p.y + 3;
+      var gb = el('g', { class: 'p', 'data-i': i }, gP);
+      el('rect', { class: 'b', x: x0, y: y, width: w, height: 15, rx: 3.5, fill: col }, gb);
+      if (p.aperto) el('polygon', { points: (x0 + w - 1) + ',' + y + ' ' + (x0 + w + 8) + ',' + (y + 7.5) + ' ' + (x0 + w - 1) + ',' + (y + 15), fill: col }, gb);
+      if (p.secondo) {
+        var g2 = perId(D.gruppi, p.secondo);
+        if (g2) el('rect', { x: x0 + 2, y: y + 11.5, width: Math.max(2, w - 4), height: 2.6, rx: 1.3, fill: g2.colore, stroke: '#fff', 'stroke-width': .6, 'stroke-opacity': .7 }, gb);
+      }
+      var t = el('text', { class: 'etichetta ' + (p.fuori ? 'fuori' : 'dentro'), x: p.fuori ? x0 + w + (p.aperto ? 12 : 5) : x0 + 5, y: y + 10.5, 'data-i': i }, gT);
+      t.textContent = p.nome;
+      els.p[i] = [gb, t];
+    });
+    disegnaFili();
+    applica();
+  }
+
+  // curva a S in avanti nel tempo; verticale se le due barre si sovrappongono
+  function tratto(A, B) {
+    var ay = A.y + 3 + 7.5, by = B.y + 3 + 7.5;
+    if (B.a >= A.d - 0.01) {
+      var sx = MARGINE + A.x1, ex = MARGINE + B.x0, dx = Math.max(26, Math.min(300, (ex - sx) * 0.55));
+      return { d: 'M' + sx + ',' + ay + ' C' + (sx + dx) + ',' + ay + ' ' + (ex - dx) + ',' + by + ' ' + ex + ',' + by, n: [[sx, ay], [ex, by]] };
+    }
+    var xo = MARGINE + (Math.max(A.x0, B.x0) + Math.min(A.x1, B.x1)) / 2;
+    var giu = by > ay, sy = giu ? ay + 7.5 : ay - 7.5, ey = giu ? by - 7.5 : by + 7.5, dy = (ey - sy) / 2, off = 9;
+    return { d: 'M' + xo + ',' + sy + ' C' + (xo + off) + ',' + (sy + dy) + ' ' + (xo - off) + ',' + (ey - dy) + ' ' + xo + ',' + ey, n: [[xo, sy], [xo, ey]] };
+  }
+  function disegnaFili() {
+    var gF = document.getElementById('g-fili'); if (!gF || !L) return;
+    gF.innerHTML = '';
+    D.fili.forEach(function (def) {
+      if (ui.filiOff[def.id]) return;
+      var pers = def.membri.map(function (id) { return L.persone[idx[id]]; }).filter(Boolean).sort(function (a, b) { return a.nasc - b.nasc; });
+      if (pers.length < 2) return;
+      var g = el('g', { 'data-f': def.id }, gF), pa = [], nodi = [];
+      for (var i = 0; i + 1 < pers.length; i++) { var t = tratto(pers[i], pers[i + 1]); pa.push(t.d); nodi = nodi.concat(t.n); }
+      pa.forEach(function (d) { el('path', { d: d, fill: 'none', stroke: '#faf6ee', 'stroke-width': 6.5, 'stroke-opacity': .9, 'stroke-linecap': 'round' }, g); });
+      pa.forEach(function (d) { el('path', { d: d, fill: 'none', stroke: def.colore, 'stroke-width': 2.6, 'stroke-linecap': 'round' }, g); });
+      nodi.forEach(function (n) { el('circle', { cx: n[0], cy: n[1], r: 3.7, fill: '#faf6ee', stroke: def.colore, 'stroke-width': 2.2 }, g); });
+      if (nodi[0]) { var tx = el('text', { x: nodi[0][0] - 2, y: nodi[0][1] - 9, class: 'filo-nome', fill: scuro(def.colore, .85) }, g); tx.textContent = def.nome; }
+    });
+  }
+
+  // ---- evidenziazione ----
+  function personeDelGruppo(id) { var out = {}; L.persone.forEach(function (p, i) { if (p.gruppi.indexOf(id) >= 0) out[i] = true; }); return out; }
+  function applica() {
+    if (!L) return;
+    var evid = null, gruppiEvid = null;
+    if (ui.hoverP != null && L.persone[ui.hoverP]) {
+      var pr = L.persone[ui.hoverP]; evid = {}; gruppiEvid = {};
+      pr.gruppi.forEach(function (g) { gruppiEvid[g] = true; var m = personeDelGruppo(g); for (var k in m) evid[k] = true; });
+      evid[ui.hoverP] = true;
+      D.fili.forEach(function (f) { if (!ui.filiOff[f.id] && f.membri.indexOf(pr.id) >= 0) f.membri.forEach(function (id) { evid[idx[id]] = true; }); });
+    } else if (ui.hoverG != null) {
+      evid = personeDelGruppo(ui.hoverG); gruppiEvid = {}; gruppiEvid[ui.hoverG] = true;
+    } else if (ui.cerca) {
+      evid = {}; L.persone.forEach(function (p, i) { if (senzaAccenti(p.nome).indexOf(ui.cerca) >= 0) evid[i] = true; });
+    }
+    L.persone.forEach(function (p, i) {
+      var nascosta = p.cat && ui.catNascoste[p.cat];
+      els.p[i].forEach(function (e) { e.classList.toggle('off', !!nascosta); e.classList.toggle('dim', !nascosta && !!evid && !evid[i]); });
+    });
+    for (var id in els.g) els.g[id].classList.toggle('dim', !!gruppiEvid && !gruppiEvid[id]);
+  }
+
+  // ---- schedina ----
+  var scheda = document.getElementById('scheda');
+  function mostraScheda(i, ev) {
+    var pg = D.personaggi[i]; if (!pg) return;
+    var cat = perId(D.categorie, pg.categoria);
+    var html = '<div class="n">' + esc(pg.nome) + '</div><div class="d">' + esc(fmtAnno(pg.nascita, true)) + ' – ' +
+      (pg.morte == null ? 'ancora in vita' : esc(fmtAnno(pg.morte, true))) + (cat ? ' · ' + esc(cat.nome) : '') + '</div>';
+    var gr = pg.gruppi.map(function (id) { return perId(D.gruppi, id); }).filter(Boolean);
+    if (gr.length) html += '<div class="g">' + gr.map(function (g) { return '<span style="--c:' + g.colore + '">' + esc(g.nome) + '</span>'; }).join('') + '</div>';
+    if (pg.descrizione) html += '<div class="t">' + esc(pg.descrizione) + '</div>';
+    var fl = D.fili.filter(function (f) { return f.membri.indexOf(pg.id) >= 0; }).map(function (f) { return f.nome; });
+    if (fl.length) html += '<div class="f">Fili: ' + esc(fl.join(', ')) + '</div>';
+    html += '<div class="f">clic per modificare</div>';
+    scheda.innerHTML = html; scheda.style.display = 'block'; muoviScheda(ev);
+  }
+  function muoviScheda(ev) {
+    var w = scheda.offsetWidth, h = scheda.offsetHeight, x = ev.clientX + 16, y = ev.clientY + 14;
+    if (x + w > window.innerWidth - 8) x = ev.clientX - w - 16;
+    if (y + h > window.innerHeight - 8) y = window.innerHeight - h - 8;
+    scheda.style.left = Math.max(8, x) + 'px'; scheda.style.top = Math.max(8, y) + 'px';
+  }
+  var tela = document.getElementById('tela');
+  tela.addEventListener('mouseover', function (ev) {
+    var gp = ev.target.closest('[data-i]'), gg = ev.target.closest('[data-g]');
+    if (gp) { ui.hoverP = +gp.getAttribute('data-i'); ui.hoverG = null; applica(); mostraScheda(ui.hoverP, ev); }
+    else if (gg && ev.target.classList.contains('titolo-g')) { ui.hoverG = gg.getAttribute('data-g'); ui.hoverP = null; applica(); }
+  });
+  tela.addEventListener('mousemove', function (ev) { if (scheda.style.display === 'block') muoviScheda(ev); });
+  tela.addEventListener('mouseout', function (ev) {
+    var r = ev.relatedTarget && ev.relatedTarget.closest ? ev.relatedTarget.closest('[data-i]') : null;
+    if (r && r === ev.target.closest('[data-i]')) return;
+    ui.hoverP = null; ui.hoverG = null; scheda.style.display = 'none'; applica();
+  });
+  tela.addEventListener('click', function (ev) {
+    var gp = ev.target.closest('[data-i]'); if (!gp) return;
+    var p = D.personaggi[+gp.getAttribute('data-i')]; if (!p) return;
+    ui.tab = 'personaggi'; ui.modifica = { tipo: 'personaggi', id: p.id }; apriPannello(); pannello();
+  });
+
+  // ---- pannello dati ----
+  var TABS = [['personaggi', 'Personaggi'], ['gruppi', 'Gruppi'], ['categorie', 'Categorie'], ['fili', 'Fili'], ['eventi', 'Eventi']];
+  var NOMI = { personaggi: ['personaggio', 'Nuovo personaggio'], gruppi: ['gruppo', 'Nuovo gruppo'], categorie: ['categoria', 'Nuova categoria'], fili: ['filo', 'Nuovo filo'], eventi: ['evento', 'Nuovo evento'] };
+  function pannello() {
+    var tabs = document.getElementById('tabs'); tabs.innerHTML = '';
+    TABS.forEach(function (t) {
+      var b = document.createElement('button'); b.textContent = t[1] + ' ' + D[t[0]].length; b.className = ui.tab === t[0] ? 'on' : '';
+      b.addEventListener('click', function () { ui.tab = t[0]; ui.modifica = null; ui.sicuro = null; pannello(); });
+      tabs.appendChild(b);
+    });
+    var corpo = document.getElementById('corpo');
+    if (ui.modifica) form(corpo); else lista(corpo);
+  }
+  function dettaglio(tipo, x) {
+    if (tipo === 'personaggi') return fmtAnno(x.nascita) + ' – ' + (x.morte == null ? '…' : fmtAnno(x.morte));
+    if (tipo === 'gruppi') return D.personaggi.filter(function (p) { return p.gruppi.indexOf(x.id) >= 0; }).length + ' membri';
+    if (tipo === 'categorie') return D.personaggi.filter(function (p) { return p.categoria === x.id; }).length + ' personaggi';
+    if (tipo === 'fili') return x.membri.length + ' membri';
+    return fmtAnno(x.da) + ' – ' + fmtAnno(x.a);
+  }
+  function lista(corpo) {
+    var tipo = ui.tab, items = D[tipo].slice();
+    if (tipo === 'personaggi') items.sort(function (a, b) { return a.nascita - b.nascita || a.nome.localeCompare(b.nome); });
+    if (tipo === 'eventi') items.sort(function (a, b) { return a.da - b.da; });
+    var html = '<div class="barra-lista">' + (tipo === 'personaggi' ? '<input type="search" id="filtro" placeholder="filtra…" value="' + esc(ui.filtro) + '" style="width:auto">' : '<span style="flex:1"></span>') +
+      '<button class="primario" id="nuovo">+ ' + NOMI[tipo][1] + '</button></div>';
+    var f = tipo === 'personaggi' ? senzaAccenti(ui.filtro) : '';
+    var righe = items.filter(function (x) { return !f || senzaAccenti(x.nome).indexOf(f) >= 0; });
+    if (!righe.length) html += '<div class="vuota">' + (items.length ? 'Nessun risultato.' : 'Ancora nessun ' + NOMI[tipo][0] + '.') + '</div>';
+    righe.forEach(function (x) {
+      var col = tipo === 'personaggi' ? (perId(D.categorie, x.categoria) || { colore: GRIGIO }).colore : x.colore;
+      html += '<div class="riga" data-id="' + esc(x.id) + '"><i style="--c:' + esc(col) + '"></i><span class="nm">' + esc(x.nome) + '</span><span class="dt">' + esc(dettaglio(tipo, x)) + '</span></div>';
+    });
+    if (tipo === 'gruppi' || tipo === 'categorie') html += '<div class="nota">' + (tipo === 'gruppi' ? 'Un personaggio può stare in al massimo 2 gruppi.' : 'La categoria decide il colore della barra.') + '</div>';
+    corpo.innerHTML = html;
+    document.getElementById('nuovo').addEventListener('click', function () { ui.modifica = { tipo: tipo, id: null }; ui.sicuro = null; pannello(); });
+    var fi = document.getElementById('filtro');
+    if (fi) fi.addEventListener('input', function () { ui.filtro = fi.value; var pos = fi.selectionStart; lista(corpo); var n = document.getElementById('filtro'); n.focus(); n.setSelectionRange(pos, pos); });
+    Array.prototype.forEach.call(corpo.querySelectorAll('.riga'), function (r) {
+      r.addEventListener('click', function () { ui.modifica = { tipo: tipo, id: r.getAttribute('data-id') }; ui.sicuro = null; pannello(); });
+    });
+  }
+  function campo(etichetta, html, nota) { return '<div class="campo"><label>' + etichetta + '</label>' + html + (nota ? '<div class="nota">' + nota + '</div>' : '') + '</div>'; }
+  function opzioni(lista, sel, vuotoTesto) {
+    return '<option value="">' + esc(vuotoTesto) + '</option>' + lista.map(function (x) { return '<option value="' + esc(x.id) + '"' + (x.id === sel ? ' selected' : '') + '>' + esc(x.nome) + '</option>'; }).join('');
+  }
+  function form(corpo) {
+    var tipo = ui.modifica.tipo, id = ui.modifica.id, nuovo = id == null;
+    var x = nuovo ? null : perId(D[tipo], id);
+    if (!nuovo && !x) { ui.modifica = null; return lista(corpo); }
+    var h = '<div class="nota" style="margin-bottom:8px"><a href="#" id="indietro">← elenco</a></div>';
+    if (tipo === 'personaggi') {
+      var g = x ? x.gruppi : [];
+      h += campo('Nome', '<input type="text" id="f-nome" maxlength="80" value="' + esc(x ? x.nome : '') + '">');
+      h += '<div class="due">' + campo('Nascita (anno)', '<input type="text" inputmode="numeric" id="f-nascita" value="' + esc(x ? x.nascita : '') + '">') +
+           campo('Morte (anno)', '<input type="text" inputmode="numeric" id="f-morte" value="' + esc(x && x.morte != null ? x.morte : '') + '">') + '</div>' +
+           '<div class="nota" style="margin:-4px 0 9px">Anni interi, anche negativi. Morte vuota = ancora in vita.</div>';
+      h += campo('Categoria', '<select id="f-cat">' + opzioni(D.categorie, x ? x.categoria : null, '— nessuna —') + '</select>');
+      h += '<div class="due">' + campo('Gruppo 1', '<select id="f-g1">' + opzioni(D.gruppi, g[0], '— nessuno —') + '</select>') +
+           campo('Gruppo 2', '<select id="f-g2">' + opzioni(D.gruppi, g[1], '— nessuno —') + '</select>') + '</div>';
+      h += campo('Descrizione', '<textarea id="f-desc" maxlength="800">' + esc(x ? x.descrizione : '') + '</textarea>');
+    } else if (tipo === 'gruppi' || tipo === 'categorie') {
+      var usati = D[tipo];
+      h += campo('Nome', '<input type="text" id="f-nome" maxlength="60" value="' + esc(x ? x.nome : '') + '">');
+      h += campo('Colore', '<input type="color" id="f-col" value="' + esc(x ? x.colore : prossimoColore(tipo === 'gruppi' ? PALETTE : PAL_CAT, usati)) + '">');
+    } else if (tipo === 'fili') {
+      h += campo('Nome', '<input type="text" id="f-nome" maxlength="60" value="' + esc(x ? x.nome : '') + '">');
+      h += campo('Colore', '<input type="color" id="f-col" value="' + esc(x ? x.colore : prossimoColore(PALETTE, D.fili)) + '">');
+      h += campo('Membri', '<input type="search" id="f-filtro" placeholder="filtra…" style="width:100%"><div class="membri" id="f-membri">' +
+        D.personaggi.slice().sort(function (a, b) { return a.nascita - b.nascita; }).map(function (p) {
+          return '<label data-n="' + esc(senzaAccenti(p.nome)) + '"><input type="checkbox" value="' + esc(p.id) + '"' + (x && x.membri.indexOf(p.id) >= 0 ? ' checked' : '') + '>' + esc(p.nome) + ' <span class="nota" style="margin:0">' + esc(fmtAnno(p.nascita)) + '</span></label>';
+        }).join('') + '</div>', 'Il filo collega i membri in ordine di nascita.');
+    } else {
+      h += campo('Nome', '<input type="text" id="f-nome" maxlength="60" value="' + esc(x ? x.nome : '') + '">');
+      h += '<div class="due">' + campo('Da (anno)', '<input type="text" inputmode="numeric" id="f-da" value="' + esc(x ? x.da : '') + '">') +
+           campo('A (anno)', '<input type="text" inputmode="numeric" id="f-a" value="' + esc(x ? x.a : '') + '">') + '</div>';
+      h += campo('Colore', '<input type="color" id="f-col" value="' + esc(x ? x.colore : prossimoColore(PALETTE, D.eventi)) + '">');
+    }
+    h += '<div class="err" id="err"></div><div class="azioni"><button class="primario" id="f-salva">Salva</button><button id="f-annulla">Annulla</button>' +
+         (nuovo ? '' : '<button class="pericolo dx" id="f-elimina">Elimina</button>') + '</div>';
+    corpo.innerHTML = h;
+    var $ = function (s) { return document.getElementById(s); };
+    $('indietro').addEventListener('click', function (e) { e.preventDefault(); ui.modifica = null; pannello(); });
+    $('f-annulla').addEventListener('click', function () { ui.modifica = null; pannello(); });
+    if (tipo === 'fili') $('f-filtro').addEventListener('input', function () {
+      var q = senzaAccenti(this.value); Array.prototype.forEach.call($('f-membri').children, function (l) { l.style.display = l.getAttribute('data-n').indexOf(q) >= 0 ? '' : 'none'; });
+    });
+    var primo = $('f-nome'); if (primo && nuovo) primo.focus();
+    $('f-salva').addEventListener('click', function () {
+      var nome = $('f-nome').value.trim(), errore = null, rec = {};
+      if (!nome) errore = 'Serve un nome.';
+      if (!errore && tipo === 'personaggi') {
+        var n = intero($('f-nascita').value), mt = $('f-morte').value.trim() === '' ? null : intero($('f-morte').value);
+        if (n == null) errore = 'Nascita: serve un anno intero (anche negativo).';
+        else if ($('f-morte').value.trim() !== '' && mt == null) errore = 'Morte: serve un anno intero, oppure lascia vuoto.';
+        else if (mt != null && mt < n) errore = 'Muore (' + mt + ') prima di nascere (' + n + ').';
+        var g1 = $('f-g1').value, g2 = $('f-g2').value;
+        if (!errore && g1 && g1 === g2) errore = 'Gruppo 1 e Gruppo 2 sono lo stesso gruppo.';
+        if (!errore && g2 && !g1) { g1 = g2; g2 = ''; }
+        rec = { nome: nome, nascita: n, morte: mt, categoria: $('f-cat').value || null, gruppi: [g1, g2].filter(Boolean), descrizione: $('f-desc').value.trim() };
+      } else if (!errore && (tipo === 'gruppi' || tipo === 'categorie')) {
+        rec = { nome: nome, colore: colore($('f-col').value) };
+      } else if (!errore && tipo === 'fili') {
+        rec = { nome: nome, colore: colore($('f-col').value), membri: Array.prototype.filter.call($('f-membri').querySelectorAll('input'), function (c) { return c.checked; }).map(function (c) { return c.value; }) };
+      } else if (!errore) {
+        var da = intero($('f-da').value), a = intero($('f-a').value);
+        if (da == null || a == null) errore = 'Servono due anni interi (anche negativi).';
+        else if (a < da) errore = 'La fine (' + a + ') è prima dell\'inizio (' + da + ').';
+        rec = { nome: nome, da: da, a: a, colore: colore($('f-col').value) };
+      }
+      if (errore) { $('err').textContent = errore; return; }
+      if (nuovo) { rec.id = uid(tipo[0]); D[tipo].push(rec); } else { for (var k in rec) x[k] = rec[k]; }
+      ui.modifica = null; salva(); tutto();
+    });
+    if (!nuovo) $('f-elimina').addEventListener('click', function () {
+      if (ui.sicuro !== id) { ui.sicuro = id; this.textContent = 'Sicuro? Clic di nuovo'; this.classList.add('sicuro'); return; }
+      D[tipo] = D[tipo].filter(function (r) { return r.id !== id; });
+      if (tipo === 'gruppi') D.personaggi.forEach(function (p) { p.gruppi = p.gruppi.filter(function (g) { return g !== id; }); });
+      if (tipo === 'categorie') D.personaggi.forEach(function (p) { if (p.categoria === id) p.categoria = null; });
+      if (tipo === 'personaggi') D.fili.forEach(function (f) { f.membri = f.membri.filter(function (m) { return m !== id; }); });
+      ui.modifica = null; ui.sicuro = null; salva(); tutto();
+    });
+  }
+
+  function tutto() {
+    document.getElementById('titolo').value = D.titolo;
+    document.getElementById('suffisso').value = D.suffisso;
+    document.title = (D.titolo || 'Timeline v3') + ' · Timeline v3';
+    costruisciControlli(); pannello(); ridisegna();
+  }
+
+  // ---- avvio ----
+  try {
+    var salvato = localStorage.getItem(CHIAVE);
+    if (salvato) D = pulisci(JSON.parse(salvato));
+  } catch (e) { D = vuoti(); }
+  window.addEventListener('resize', function () { ridisegna(true); });
+  tutto();
+  window.__v3 = { get dati() { return D; }, get layout() { return L; }, ui: ui, pulisci: pulisci };
+})();
+</script>
+</body>
+</html>
