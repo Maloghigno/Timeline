@@ -1,0 +1,610 @@
+{
+ "versione": 3,
+ "titolo": "Westeros: dalla Conquista alla Guerra dei Cinque Re",
+ "suffisso": "AC",
+ "categorie": [
+  {
+   "id": "targaryen",
+   "nome": "Targaryen",
+   "colore": "#1c1c1c"
+  },
+  {
+   "id": "stark",
+   "nome": "Stark",
+   "colore": "#8a9099"
+  },
+  {
+   "id": "baratheon",
+   "nome": "Baratheon",
+   "colore": "#c9a227"
+  },
+  {
+   "id": "draghi",
+   "nome": "Draghi",
+   "colore": "#b3261e"
+  }
+ ],
+ "gruppi": [
+  {
+   "id": "conquista",
+   "nome": "La Conquista",
+   "colore": "#d4a03a"
+  },
+  {
+   "id": "neri",
+   "nome": "I Neri (Danza dei Draghi)",
+   "colore": "#4d8aa6"
+  },
+  {
+   "id": "verdi",
+   "nome": "I Verdi (Danza dei Draghi)",
+   "colore": "#5b9a74"
+  },
+  {
+   "id": "ribelli",
+   "nome": "I ribelli di Robert",
+   "colore": "#c8643c"
+  },
+  {
+   "id": "lealisti",
+   "nome": "I lealisti di Aerys",
+   "colore": "#8e5fa8"
+  },
+  {
+   "id": "cinquere",
+   "nome": "Guerra dei Cinque Re",
+   "colore": "#b4565c"
+  }
+ ],
+ "personaggi": [
+  {
+   "id": "aegon1",
+   "nome": "Aegon I il Conquistatore",
+   "nascita": -27,
+   "morte": 37,
+   "categoria": "targaryen",
+   "gruppi": [
+    "conquista"
+   ],
+   "descrizione": "Primo re sul Trono di Spade (regno 1–37 AC). Nato nel 27 BC. Cavalca Balerion."
+  },
+  {
+   "id": "visenya",
+   "nome": "Visenya Targaryen",
+   "nascita": -29,
+   "morte": 44,
+   "categoria": "targaryen",
+   "gruppi": [
+    "conquista"
+   ],
+   "descrizione": "Sorella e moglie di Aegon I, nata nel 29 BC. Prima cavaliera di Vhagar."
+  },
+  {
+   "id": "aenys1",
+   "nome": "Aenys I",
+   "nascita": 7,
+   "morte": 42,
+   "categoria": "targaryen",
+   "gruppi": [],
+   "descrizione": "Re 37–42 AC. Cavalca Quicksilver."
+  },
+  {
+   "id": "maegor1",
+   "nome": "Maegor I il Crudele",
+   "nascita": 12,
+   "morte": 48,
+   "categoria": "targaryen",
+   "gruppi": [],
+   "descrizione": "Re 42–48 AC. Dopo Aegon I cavalca Balerion."
+  },
+  {
+   "id": "jaehaerys1",
+   "nome": "Jaehaerys I il Conciliatore",
+   "nascita": 34,
+   "morte": 103,
+   "categoria": "targaryen",
+   "gruppi": [],
+   "descrizione": "Re 48–103 AC, il regno più lungo. Cavalca Vermithor."
+  },
+  {
+   "id": "viserys1",
+   "nome": "Viserys I",
+   "nascita": 77,
+   "morte": 129,
+   "categoria": "targaryen",
+   "gruppi": [],
+   "descrizione": "Re 103–129 AC. Ultimo cavaliere di Balerion."
+  },
+  {
+   "id": "daemon",
+   "nome": "Daemon Targaryen",
+   "nascita": 81,
+   "morte": 130,
+   "categoria": "targaryen",
+   "gruppi": [
+    "neri"
+   ],
+   "descrizione": "Principe, secondo marito di Rhaenyra. Cavalca Caraxes."
+  },
+  {
+   "id": "rhaenyra",
+   "nome": "Rhaenyra Targaryen",
+   "nascita": 97,
+   "morte": 130,
+   "categoria": "targaryen",
+   "gruppi": [
+    "neri"
+   ],
+   "descrizione": "La «regina per mezzo anno»: si proclama regina nel 129 AC, contro Aegon II. Non è nella successione ufficiale. Cavalca Syrax."
+  },
+  {
+   "id": "aegon2",
+   "nome": "Aegon II",
+   "nascita": 107,
+   "morte": 131,
+   "categoria": "targaryen",
+   "gruppi": [
+    "verdi"
+   ],
+   "descrizione": "Re 129–131 AC durante la Danza dei Draghi. Cavalca Sunfyre."
+  },
+  {
+   "id": "aemond",
+   "nome": "Aemond Orbo",
+   "nascita": 110,
+   "morte": 130,
+   "categoria": "targaryen",
+   "gruppi": [
+    "verdi"
+   ],
+   "descrizione": "Ultimo cavaliere di Vhagar."
+  },
+  {
+   "id": "aegon3",
+   "nome": "Aegon III l'Ammazzadraghi",
+   "nascita": 120,
+   "morte": 157,
+   "categoria": "targaryen",
+   "gruppi": [
+    "neri"
+   ],
+   "descrizione": "Re 131–157 AC. Da bambino fugge su Stormcloud; nel suo regno muore l'ultimo drago (153 AC)."
+  },
+  {
+   "id": "viserys2",
+   "nome": "Viserys II",
+   "nascita": 122,
+   "morte": 172,
+   "categoria": "targaryen",
+   "gruppi": [],
+   "descrizione": "Re 171–172 AC. Figlio di Rhaenyra e Daemon."
+  },
+  {
+   "id": "aegon4",
+   "nome": "Aegon IV l'Indegno",
+   "nascita": 135,
+   "morte": 184,
+   "categoria": "targaryen",
+   "gruppi": [],
+   "descrizione": "Re 172–184 AC."
+  },
+  {
+   "id": "daeron1",
+   "nome": "Daeron I il Giovane Drago",
+   "nascita": 143,
+   "morte": 161,
+   "categoria": "targaryen",
+   "gruppi": [],
+   "descrizione": "Re 157–161 AC, conquista Dorne."
+  },
+  {
+   "id": "baelor1",
+   "nome": "Baelor I il Benedetto",
+   "nascita": 144,
+   "morte": 171,
+   "categoria": "targaryen",
+   "gruppi": [],
+   "descrizione": "Re 161–171 AC."
+  },
+  {
+   "id": "daeron2",
+   "nome": "Daeron II il Buono",
+   "nascita": 153,
+   "morte": 209,
+   "categoria": "targaryen",
+   "gruppi": [],
+   "descrizione": "Re 184–209 AC."
+  },
+  {
+   "id": "aerys1",
+   "nome": "Aerys I",
+   "nascita": 172,
+   "morte": 221,
+   "categoria": "targaryen",
+   "gruppi": [],
+   "descrizione": "Re 209–221 AC. Nato tra il 172 e il 176 AC: la barra parte dal 172."
+  },
+  {
+   "id": "maekar1",
+   "nome": "Maekar I",
+   "nascita": 174,
+   "morte": 233,
+   "categoria": "targaryen",
+   "gruppi": [],
+   "descrizione": "Re 221–233 AC."
+  },
+  {
+   "id": "aegon5",
+   "nome": "Aegon V l'Improbabile",
+   "nascita": 200,
+   "morte": 259,
+   "categoria": "targaryen",
+   "gruppi": [],
+   "descrizione": "Re 233–259 AC, l'«Egg» delle novelle di Dunk ed Egg. Muore nella tragedia di Summerhall."
+  },
+  {
+   "id": "jaehaerys2",
+   "nome": "Jaehaerys II",
+   "nascita": 225,
+   "morte": 262,
+   "categoria": "targaryen",
+   "gruppi": [],
+   "descrizione": "Re 259–262 AC."
+  },
+  {
+   "id": "aerys2",
+   "nome": "Aerys II il Re Folle",
+   "nascita": 244,
+   "morte": 283,
+   "categoria": "targaryen",
+   "gruppi": [
+    "lealisti"
+   ],
+   "descrizione": "Re 262–283 AC, ultimo Targaryen sul trono."
+  },
+  {
+   "id": "rhaegar",
+   "nome": "Rhaegar Targaryen",
+   "nascita": 259,
+   "morte": 283,
+   "categoria": "targaryen",
+   "gruppi": [
+    "lealisti"
+   ],
+   "descrizione": "Principe di Roccia del Drago, muore al Tridente."
+  },
+  {
+   "id": "daenerys",
+   "nome": "Daenerys Targaryen",
+   "nascita": 284,
+   "morte": null,
+   "categoria": "targaryen",
+   "gruppi": [],
+   "descrizione": "Nata nel 284 AC. Madre di Drogon, Rhaegal e Viserion. Viva alla fine dei romanzi pubblicati."
+  },
+  {
+   "id": "rickard",
+   "nome": "Rickard Stark",
+   "nascita": 230,
+   "morte": 282,
+   "categoria": "stark",
+   "gruppi": [],
+   "descrizione": "Lord di Grande Inverno. Nato tra il 230 e il 250 AC (data incerta): la barra parte dal 230."
+  },
+  {
+   "id": "eddard",
+   "nome": "Eddard Stark",
+   "nascita": 263,
+   "morte": 299,
+   "categoria": "stark",
+   "gruppi": [
+    "ribelli"
+   ],
+   "descrizione": "Lord di Grande Inverno, Primo Cavaliere di Robert."
+  },
+  {
+   "id": "lyanna",
+   "nome": "Lyanna Stark",
+   "nascita": 266,
+   "morte": 283,
+   "categoria": "stark",
+   "gruppi": [],
+   "descrizione": "Nata nel 266 o 267 AC: la barra parte dal 266. Il suo rapimento da parte di Rhaegar scatena la ribellione."
+  },
+  {
+   "id": "robb",
+   "nome": "Robb Stark",
+   "nascita": 283,
+   "morte": 299,
+   "categoria": "stark",
+   "gruppi": [
+    "cinquere"
+   ],
+   "descrizione": "Il Giovane Lupo, re del Nord nella Guerra dei Cinque Re."
+  },
+  {
+   "id": "jon",
+   "nome": "Jon Snow",
+   "nascita": 283,
+   "morte": null,
+   "categoria": "stark",
+   "gruppi": [],
+   "descrizione": "Bastardo di Grande Inverno, Lord Comandante dei Guardiani della notte. La fonte non dà una data di morte: destino aperto alla fine dei romanzi."
+  },
+  {
+   "id": "robert1",
+   "nome": "Robert I Baratheon",
+   "nascita": 262,
+   "morte": 298,
+   "categoria": "baratheon",
+   "gruppi": [
+    "ribelli"
+   ],
+   "descrizione": "Re 283–298 AC dopo la ribellione contro Aerys II."
+  },
+  {
+   "id": "joffrey",
+   "nome": "Joffrey Baratheon",
+   "nascita": 286,
+   "morte": 300,
+   "categoria": "baratheon",
+   "gruppi": [
+    "cinquere"
+   ],
+   "descrizione": "Re 298–300 AC."
+  },
+  {
+   "id": "tommen",
+   "nome": "Tommen Baratheon",
+   "nascita": 291,
+   "morte": null,
+   "categoria": "baratheon",
+   "gruppi": [],
+   "descrizione": "Re dal 300 AC, ancora sul trono alla fine dei romanzi pubblicati."
+  },
+  {
+   "id": "balerion",
+   "nome": "Balerion il Terrore Nero",
+   "nascita": -114,
+   "morte": 94,
+   "categoria": "draghi",
+   "gruppi": [
+    "conquista"
+   ],
+   "descrizione": "Nato prima del 114 BC (la barra parte da lì, per convenzione). Cavalieri: Aegon I, Maegor I, Aerea, Viserys I. Muore di vecchiaia nel 94 AC."
+  },
+  {
+   "id": "vhagar",
+   "nome": "Vhagar",
+   "nascita": -52,
+   "morte": 130,
+   "categoria": "draghi",
+   "gruppi": [
+    "conquista",
+    "verdi"
+   ],
+   "descrizione": "Nata nel 52 BC. Cavalieri: Visenya, Baelon, Laena Velaryon, Aemond. Muore nella Danza dei Draghi."
+  },
+  {
+   "id": "meraxes",
+   "nome": "Meraxes",
+   "nascita": -114,
+   "morte": 10,
+   "categoria": "draghi",
+   "gruppi": [
+    "conquista"
+   ],
+   "descrizione": "Nata tra il 114 BC e la Conquista (la barra parte dal 114 BC). Cavaliera: la regina Rhaenys. Muore nella Prima guerra dorniana."
+  },
+  {
+   "id": "quicksilver",
+   "nome": "Quicksilver",
+   "nascita": 7,
+   "morte": 43,
+   "categoria": "draghi",
+   "gruppi": [],
+   "descrizione": "Cavalieri: Aenys I, poi il principe Aegon suo figlio. Ucciso da Balerion."
+  },
+  {
+   "id": "vermax",
+   "nome": "Vermax",
+   "nascita": 114,
+   "morte": 130,
+   "categoria": "draghi",
+   "gruppi": [
+    "neri"
+   ],
+   "descrizione": "Nato tra il 114 e il 120 AC (la barra parte dal 114). Cavaliere: Jacaerys Velaryon."
+  },
+  {
+   "id": "arrax",
+   "nome": "Arrax",
+   "nascita": 115,
+   "morte": 129,
+   "categoria": "draghi",
+   "gruppi": [
+    "neri"
+   ],
+   "descrizione": "Nato tra il 115 e il 120 AC (la barra parte dal 115). Cavaliere: Lucerys Velaryon. Ucciso da Vhagar."
+  },
+  {
+   "id": "tyraxes",
+   "nome": "Tyraxes",
+   "nascita": 117,
+   "morte": 130,
+   "categoria": "draghi",
+   "gruppi": [
+    "neri"
+   ],
+   "descrizione": "Nato tra il 117 e il 120 AC (la barra parte dal 117). Cavaliere: Joffrey Velaryon."
+  },
+  {
+   "id": "stormcloud",
+   "nome": "Stormcloud",
+   "nascita": 120,
+   "morte": 130,
+   "categoria": "draghi",
+   "gruppi": [],
+   "descrizione": "Nato tra il 120 e il 129 AC (la barra parte dal 120). Cavaliere: Aegon il Giovane, poi Aegon III. Muore poche ore dopo l'unico volo."
+  },
+  {
+   "id": "morning",
+   "nome": "Morning",
+   "nascita": 130,
+   "morte": 153,
+   "categoria": "draghi",
+   "gruppi": [],
+   "descrizione": "Nata durante la Danza dei Draghi (129–131 AC), morta entro il 153 AC: barra approssimata. Cavaliera: Rhaena Targaryen."
+  },
+  {
+   "id": "drogon",
+   "nome": "Drogon",
+   "nascita": 298,
+   "morte": null,
+   "categoria": "draghi",
+   "gruppi": [],
+   "descrizione": "Nato dalla pira funebre di Khal Drogo, alla fine di A Game of Thrones (298–299 AC: anno non indicato dalla fonte). Draghi di Daenerys, vivi alla fine dei romanzi pubblicati."
+  },
+  {
+   "id": "rhaegal",
+   "nome": "Rhaegal",
+   "nascita": 298,
+   "morte": null,
+   "categoria": "draghi",
+   "gruppi": [],
+   "descrizione": "Nato dalla pira funebre di Khal Drogo, alla fine di A Game of Thrones (298–299 AC: anno non indicato dalla fonte). Draghi di Daenerys, vivi alla fine dei romanzi pubblicati."
+  },
+  {
+   "id": "viserion",
+   "nome": "Viserion",
+   "nascita": 298,
+   "morte": null,
+   "categoria": "draghi",
+   "gruppi": [],
+   "descrizione": "Nato dalla pira funebre di Khal Drogo, alla fine di A Game of Thrones (298–299 AC: anno non indicato dalla fonte). Draghi di Daenerys, vivi alla fine dei romanzi pubblicati."
+  }
+ ],
+ "fili": [
+  {
+   "id": "corona",
+   "nome": "La corona dei Sette Regni",
+   "colore": "#b8860b",
+   "membri": [
+    "aegon1",
+    "aenys1",
+    "maegor1",
+    "jaehaerys1",
+    "viserys1",
+    "aegon2",
+    "aegon3",
+    "daeron1",
+    "baelor1",
+    "viserys2",
+    "aegon4",
+    "daeron2",
+    "aerys1",
+    "maekar1",
+    "aegon5",
+    "jaehaerys2",
+    "aerys2",
+    "robert1",
+    "joffrey",
+    "tommen"
+   ],
+   "ordine": "elenco"
+  }
+ ],
+ "eventi": [
+  {
+   "id": "e1",
+   "nome": "Conquista di Aegon",
+   "da": -2,
+   "a": 1,
+   "colore": "#6b4a3a"
+  },
+  {
+   "id": "e2",
+   "nome": "Rivolta della Fede Militante",
+   "da": 41,
+   "a": 48,
+   "colore": "#7a6a58"
+  },
+  {
+   "id": "e3",
+   "nome": "Danza dei Draghi",
+   "da": 129,
+   "a": 131,
+   "colore": "#9b4a34"
+  },
+  {
+   "id": "e4",
+   "nome": "Morte dell'ultimo drago",
+   "da": 153,
+   "a": 153,
+   "colore": "#7a6a58"
+  },
+  {
+   "id": "e5",
+   "nome": "Conquista di Dorne",
+   "da": 157,
+   "a": 161,
+   "colore": "#6b4a3a"
+  },
+  {
+   "id": "e6",
+   "nome": "1ª ribellione Blackfyre",
+   "da": 196,
+   "a": 196,
+   "colore": "#9b4a34"
+  },
+  {
+   "id": "e7",
+   "nome": "2ª Blackfyre (incerta)",
+   "da": 211,
+   "a": 211,
+   "colore": "#9b4a34"
+  },
+  {
+   "id": "e8",
+   "nome": "3ª Blackfyre",
+   "da": 219,
+   "a": 219,
+   "colore": "#9b4a34"
+  },
+  {
+   "id": "e9",
+   "nome": "4ª Blackfyre",
+   "da": 236,
+   "a": 236,
+   "colore": "#9b4a34"
+  },
+  {
+   "id": "e10",
+   "nome": "Tragedia di Summerhall",
+   "da": 259,
+   "a": 259,
+   "colore": "#7a6a58"
+  },
+  {
+   "id": "e11",
+   "nome": "Ribellione di Robert",
+   "da": 282,
+   "a": 283,
+   "colore": "#6b4a3a"
+  },
+  {
+   "id": "e12",
+   "nome": "Ribellione dei Greyjoy",
+   "da": 289,
+   "a": 289,
+   "colore": "#7a6a58"
+  },
+  {
+   "id": "e13",
+   "nome": "Guerra dei Cinque Re",
+   "da": 298,
+   "a": 300,
+   "colore": "#9b4a34"
+  }
+ ]
+}

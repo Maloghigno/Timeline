@@ -19,10 +19,10 @@ La v2 che parte vuota: inserisci tu personaggi, gruppi, categorie, fili ed event
   "gruppi":    [{ "id": "g1", "nome": "Casa dei Corvi", "colore": "#b4565c" }],
   "personaggi": [{ "id": "p1", "nome": "Aldric", "nascita": 1090, "morte": 1161,
                    "categoria": "c1", "gruppi": ["g1"], "descrizione": "…" }],
-  "fili":      [{ "id": "f1", "nome": "La stirpe", "colore": "#b4565c", "membri": ["p1"] }],
+  "fili":      [{ "id": "f1", "nome": "La stirpe", "colore": "#b4565c", "membri": ["p1"], "ordine": "nascita" }],
   "eventi":    [{ "id": "e1", "nome": "La Guerra", "da": 1187, "a": 1194, "colore": "#6b4a3a" }]
 }
 ```
 
-`morte: null` = ancora in vita. Gli id sono stringhe a scelta, uniche; i colori sono esadecimali `#rrggbb`.
+`morte: null` = ancora in vita. Per i fili, `ordine` vale `"nascita"` (i membri collegati per anno di nascita, predefinito) oppure `"elenco"` (nell'ordine di `membri`, per esempio una successione al trono). Gli id sono stringhe a scelta, uniche; i colori sono esadecimali `#rrggbb`.
 In importazione i dati vengono controllati: un file non valido viene rifiutato con il motivo.

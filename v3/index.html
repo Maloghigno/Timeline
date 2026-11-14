@@ -10,7 +10,7 @@
   html, body { height: 100%; margin: 0; }
   body { background: var(--carta); color: var(--inchiostro); font: 13px/1.4 Helvetica, Arial, sans-serif; display: flex; flex-direction: column; }
   header { padding: 10px 18px 6px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; }
-  #titolo { font: 700 21px Georgia, 'Times New Roman', serif; color: var(--accento); border: 0; border-bottom: 1px dashed transparent; background: transparent; padding: 0 2px; min-width: 120px; width: 320px; max-width: 60vw; }
+  #titolo { font: 700 21px Georgia, 'Times New Roman', serif; color: var(--accento); border: 0; border-bottom: 1px dashed transparent; background: transparent; padding: 0 2px; min-width: 120px; width: 320px; max-width: 70vw; }
   #titolo:hover, #titolo:focus { border-bottom-color: #cdbf9f; outline: none; }
   header .sub { color: var(--tenue); font-style: italic; font-family: Georgia, serif; }
   header .spazio { margin-left: auto; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
@@ -201,7 +201,7 @@
     });
     arr('fili').forEach(function (f) {
       var mem = []; (Array.isArray(f && f.membri) ? f.membri : []).forEach(function (id) { if (perId(out.personaggi, id) && mem.indexOf(id) < 0) mem.push(id); });
-      out.fili.push({ id: nuovoId('f', f && f.id), nome: testo(f && f.nome, 60) || 'Filo', colore: colore(f && f.colore, PALETTE[1]), membri: mem });
+      out.fili.push({ id: nuovoId('f', f && f.id), nome: testo(f && f.nome, 60) || 'Filo', colore: colore(f && f.colore, PALETTE[1]), membri: mem, ordine: f && f.ordine === 'elenco' ? 'elenco' : 'nascita' });
     });
     arr('eventi').forEach(function (e) {
       e = e || {};
@@ -289,7 +289,8 @@
     this._t = setTimeout(function () { ui.zoom = v; ridisegna(true); }, 120);
   });
   document.getElementById('cerca').addEventListener('input', function (e) { ui.cerca = senzaAccenti(e.target.value.trim()); applica(); });
-  document.getElementById('titolo').addEventListener('input', function (e) { D.titolo = e.target.value; document.title = (D.titolo || 'Timeline v3') + ' · Timeline v3'; salva(); aggiornaStat(); });
+  function larghezzaTitolo() { var t = document.getElementById('titolo'); t.style.width = Math.max(200, (t.value || t.placeholder).length * 11.5 + 12) + 'px'; }
+  document.getElementById('titolo').addEventListener('input', function (e) { larghezzaTitolo(); D.titolo = e.target.value; document.title = (D.titolo || 'Timeline v3') + ' · Timeline v3'; salva(); aggiornaStat(); });
   document.getElementById('suffisso').addEventListener('input', function (e) { D.suffisso = e.target.value; salva(); ridisegna(); });
   document.getElementById('b-pannello').addEventListener('click', function () { var p = document.getElementById('pannello'); p.classList.toggle('chiuso'); this.textContent = p.classList.contains('chiuso') ? '◂ Dati' : 'Dati ▸'; ridisegna(); });
   document.getElementById('b-nuovo').addEventListener('click', function () { if (conferma('Svuotare tutto e ricominciare? Se non hai esportato il JSON, i dati attuali si perdono.')) carica(vuoti()); });
@@ -360,12 +361,21 @@
     els = { p: [], g: {} };
     var catCol = function (id) { var c = perId(D.categorie, id); return c ? c.colore : GRIGIO; };
 
+    // righe delle etichette degli eventi (senza sovrapposizioni); l'asse cresce di conseguenza
+    var rigaEv = {}, fineRiga = [];
+    D.eventi.slice().sort(function (a, b) { return a.da - b.da; }).forEach(function (e) {
+      var x0 = X(e.da), x1 = Math.max(X(e.a), x0 + 3), fine = x0 + Math.max(e.nome.length * 5.6 + 10, x1 - x0);
+      var r = 0; while (fineRiga[r] != null && fineRiga[r] > x0 - 4) r++;
+      fineRiga[r] = fine; rigaEv[e.id] = r;
+    });
+    var HA = Math.max(66, 40 + fineRiga.length * 13 + 2);
+    asse.setAttribute('height', HA);
     // asse
     var gAsse = el('g', {}, asse), gGriglia = el('g', { id: 'g-griglia' }, tela);
     var y0 = Math.ceil(L.T0 / L.passo) * L.passo;
     for (var y = y0; y <= L.T1; y += L.passo) {
       var sec = (((Math.round(y / L.passo) % 4) + 4) % 4 === 0);
-      el('line', { x1: X(y), x2: X(y), y1: sec ? 14 : 22, y2: 66, stroke: '#cdbf9f', 'stroke-width': sec ? 1.2 : .7 }, gAsse);
+      el('line', { x1: X(y), x2: X(y), y1: sec ? 14 : 22, y2: HA, stroke: '#cdbf9f', 'stroke-width': sec ? 1.2 : .7 }, gAsse);
       var tx = el('text', { x: X(y) + 4, y: sec ? 24 : 28, 'font-size': sec ? 13 : 10.5, 'font-weight': sec ? 700 : 400, fill: sec ? '#603913' : '#8a7355' }, gAsse);
       tx.textContent = fmtAnno(y, sec);
       el('line', { x1: X(y), x2: X(y), y1: 0, y2: H, stroke: sec ? '#d9cdb3' : '#ece4d3', 'stroke-width': sec ? 1 : .6 }, gGriglia);
@@ -378,7 +388,7 @@
       el('rect', { x: x0, y: 0, width: x1 - x0, height: H, fill: e.colore, opacity: .10 }, gEv);
       el('line', { x1: x0, x2: x0, y1: 0, y2: H, stroke: e.colore, 'stroke-opacity': .3 }, gEv);
       el('line', { x1: x1, x2: x1, y1: 0, y2: H, stroke: e.colore, 'stroke-opacity': .3 }, gEv);
-      var ly = 40 + (i % 2) * 13, tw = e.nome.length * 5.6 + 10;
+      var ly = 40 + rigaEv[e.id] * 13, tw = e.nome.length * 5.6 + 10;
       el('rect', { x: x0, y: ly - 10, width: Math.max(tw, x1 - x0), height: 12, rx: 3, fill: e.colore, opacity: .9 }, aEv);
       var t = el('text', { x: x0 + 5, y: ly, 'font-size': 9.5, 'font-weight': 700, fill: '#fff' }, aEv); t.textContent = e.nome;
     });
@@ -440,7 +450,8 @@
     gF.innerHTML = '';
     D.fili.forEach(function (def) {
       if (ui.filiOff[def.id]) return;
-      var pers = def.membri.map(function (id) { return L.persone[idx[id]]; }).filter(Boolean).sort(function (a, b) { return a.nasc - b.nasc; });
+      var pers = def.membri.map(function (id) { return L.persone[idx[id]]; }).filter(Boolean);
+      if (def.ordine !== 'elenco') pers.sort(function (a, b) { return a.nasc - b.nasc; });
       if (pers.length < 2) return;
       var g = el('g', { 'data-f': def.id }, gF), pa = [], nodi = [];
       for (var i = 0; i + 1 < pers.length; i++) { var t = tratto(pers[i], pers[i + 1]); pa.push(t.d); nodi = nodi.concat(t.n); }
@@ -583,7 +594,8 @@
       h += campo('Membri', '<input type="search" id="f-filtro" placeholder="filtra…" style="width:100%"><div class="membri" id="f-membri">' +
         D.personaggi.slice().sort(function (a, b) { return a.nascita - b.nascita; }).map(function (p) {
           return '<label data-n="' + esc(senzaAccenti(p.nome)) + '"><input type="checkbox" value="' + esc(p.id) + '"' + (x && x.membri.indexOf(p.id) >= 0 ? ' checked' : '') + '>' + esc(p.nome) + ' <span class="nota" style="margin:0">' + esc(fmtAnno(p.nascita)) + '</span></label>';
-        }).join('') + '</div>', 'Il filo collega i membri in ordine di nascita.');
+        }).join('') + '</div>', 'Con «come li spunto» il filo segue l\'ordine in cui spunti i membri (utile per una successione al trono).');
+      h += campo('Ordine', '<select id="f-ordine"><option value="nascita">per anno di nascita</option><option value="elenco"' + (x && x.ordine === 'elenco' ? ' selected' : '') + '>come li spunto (successione)</option></select>');
     } else {
       h += campo('Nome', '<input type="text" id="f-nome" maxlength="60" value="' + esc(x ? x.nome : '') + '">');
       h += '<div class="due">' + campo('Da (anno)', '<input type="text" inputmode="numeric" id="f-da" value="' + esc(x ? x.da : '') + '">') +
@@ -596,6 +608,8 @@
     var $ = function (s) { return document.getElementById(s); };
     $('indietro').addEventListener('click', function (e) { e.preventDefault(); ui.modifica = null; pannello(); });
     $('f-annulla').addEventListener('click', function () { ui.modifica = null; pannello(); });
+    var clic = [];
+    if (tipo === 'fili') $('f-membri').addEventListener('change', function (e) { if (e.target.checked) { clic = clic.filter(function (m) { return m !== e.target.value; }); clic.push(e.target.value); } });
     if (tipo === 'fili') $('f-filtro').addEventListener('input', function () {
       var q = senzaAccenti(this.value); Array.prototype.forEach.call($('f-membri').children, function (l) { l.style.display = l.getAttribute('data-n').indexOf(q) >= 0 ? '' : 'none'; });
     });
@@ -615,7 +629,11 @@
       } else if (!errore && (tipo === 'gruppi' || tipo === 'categorie')) {
         rec = { nome: nome, colore: colore($('f-col').value) };
       } else if (!errore && tipo === 'fili') {
-        rec = { nome: nome, colore: colore($('f-col').value), membri: Array.prototype.filter.call($('f-membri').querySelectorAll('input'), function (c) { return c.checked; }).map(function (c) { return c.value; }) };
+        var spuntati = Array.prototype.filter.call($('f-membri').querySelectorAll('input'), function (c) { return c.checked; }).map(function (c) { return c.value; });
+        var ordinati = (x ? x.membri : []).filter(function (m) { return spuntati.indexOf(m) >= 0; });
+        clic.forEach(function (m) { if (spuntati.indexOf(m) >= 0 && ordinati.indexOf(m) < 0) ordinati.push(m); });
+        spuntati.forEach(function (m) { if (ordinati.indexOf(m) < 0) ordinati.push(m); });
+        rec = { nome: nome, colore: colore($('f-col').value), membri: ordinati, ordine: $('f-ordine').value === 'elenco' ? 'elenco' : 'nascita' };
       } else if (!errore) {
         var da = intero($('f-da').value), a = intero($('f-a').value);
         if (da == null || a == null) errore = 'Servono due anni interi (anche negativi).';
@@ -638,6 +656,7 @@
 
   function tutto() {
     document.getElementById('titolo').value = D.titolo;
+    larghezzaTitolo();
     document.getElementById('suffisso').value = D.suffisso;
     document.title = (D.titolo || 'Timeline v3') + ' · Timeline v3';
     costruisciControlli(); pannello(); ridisegna();
