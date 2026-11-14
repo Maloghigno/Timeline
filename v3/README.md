@@ -8,6 +8,20 @@ La v2 che parte vuota: inserisci tu personaggi, gruppi, categorie, fili ed event
 - **Dati solo nel browser** (localStorage): per salvarli o spostarli usa **Esporta JSON** e **Importa JSON**.
 - Il pulsante **Esempio** carica un piccolo regno inventato.
 
+## Demo: Westeros 🐉
+
+Il pulsante **Demo Westeros** (o il link [`v3/?demo=westeros`](https://maloghigno.github.io/Timeline/v3/?demo=westeros)) carica la cronologia delle *Cronache del ghiaccio e del fuoco* di George R. R. Martin.
+
+- Copre il periodo dalla Conquista di Aegon (anni AC; quelli prima sono negativi) alla Guerra dei Cinque Re.
+- Ci sono 31 personaggi e 12 draghi, con la casata come colore della barra: Targaryen in nero, Stark in grigio, Baratheon in oro, draghi in rosso fuoco.
+- Ci sono 6 gruppi (i Neri e i Verdi della Danza dei Draghi, i ribelli di Robert…) e 13 eventi.
+- Il filo **La corona dei Sette Regni** segue i 20 re nell'ordine di successione (`"ordine": "elenco"`), non di nascita.
+- Le date vengono da [A Wiki of Ice and Fire](https://awoiaf.westeros.org). Dove la fonte dà un intervallo, la barra parte dal primo anno e la scheda lo dice. Dati, tranelli e draghi esclusi sono in [`../appunti/westeros.md`](../appunti/westeros.md).
+- File: [`demo/westeros.json`](demo/westeros.json) e l'anteprima [`demo/westeros.png`](demo/westeros.png).
+- Il pulsante legge il file via web: aprendo la pagina direttamente dal computer (`file://`) il browser lo blocca, e in quel caso si usa **Importa JSON**.
+
+![Demo Westeros](demo/westeros.png)
+
 ## Formato del file JSON
 
 ```json

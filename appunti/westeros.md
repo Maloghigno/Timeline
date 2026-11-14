@@ -3,8 +3,8 @@
 File di lavoro, separato dal resto del progetto. Raccoglie i dati per la timeline di esempio della v3 sul mondo di Martin.
 Niente testi copiati: solo fatti (nomi, anni) e le nostre etichette.
 
-- **Dati pronti per la v3:** [`westeros.json`](westeros.json). Si carica dalla v3 con *Importa JSON*.
-- **Anteprima:** [`westeros.png`](westeros.png).
+- **Dati pronti per la v3:** [`v3/demo/westeros.json`](../v3/demo/westeros.json), la **demo della v3** (pulsante *Demo Westeros*, oppure *Importa JSON*).
+- **Anteprima:** [`v3/demo/westeros.png`](../v3/demo/westeros.png).
 
 ## Regole del file
 
