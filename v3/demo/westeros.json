@@ -19,9 +19,29 @@
    "colore": "#c9a227"
   },
   {
+   "id": "lannister",
+   "nome": "Lannister",
+   "colore": "#9b1b30"
+  },
+  {
+   "id": "velaryon",
+   "nome": "Velaryon",
+   "colore": "#2a8c82"
+  },
+  {
+   "id": "hightower",
+   "nome": "Hightower",
+   "colore": "#4f6b3a"
+  },
+  {
+   "id": "altri",
+   "nome": "Altre casate e cavalieri",
+   "colore": "#8a6a4a"
+  },
+  {
    "id": "draghi",
    "nome": "Draghi",
-   "colore": "#b3261e"
+   "colore": "#e0622a"
   }
  ],
  "gruppi": [
@@ -54,6 +74,16 @@
    "id": "cinquere",
    "nome": "Guerra dei Cinque Re",
    "colore": "#b4565c"
+  },
+  {
+   "id": "dunkegg",
+   "nome": "Dunk ed Egg (Il cavaliere dei Sette Regni)",
+   "colore": "#3a82c4"
+  },
+  {
+   "id": "blackfyre",
+   "nome": "Ribellioni Blackfyre",
+   "colore": "#9b4a34"
   }
  ],
  "personaggi": [
@@ -212,7 +242,9 @@
    "nascita": 153,
    "morte": 209,
    "categoria": "targaryen",
-   "gruppi": [],
+   "gruppi": [
+    "blackfyre"
+   ],
    "descrizione": "Re 184–209 AC."
   },
   {
@@ -230,16 +262,20 @@
    "nascita": 174,
    "morte": 233,
    "categoria": "targaryen",
-   "gruppi": [],
+   "gruppi": [
+    "dunkegg"
+   ],
    "descrizione": "Re 221–233 AC."
   },
   {
    "id": "aegon5",
-   "nome": "Aegon V l'Improbabile",
+   "nome": "Aegon V l'Improbabile (Egg)",
    "nascita": 200,
    "morte": 259,
    "categoria": "targaryen",
-   "gruppi": [],
+   "gruppi": [
+    "dunkegg"
+   ],
    "descrizione": "Re 233–259 AC, l'«Egg» delle novelle di Dunk ed Egg. Muore nella tragedia di Summerhall."
   },
   {
@@ -482,6 +518,274 @@
    "categoria": "draghi",
    "gruppi": [],
    "descrizione": "Nato dalla pira funebre di Khal Drogo, alla fine di A Game of Thrones (298–299 AC: anno non indicato dalla fonte). Draghi di Daenerys, vivi alla fine dei romanzi pubblicati."
+  },
+  {
+   "id": "rhaenys",
+   "nome": "Rhaenys Targaryen",
+   "nascita": 74,
+   "morte": 129,
+   "categoria": "targaryen",
+   "gruppi": [
+    "neri"
+   ],
+   "descrizione": "La regina che non fu mai. Cavalca Meleys. Moglie di Corlys Velaryon."
+  },
+  {
+   "id": "corlys",
+   "nome": "Corlys Velaryon",
+   "nascita": 53,
+   "morte": 132,
+   "categoria": "velaryon",
+   "gruppi": [
+    "neri"
+   ],
+   "descrizione": "Il Serpente di Mare. Nato all'inizio del 53 AC, morto nel 132 a 79 anni."
+  },
+  {
+   "id": "laenor",
+   "nome": "Laenor Velaryon",
+   "nascita": 94,
+   "morte": 120,
+   "categoria": "velaryon",
+   "gruppi": [],
+   "descrizione": "Primo marito di Rhaenyra. Cavalca Seasmoke."
+  },
+  {
+   "id": "laena",
+   "nome": "Laena Velaryon",
+   "nascita": 92,
+   "morte": 120,
+   "categoria": "velaryon",
+   "gruppi": [],
+   "descrizione": "Nata alla fine del 92 AC. Seconda moglie di Daemon, cavalca Vhagar."
+  },
+  {
+   "id": "jacaerys",
+   "nome": "Jacaerys Velaryon",
+   "nascita": 114,
+   "morte": 130,
+   "categoria": "velaryon",
+   "gruppi": [
+    "neri"
+   ],
+   "descrizione": "Primogenito di Rhaenyra. Cavalca Vermax."
+  },
+  {
+   "id": "lucerys",
+   "nome": "Lucerys Velaryon",
+   "nascita": 115,
+   "morte": 129,
+   "categoria": "velaryon",
+   "gruppi": [
+    "neri"
+   ],
+   "descrizione": "Figlio di Rhaenyra. Cavalca Arrax; ucciso con il suo drago da Aemond e Vhagar."
+  },
+  {
+   "id": "baela",
+   "nome": "Baela Targaryen",
+   "nascita": 116,
+   "morte": 136,
+   "categoria": "targaryen",
+   "gruppi": [
+    "neri"
+   ],
+   "descrizione": "Figlia di Daemon e Laena. Cavalca Moondancer. Morta tra il 136 e il 176 AC: la barra finisce al 136."
+  },
+  {
+   "id": "alicent",
+   "nome": "Alicent Hightower",
+   "nascita": 88,
+   "morte": 133,
+   "categoria": "hightower",
+   "gruppi": [
+    "verdi"
+   ],
+   "descrizione": "Seconda moglie di Viserys I, madre di Aegon II."
+  },
+  {
+   "id": "otto",
+   "nome": "Otto Hightower",
+   "nascita": 76,
+   "morte": 130,
+   "categoria": "hightower",
+   "gruppi": [
+    "verdi"
+   ],
+   "descrizione": "Primo Cavaliere di tre re. Nato nel 76 AC o prima: la barra parte dal 76."
+  },
+  {
+   "id": "criston",
+   "nome": "Criston Cole",
+   "nascita": 82,
+   "morte": 130,
+   "categoria": "altri",
+   "gruppi": [
+    "verdi"
+   ],
+   "descrizione": "Lord Comandante della Guardia Reale, «il Creatore di re»."
+  },
+  {
+   "id": "helaena",
+   "nome": "Helaena Targaryen",
+   "nascita": 109,
+   "morte": 130,
+   "categoria": "targaryen",
+   "gruppi": [
+    "verdi"
+   ],
+   "descrizione": "Sorella e moglie di Aegon II. Cavalca Dreamfyre."
+  },
+  {
+   "id": "daeron_ardito",
+   "nome": "Daeron l'Ardito",
+   "nascita": 114,
+   "morte": 130,
+   "categoria": "targaryen",
+   "gruppi": [
+    "verdi"
+   ],
+   "descrizione": "Figlio minore di Viserys I e Alicent. Cavalca Tessarion."
+  },
+  {
+   "id": "harwin",
+   "nome": "Harwin Strong",
+   "nascita": 90,
+   "morte": 120,
+   "categoria": "altri",
+   "gruppi": [],
+   "descrizione": "Spezzaossa. Presunto padre dei figli di Rhaenyra. Nato nel 90 AC o prima: la barra parte dal 90."
+  },
+  {
+   "id": "dunk",
+   "nome": "Ser Duncan l'Alto (Dunk)",
+   "nascita": 193,
+   "morte": 259,
+   "categoria": "altri",
+   "gruppi": [
+    "dunkegg"
+   ],
+   "descrizione": "Cavaliere errante, poi Lord Comandante della Guardia Reale di Egg. Muore a Summerhall."
+  },
+  {
+   "id": "arlan",
+   "nome": "Ser Arlan di Pennytree",
+   "nascita": 149,
+   "morte": 209,
+   "categoria": "altri",
+   "gruppi": [
+    "dunkegg"
+   ],
+   "descrizione": "Il cavaliere errante che cresce Dunk. Nato tra il 149 e il 153 AC: la barra parte dal 149."
+  },
+  {
+   "id": "baelor_spezzalancia",
+   "nome": "Baelor Spezzalancia",
+   "nascita": 170,
+   "morte": 209,
+   "categoria": "targaryen",
+   "gruppi": [
+    "dunkegg"
+   ],
+   "descrizione": "Primo Cavaliere ed erede di Daeron II; muore dopo il processo dei sette ad Ashford."
+  },
+  {
+   "id": "aerion",
+   "nome": "Aerion Fiammaluminosa",
+   "nascita": 191,
+   "morte": 232,
+   "categoria": "targaryen",
+   "gruppi": [
+    "dunkegg"
+   ],
+   "descrizione": "Fratello di Egg. Nato tra il 191 e il 194 AC: la barra parte dal 191."
+  },
+  {
+   "id": "bloodraven",
+   "nome": "Brynden Rivers (Corvo di Sangue)",
+   "nascita": 175,
+   "morte": null,
+   "categoria": "targaryen",
+   "gruppi": [
+    "dunkegg",
+    "blackfyre"
+   ],
+   "descrizione": "Bastardo di Aegon IV, Primo Cavaliere. Scompare oltre la Barriera nel 252 AC e nei romanzi è vivo come il corvo con tre occhi: barra aperta."
+  },
+  {
+   "id": "blackfyre",
+   "nome": "Daemon I Blackfyre",
+   "nascita": 170,
+   "morte": 196,
+   "categoria": "targaryen",
+   "gruppi": [
+    "blackfyre"
+   ],
+   "descrizione": "Bastardo di Aegon IV, nato Daemon Waters (170 AC). Muore nella prima ribellione Blackfyre."
+  },
+  {
+   "id": "lyonel",
+   "nome": "Lyonel Baratheon",
+   "nascita": 174,
+   "morte": 239,
+   "categoria": "baratheon",
+   "gruppi": [
+    "dunkegg"
+   ],
+   "descrizione": "La Tempesta che Ride. Nato tra il 174 e il 194 AC, morto tra il 239 e il 245: la barra usa i primi anni dei due intervalli."
+  },
+  {
+   "id": "tywin",
+   "nome": "Tywin Lannister",
+   "nascita": 242,
+   "morte": 300,
+   "categoria": "lannister",
+   "gruppi": [
+    "cinquere"
+   ],
+   "descrizione": "Lord di Castel Granito, Primo Cavaliere di Aerys II e poi di Joffrey e Tommen."
+  },
+  {
+   "id": "kevan",
+   "nome": "Kevan Lannister",
+   "nascita": 244,
+   "morte": 300,
+   "categoria": "lannister",
+   "gruppi": [],
+   "descrizione": "Fratello di Tywin, reggente di Tommen."
+  },
+  {
+   "id": "cersei",
+   "nome": "Cersei Lannister",
+   "nascita": 266,
+   "morte": null,
+   "categoria": "lannister",
+   "gruppi": [
+    "cinquere"
+   ],
+   "descrizione": "Regina, moglie di Robert I e madre di Joffrey e Tommen. Viva alla fine dei romanzi."
+  },
+  {
+   "id": "jaime",
+   "nome": "Jaime Lannister",
+   "nascita": 266,
+   "morte": null,
+   "categoria": "lannister",
+   "gruppi": [
+    "cinquere"
+   ],
+   "descrizione": "Lo Sterminatore di re: gemello di Cersei, uccide Aerys II nel 283 AC. Vivo alla fine dei romanzi."
+  },
+  {
+   "id": "tyrion",
+   "nome": "Tyrion Lannister",
+   "nascita": 273,
+   "morte": null,
+   "categoria": "lannister",
+   "gruppi": [
+    "cinquere"
+   ],
+   "descrizione": "Il Folletto. Vivo alla fine dei romanzi."
   }
  ],
  "fili": [
@@ -512,6 +816,16 @@
     "tommen"
    ],
    "ordine": "elenco"
+  },
+  {
+   "id": "dunkegg",
+   "nome": "Il cavaliere e lo scudiero",
+   "colore": "#3a82c4",
+   "membri": [
+    "dunk",
+    "aegon5"
+   ],
+   "ordine": "nascita"
   }
  ],
  "eventi": [
@@ -556,6 +870,13 @@
    "da": 196,
    "a": 196,
    "colore": "#9b4a34"
+  },
+  {
+   "id": "e14",
+   "nome": "Torneo di Ashford",
+   "da": 209,
+   "a": 209,
+   "colore": "#3a82c4"
   },
   {
    "id": "e7",

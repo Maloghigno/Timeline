@@ -26,6 +26,7 @@ Niente testi copiati: solo fatti (nomi, anni) e le nostre etichette.
 - La pagina *Timeline of major events* ha intestazioni sbagliate: le Guerre del Drago sono intitolate «213 AC», ma il testo dice 2–4 AC.
 - La seconda ribellione Blackfyre ha la data tra parentesi quadre (211 AC): incerta.
 - Le pagine delle casate (Stark, Baratheon, Lannister) **non** riportano anni: servono le pagine dei singoli.
+- Diversi personaggi di *House of the Dragon* e del *Cavaliere dei Sette Regni* hanno solo un intervallo («in or before 76 AC», «174–194 AC»).
 - Diversi draghi hanno solo la data di morte. La v3 vuole una nascita, quindi per ora sono fuori dalle barre (elenco sotto).
 
 ## Colori (categorie della v3 = casate)
@@ -35,7 +36,11 @@ Niente testi copiati: solo fatti (nomi, anni) e le nostre etichette.
 | Targaryen | nero `#1c1c1c` | come richiesto |
 | Stark | grigio `#8a9099` | come richiesto |
 | Baratheon | oro `#c9a227` | il campo dello stemma (cervo nero su oro) |
-| Draghi | rosso fuoco `#b3261e` | categoria a sé, per distinguerli dai cavalieri |
+| Lannister | cremisi `#9b1b30` | il campo dello stemma (leone d'oro su cremisi) |
+| Velaryon | verde mare `#2a8c82` | il campo dello stemma (cavalluccio d'argento su verde mare) |
+| Hightower | verde oliva `#4f6b3a` | **scelta nostra** (il verde dei Verdi), non dallo stemma |
+| Altre casate e cavalieri | marrone `#8a6a4a` | Cole, Strong, Dunk, Arlan |
+| Draghi | arancio fuoco `#e0622a` | categoria a sé; prima era rosso, cambiato per non confonderlo con i Lannister |
 
 ## Eventi ✅ (AWOIAF, Timeline of major events)
 
@@ -96,7 +101,46 @@ Prima della Conquista, per un'eventuale estensione: −114 migrazione dei Targar
 
 Regni dei Targaryen confermati anche dalla pagina [House Targaryen](https://awoiaf.westeros.org/index.php/Targaryen).
 
-**Esclusi per ora dalle barre** (manca un anno): Cregan Stark (nato nel 108 AC, morte non indicata), Torrhen Stark (l'infobox non dà la nascita), Rhaenys (moglie di Aegon I: nessuna data nella fonte consultata), Lannister (non verificati).
+### Aggiunti il 14/11/2026: *House of the Dragon*, *Il cavaliere dei Sette Regni*, Lannister ✅ / ≈
+
+Regola per gli intervalli: la barra usa il **primo anno** dell'intervallo (per la nascita e anche per la morte), e la scheda lo dice.
+
+| Nome | Nascita | Morte | Note |
+|---|---|---|---|
+| Rhaenys Targaryen (la regina che non fu mai) | 74 | 129 | 55 anni; drago Meleys |
+| Corlys Velaryon | inizio 53 | 132 | 79 anni |
+| Laenor Velaryon | 94 | 120 | drago Seasmoke |
+| Laena Velaryon | fine 92 | 120 | 27 anni; drago Vhagar |
+| Jacaerys Velaryon | 114 | 130 | 15 anni |
+| Lucerys Velaryon | 115 | 129 | 13 anni |
+| Baela Targaryen | 116 | ≈ 136–176 | barra fino al 136; drago Moondancer |
+| Alicent Hightower | 88 | 133 | 45 anni |
+| Otto Hightower | ≈ 76 o prima | 130 | barra dal 76 |
+| Criston Cole | 82 | 130 | |
+| Helaena Targaryen | 109 | 130 | 21 anni; drago Dreamfyre |
+| Daeron l'Ardito (figlio di Viserys I) | 114 | 130 | drago Tessarion |
+| Harwin Strong | ≈ 90 o prima | 120 | barra dal 90 |
+| Ser Duncan l'Alto (Dunk) | 193 | 259 | 66 anni; muore a Summerhall |
+| Ser Arlan di Pennytree | ≈ 149–153 | 209 | barra dal 149 |
+| Baelor Spezzalancia | 170 | 209 | |
+| Aerion Fiammaluminosa | ≈ 191–194 | 232 | barra dal 191 |
+| Brynden Rivers (Corvo di Sangue) | 175 | — | scompare oltre la Barriera nel 252; vivo come corvo con tre occhi |
+| Daemon I Blackfyre | 170 | 196 | nascita da *Timeline of major events*; morte nella prima ribellione |
+| Lyonel Baratheon | ≈ 174–194 | ≈ 239–245 | barra 174–239 |
+| Tywin Lannister | 242 | 300 | |
+| Kevan Lannister | 244 | 300 | 55 anni |
+| Cersei Lannister | 266 | — | viva alla fine dei romanzi |
+| Jaime Lannister | 266 | — | vivo alla fine dei romanzi |
+| Tyrion Lannister | 273 | — | vivo alla fine dei romanzi |
+
+Egg è Aegon V (già presente, 200–259); ora è nel gruppo «Dunk ed Egg» con Dunk, Maekar I, Arlan, Baelor Spezzalancia, Aerion, Lyonel e Corvo di Sangue. Il filo blu «Il cavaliere e lo scudiero» unisce Dunk ed Egg. Nuovo evento: Torneo di Ashford (209 AC, *The Hedge Knight*).
+
+**Esclusi per ora dalle barre** (manca un anno o la fonte non lo dà):
+- Cregan Stark: nato nel 108 AC, morte non indicata.
+- Torrhen Stark: l'infobox non dà la nascita.
+- Rhaenys (moglie di Aegon I): nessuna data nella fonte consultata.
+- Rhaena (figlia di Daemon): nata nel 116 AC, morte non indicata.
+- Larys Strong: nessun anno nella pagina.
 
 ## Draghi e cavalieri (AWOIAF, pagina [Dragon](https://awoiaf.westeros.org/index.php/Dragon), sezione «Known Dragons»)
 
@@ -140,6 +184,6 @@ La Conquista · I Neri (Danza dei Draghi) · I Verdi (Danza dei Draghi) · I lea
 ## Da fare
 
 - [ ] Decidere la regola per i draghi senza data di nascita.
-- [ ] Lannister, Tully, Greyjoy, Martell (con i loro colori), se servono.
+- [ ] Tully, Greyjoy, Martell (con i loro colori), se servono.
 - [ ] Eventi mancanti: Guerre del Drago, Grande morbo di primavera, Re da Nove Soldi, Duskendale.
 - [ ] Cregan e Torrhen Stark: cercare la data mancante.
