@@ -8,6 +8,22 @@
 
 👉 **[Prova la timeline online](https://maloghigno.github.io/Timeline/classica/)** · 🧪 **[Versione 2 (gruppi, eventi, fili)](https://maloghigno.github.io/Timeline/v2/)** · 🚧 **[Versione 3, in lavorazione (parte vuota: i personaggi li inserisci tu)](https://maloghigno.github.io/Timeline/v3/)**
 
+## 🐉 Demo: la timeline di Westeros
+
+La versione 3 include una demo del mondo di George R. R. Martin: **[apri la timeline di Westeros](https://maloghigno.github.io/Timeline/v3/?demo=westeros)** (anche su [Cloudflare](https://timeline.maloghigno.workers.dev/v3/?demo=westeros)).
+
+Copre circa 300 anni, dalla **Conquista di Aegon** (1 AC) alla **Guerra dei Cinque Re** (298–300 AC), con 56 personaggi, 12 draghi con i rispettivi cavalieri, 14 eventi e due fili: la **corona dei Sette Regni**, da Aegon I a Tommen, e **Dunk ed Egg**. Le casate hanno un colore ciascuna (Targaryen nero, Stark grigio, Baratheon oro, Lannister cremisi, Velaryon verde mare, draghi arancio fuoco).
+
+**Per trovare i libri e le serie**
+- 📚 *Le Cronache del ghiaccio e del fuoco* (*A Song of Ice and Fire*), cioè *Il Trono di Spade*, *Il Regno dei Lupi*, *Lo Scontro dei Re* e gli altri volumi. In TV: *Game of Thrones* / *Il Trono di Spade*.
+- 📚 *Fuoco e sangue* (*Fire & Blood*), la storia dei Targaryen da Aegon I alla Danza dei Draghi. In TV: *House of the Dragon*.
+- 📚 *Il Cavaliere dei Sette Regni* (*A Knight of the Seven Kingdoms*, i racconti di **Dunk ed Egg**: *Il cavaliere errante*, *Il cavaliere giurato*, *Il cavaliere misterioso*). In TV: *A Knight of the Seven Kingdoms*.
+- 📚 *Il Mondo del ghiaccio e del fuoco* (*The World of Ice & Fire*), l'enciclopedia ufficiale del mondo.
+- 🌐 Fonti delle date: [A Wiki of Ice and Fire](https://awoiaf.westeros.org) e [Timeline of major events](https://awoiaf.westeros.org/index.php/Timeline_of_major_events). Appunti e metodo in [`appunti/westeros.md`](appunti/westeros.md).
+
+Parole chiave: *Westeros, Cronache del ghiaccio e del fuoco, A Song of Ice and Fire, George R. R. Martin, Il Trono di Spade, Game of Thrones, House of the Dragon, Fuoco e sangue, Il Cavaliere dei Sette Regni, Dunk ed Egg, Targaryen, Stark, Lannister, Baratheon, Velaryon, Hightower, Danza dei Draghi, Ribellione di Robert, Guerra dei Cinque Re, Aegon il Conquistatore*.
+
+
 ---
 
 ## 📜 Cos'è
