@@ -1,0 +1,9 @@
+.git
+.github
+appunti
+asset
+node_modules
+wrangler.jsonc
+.assetsignore
+TODO.md
+*.md
