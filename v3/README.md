@@ -13,7 +13,7 @@ La v2 che parte vuota: inserisci tu personaggi, gruppi, categorie, fili ed event
 Il pulsante **Demo Westeros** (o il link [`v3/?demo=westeros`](https://maloghigno.github.io/Timeline/v3/?demo=westeros)) carica la cronologia delle *Cronache del ghiaccio e del fuoco* di George R. R. Martin.
 
 - Copre il periodo dalla Conquista di Aegon (anni AC; quelli prima sono negativi) alla Guerra dei Cinque Re.
-- Ci sono 56 personaggi e 12 draghi, compresi quelli di *House of the Dragon* e del *Cavaliere dei Sette Regni*.
+- Ci sono 56 personaggi e 21 draghi, compresi quelli di *House of the Dragon* e del *Cavaliere dei Sette Regni*.
 - La casata è il colore della barra: Targaryen in nero, Stark in grigio, Baratheon in oro, Lannister in cremisi, Velaryon in verde mare, Hightower in verde oliva, draghi in arancio fuoco.
 - Ci sono 8 gruppi (i Neri e i Verdi della Danza dei Draghi, Dunk ed Egg, le ribellioni Blackfyre, i ribelli di Robert…) e 14 eventi.
 - Il filo **La corona dei Sette Regni** segue i 20 re nell'ordine di successione (`"ordine": "elenco"`), non di nascita. Il filo **Il cavaliere e lo scudiero** unisce Dunk ed Egg.

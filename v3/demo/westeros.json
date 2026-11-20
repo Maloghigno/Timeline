@@ -786,6 +786,105 @@
     "cinquere"
    ],
    "descrizione": "Il Folletto. Vivo alla fine dei romanzi."
+  },
+  {
+   "id": "caraxes",
+   "nome": "Caraxes",
+   "nascita": 72,
+   "morte": 130,
+   "categoria": "draghi",
+   "gruppi": [
+    "neri"
+   ],
+   "descrizione": "Nato nel 72 AC o prima (la barra parte dal 72, anno in cui è già un drago giovane di taglia da cavalcare). Cavalieri: Aemon Targaryen, poi Daemon. Muore al Gods Eye."
+  },
+  {
+   "id": "syrax",
+   "nome": "Syrax",
+   "nascita": 104,
+   "morte": 130,
+   "categoria": "draghi",
+   "gruppi": [
+    "neri"
+   ],
+   "descrizione": "Anno di nascita non indicato dalla fonte: la barra parte dal 104 AC, quando Rhaenyra la reclama. Unica cavaliera: Rhaenyra. Muore nella Fossa del Drago."
+  },
+  {
+   "id": "sunfyre",
+   "nome": "Sunfyre",
+   "nascita": 120,
+   "morte": 130,
+   "categoria": "draghi",
+   "gruppi": [
+    "verdi"
+   ],
+   "descrizione": "Nato prima del 120 AC (la barra parte dal 120). Cavaliere: Aegon II. Muore a Roccia del Drago."
+  },
+  {
+   "id": "vermithor",
+   "nome": "Vermithor",
+   "nascita": 34,
+   "morte": 130,
+   "categoria": "draghi",
+   "gruppi": [
+    "verdi"
+   ],
+   "descrizione": "Nato nel 34 AC. Cavalieri: Jaehaerys I (già nel 48 AC), poi Hugh Hammer (129 AC, Semina Rossa). Muore a Tumbleton."
+  },
+  {
+   "id": "dreamfyre",
+   "nome": "Dreamfyre",
+   "nascita": 32,
+   "morte": 130,
+   "categoria": "draghi",
+   "gruppi": [
+    "verdi"
+   ],
+   "descrizione": "Nata nel 32 AC o poco prima (la barra parte dal 32). Cavaliere: Rhaena Targaryen, poi Helaena. Muore nella Fossa del Drago."
+  },
+  {
+   "id": "meleys",
+   "nome": "Meleys",
+   "nascita": 75,
+   "morte": 129,
+   "categoria": "draghi",
+   "gruppi": [
+    "neri"
+   ],
+   "descrizione": "Nata prima del 75 AC (la barra parte dal 75, quando Alyssa la reclama). Cavaliere: Alyssa Targaryen, poi Rhaenys (87 AC). Muore a Rook's Rest."
+  },
+  {
+   "id": "seasmoke",
+   "nome": "Seasmoke",
+   "nascita": 101,
+   "morte": 130,
+   "categoria": "draghi",
+   "gruppi": [
+    "neri"
+   ],
+   "descrizione": "Nato nel 101 AC o prima (la barra parte dal 101). Cavalieri: Laenor Velaryon, poi Addam di Hull. Muore a Tumbleton."
+  },
+  {
+   "id": "tessarion",
+   "nome": "Tessarion",
+   "nascita": 120,
+   "morte": 130,
+   "categoria": "draghi",
+   "gruppi": [
+    "verdi"
+   ],
+   "descrizione": "Nata nel 120 AC o prima (la barra parte dal 120). Cavaliere: Daeron Targaryen. Muore a Tumbleton."
+  },
+  {
+   "id": "silverwing",
+   "nome": "Silverwing",
+   "nascita": 36,
+   "morte": 136,
+   "categoria": "draghi",
+   "gruppi": [
+    "verdi"
+   ],
+   "descrizione": "Nata tra il 36 e il 42 AC e morta tra il 136 e il 153 AC: la barra usa i primi anni dei due intervalli, quindi è approssimata. Cavaliere: Alysanne Targaryen, poi Ulf White durante la Danza."
   }
  ],
  "fili": [

@@ -27,7 +27,7 @@ Niente testi copiati: solo fatti (nomi, anni) e le nostre etichette.
 - La seconda ribellione Blackfyre ha la data tra parentesi quadre (211 AC): incerta.
 - Le pagine delle casate (Stark, Baratheon, Lannister) **non** riportano anni: servono le pagine dei singoli.
 - Diversi personaggi di *House of the Dragon* e del *Cavaliere dei Sette Regni* hanno solo un intervallo («in or before 76 AC», «174–194 AC»).
-- Diversi draghi hanno solo la data di morte. La v3 vuole una nascita, quindi per ora sono fuori dalle barre (elenco sotto).
+- Diversi draghi hanno solo la data di morte. Dove le pagine dei singoli draghi danno «in o prima di X» o l'anno in cui il cavaliere li reclama, la barra parte da lì (tabella sotto); fuori restano Moondancer e l'ultimo drago.
 
 ## Colori (categorie della v3 = casate)
 
@@ -156,19 +156,22 @@ Egg è Aegon V (già presente, 200–259); ora è nel gruppo «Dunk ed Egg» con
 | Stormcloud | Aegon il Giovane (poi Aegon III) | tra il 120 e il 129 | 130 | sì, dal 120 |
 | Morning | Rhaena | durante la Danza | entro il 153 | sì, ≈ 130–153 |
 | Drogon, Rhaegal, Viserion | Daenerys (Drogon) | dalla pira di Drogo | vivi | sì, dal 298 (≈: la fonte non dà l'anno) |
-| Caraxes | Aemon, Daemon | ? | 130 | no |
-| Syrax | Rhaenyra | ? | 130 | no |
-| Sunfyre | Aegon II | ? | 130 | no |
-| Vermithor | Jaehaerys I, Hugh Hammer | ? | 130 | no |
-| Dreamfyre | Rhaena, Helaena | ? | 130 | no |
-| Meleys | Alyssa, Rhaenys | ? | 129 | no |
-| Seasmoke | Laenor Velaryon, Addam Velaryon | ? | 130 | no |
-| Tessarion | Daeron | ? | 130 | no |
-| Moondancer | Baela | ? | 130 | no |
-| Silverwing | Alysanne | ? | entro il 153 | no |
-| Ultimo drago | nessuno | ? | 153 | no |
+| Caraxes | Aemon, Daemon | in o prima del 72 | 130 | sì, dal 72 (≈) |
+| Syrax | Rhaenyra | non indicata (reclamata nel 104) | 130 | sì, dal 104 (≈) |
+| Sunfyre | Aegon II | prima del 120 | 130 | sì, dal 120 (≈) |
+| Vermithor | Jaehaerys I, Hugh Hammer | 34 | 130 | sì |
+| Dreamfyre | Rhaena, Helaena | nel 32 o poco prima | 130 | sì, dal 32 (≈) |
+| Meleys | Alyssa, Rhaenys | prima del 75 | 129 | sì, dal 75 (≈) |
+| Seasmoke | Laenor Velaryon, Addam di Hull | in o prima del 101 | 130 | sì, dal 101 (≈) |
+| Tessarion | Daeron | in o prima del 120 | 130 | sì, dal 120 (≈) |
+| Moondancer | Baela | non indicata | 130 | **no**: nessun anno nella fonte |
+| Silverwing | Alysanne, Ulf White | 36–42 | 136–153 | sì, 36–136 (≈: primi anni degli intervalli) |
+| Ultimo drago | nessuno | «sotto Aegon III» (131–157) | 153 | **no**: nessun anno di nascita |
 
-Per avere anche Caraxes, Syrax, Sunfyre e gli altri servirebbe la data di nascita, o una regola nostra: per esempio «la barra parte dal primo anno in cui la fonte lo dà per vivo». Da decidere.
+Fonte: infobox delle singole pagine AWOIAF (Caraxes, Syrax, Sunfyre, Vermithor, Dreamfyre, Meleys, Seasmoke, Tessarion, Moondancer, Silverwing, Last Dragon), lette il 20/11/2026. La pagina *Dragon* non dà né nascita né morte per questi.
+
+**Regola adottata (20/11/2026):** dove la fonte dice «prima di X» o «in o prima di X», la barra parte da X; dove non c'è nessun anno di nascita ma c'è l'anno in cui il cavaliere lo reclama (Syrax, 104), parte da lì; dove c'è un intervallo, si usa il primo anno. Ogni scheda lo dice. Restano fuori Moondancer e l'ultimo drago.
+
 
 ## Gruppi nella v3 (bozza)
 
